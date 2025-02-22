@@ -8,8 +8,7 @@ export const mailService  = {
     remove,
     save,
     getEmptyMail,
-    _createBook,
-    
+    _createMail,
 }
 
 window.bs = mailService
@@ -20,20 +19,17 @@ const MAIL_KEY = 'mailDB'
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
-            // console.log('mails:', mails)
             if (!mails || !mails.length) {
-                mails = gMails
+                mails = gMails;
                 _saveMailsToStorage()
             }
             if (filterBy.subject) {
                 const regExp = new RegExp(filterBy.subject, 'i')
                 mails = mails.filter(m => regExp.test(m.subject))
-
             }
-        
-        return mails
-    })
-}  
+            return mails
+        })
+}
 
 function get(mailId){
     return storageService.get(MAIL_KEY, mailId)
@@ -42,13 +38,13 @@ function get(mailId){
 
 function _setNextPrevMailId(mail) {
     return storageService.query(MAIL_KEY).then((mails) => {
-    const mailIdx = mails.findIndex((currMails) => currMails.id === mail.id)
-    const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
-    prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
-    mail.nextMailId = nextMail.id
-    mail.prevMailId = prevMail.id
-    return mails
-    })
+        const mailIdx = mails.findIndex(currMail => currMail.id === mail.id)
+        const nextMail = mails[mailIdx + 1] ? mails[mailIdx + 1] : mails[0]
+        const prevMail = mails[mailIdx - 1] ? mails[mailIdx - 1] : mails[mails.length - 1]
+        mail.nextMailId = nextMail.id
+        mail.prevMailId = prevMail.id
+        return mail
+    });
 }
 
     
@@ -69,32 +65,30 @@ function save(mail) {
 }
 
 
-function getEmptyMail(id = '', from = '',to = '' ) {
+function getEmptyMail(id = '', from = '', to = '') {
     return {
-        id: '',
-        createdAt:Date.now(),
+        id: id || utilService.makeId(),
+        createdAt: Date.now(),
         subject: '',
         body: '',
         isRead: false,
         sentAt: 0,
-        removedAt:null,
-        from: '',
-        to:''
-    }
+        removedAt: null,
+        from: from || 'user@appsus.com',
+        to: to || 'user@appsus.com',
+    };
 }
 
-
-function _createBook() {
+function _createMail() {
     return {
         id: utilService.makeId(),
-        createdAt:Date.now(),
+        createdAt: Date.now(),
         subject: utilService.makeLorem(3),
-        body:utilService.makeLorem(15),
-        isRead:false , 
+        body: utilService.makeLorem(15),
+        isRead: false,
         removedAt: null,
         from: loggedinUser.email,
-        to: 'user@appsus.com'
-           
+        to: 'user@appsus.com',
     }
 }
 
@@ -124,7 +118,7 @@ const loggedinUser = {
     id: 'e102',
     createdAt : 1551191930500, //26 February 2019 14:38
     subject: 'Love you!',
-    body: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been',
+    body: utilService.makeLorem(150),
     isRead: false,
     sentAt : 1551192990512, //26 February 2019 14:56
     removedAt : null,
@@ -135,7 +129,7 @@ const loggedinUser = {
     id: 'e103',
     createdAt : 1561192990512, //22 June 2019 08:43
     subject: 'H1!',
-    body: 'The timestamp 1551133930594 corresponds to February 25, 2019, at 22:32:10 UTC.previous timestamp',
+    body: utilService.makeLorem(300),
     isRead: false,
     sentAt : 1561203990512, // 22 June 2019 11:46
     removedAt : null,
