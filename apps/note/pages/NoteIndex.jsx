@@ -1,3 +1,4 @@
+import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
@@ -8,7 +9,7 @@ const { useState, useEffect } = React
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
-    
+
     useEffect(() => {
         loadNotes()
     }, [filterBy])
@@ -19,10 +20,26 @@ export function NoteIndex() {
             .catch(err => console.log('Error loading notes:', err))
     }
 
-    function onSetFilterBy(newFilter) {
-        setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
+    function onAddNote(noteToAdd) {
+        noteService.save(noteToAdd)
+            .then(savedNote => {
+                setNotes(prevNotes => [savedNote, ...prevNotes])
+                showSuccessMsg('Note saved successfully!')
+            })
     }
 
+    function onChangeInfo(noteToEdit) {
+        noteService.save(noteToEdit)
+            .then(savedNote => {
+                setNotes(prevNotes =>
+                    prevNotes.map(note =>
+                        note.id === savedNote.id ? savedNote : note
+                    )
+                )
+                showSuccessMsg('Note updated successfully!')
+            })
+    }
+    
     function removeNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -30,20 +47,12 @@ export function NoteIndex() {
                 showSuccessMsg('Note has been successfully removed!')
             })
             .catch(() => {
+                console.log('error remove note:', err)
                 showErrorMsg(`couldn't remove Note`)
             })
     }
-
-    function onChangeInfo(noteToEdit) {
-        noteService.save(noteToEdit)
-            .then(() => {
-                loadNotes()
-                showSuccessMsg('Note saved successfully!')
-            })
-            .catch(err => {
-                console.log('err:', err)
-                showErrorMsg('Error saving note')
-            })
+    function onSetFilterBy(newFilter) {
+        setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
 
 
@@ -52,12 +61,10 @@ export function NoteIndex() {
     return (
         <section className='note-index'>
             <h2>My Notes</h2>
-            <div className="add-note">
-               <button>Add New Note</button>
-            </div>
+            <AddNote onAddNote={onAddNote} />
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-             <NoteList notes={notes} onRemove={removeNote}  onChangeInfo={onChangeInfo} />
-            
+            <NoteList notes={notes} onRemove={removeNote} onChangeInfo={onChangeInfo} />
+
         </section>
 
     )
