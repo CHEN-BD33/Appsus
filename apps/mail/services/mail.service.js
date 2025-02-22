@@ -1,5 +1,6 @@
-import { utilService } from "../../../services/util.service.js"
+
 import { storageService } from "./mail.async-storage.service.js"
+import { utilService } from "./mail.util.service.js"
 
 export const mailService  = {
     query,
@@ -72,17 +73,17 @@ function save(mail) {
 }
 
 
-function getEmptyMail(id = '', from = '', to = '') {
+function getEmptyMail(from = loggedinUser.email, to = ' ', subject = ' ', body = ' ') {
     return {
-        id: id || utilService.makeId(),
+     
         createdAt: Date.now(),
-        subject: '',
-        body: '',
+        subject,
+        body,
         isRead: false,
         sentAt: 0,
         removedAt: null,
-        from: from || 'user@appsus.com',
-        to: to || 'user@appsus.com',
+        from: from || loggedinUser.email,
+        to,
     }
 }
 

@@ -54,6 +54,7 @@ export function MailIndex() {
     return (
         <section className="mail-index">
             <h1>Mail Index</h1>
+            <button><Link to="/mail/edit">Compose</Link></button>
             <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
            
