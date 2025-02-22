@@ -5,7 +5,7 @@ const { useState, useEffect, useRef } = React
 export function NoteFilter({ filterBy, onFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    // const initialFilterBy = useRef({ ...filterBy })
+    const initialFilterBy = useRef({ ...filterBy })
 
     const onSetFilterDebounce = useRef(utilService.debounce(onFilterBy, 1500))
 
@@ -14,31 +14,29 @@ export function NoteFilter({ filterBy, onFilterBy }) {
     }, [filterByToEdit])
 
     function handleChange({ target }) {
-        let { name, type, value } = target
-        if (type === 'number') value = +value
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [name]: value }))
+        let { value } = target
+        setFilterByToEdit(prevFilter => ({ ...prevFilter, txt: value }))
     }
 
-    // function reset() {
-    //     setFilterByToEdit(initialFilterBy.current)
-    // }
+    function reset() {
+        setFilterByToEdit(initialFilterBy.current)
+    }
 
-    // function onSubmitForm(ev) {
-    //     ev.preventDefault()
-    //     onFilterBy(filterByToEdit)
-    // }
-
-
+    function onSubmitForm(ev) {
+        ev.preventDefault()
+        onFilterBy(filterByToEdit)
+    }
 
     return (
         <section className="note-filter">
             <h2>Search Notes</h2>
 
-            <div className="filter-container">
-                <label htmlFor="title">Title</label>
-                <input name="title" value={filterByToEdit.title} onChange={handleChange} type="text" id="title" />
-            </div>
-
+            <form onSubmit={onSubmitForm} className="filter-container">
+                <label htmlFor="search-input">Search</label>
+                <input name="txt" value={filterByToEdit.txt || ''} onChange={handleChange} type="text" id="searchInput" placeholder="Search in notes..." />
+                <button type="button" onClick={reset}>Reset</button>
+                <button>Submit</button>
+            </form>
         </section>
     )
 }

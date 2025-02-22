@@ -18,10 +18,15 @@ function query(filterBy = {}) {
         .then(notes => {
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                notes = notes.filter(note => regExp.test(note.info.txt))
+                notes = notes.filter(note => {
+                    if (note.type === 'NoteTxt') {
+                        return regExp.test(note.info.txt)
+                    }
+                    return false
+                })
             }
-            if (filterBy.noteType) {
-                notes = notes.filter(note => note.type === filterBy.noteType)
+            if (filterBy.type) {
+                notes = notes.filter(note => note.type === filterBy.type)
             }
             return notes
         })
@@ -44,7 +49,7 @@ function save(note) {
     }
 }
 function getDefaultFilter() {
-    return { txt: '', noteType: '' }
+    return { txt: '', type: '' }
 }
 
 function getEmptyNoteTxt() {
@@ -109,6 +114,18 @@ function _createNotes() {
             },
             {
                 id: 'n102',
+                createdAt: 1112222,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#00d'
+                },
+                info: {
+                    txt: 'Get Materna'
+                }
+            },
+            {
+                id: 'n103',
                 createdAt: 1112223,
                 type: 'NoteImg',
                 isPinned: false,
@@ -121,7 +138,7 @@ function _createNotes() {
                 }
             },
             {
-                id: 'n103',
+                id: 'n104',
                 createdAt: 1112224,
                 type: 'NoteTodos',
                 isPinned: false,
