@@ -1,21 +1,27 @@
+const {Link} = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
-const {useState , useEffect} = React
-const {Link } = ReactRouterDOM
 
+const {useState , useEffect} = React
+const { useSearchParams } = ReactRouterDOM
 
 export function MailIndex() {
+    const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
-    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+
    
     useEffect(() => {
+        setSearchParams(filterBy)
         loadMails()
     }, [filterBy])
 
     function loadMails() {
-        mailService.query(filterBy)
+             mailService.query(filterBy)
             .then((mails) => {
                 setMails(mails)
             })
@@ -31,17 +37,16 @@ export function MailIndex() {
                 setMails((prevMails) =>
                     prevMails.filter((mail) => mail.id !== mailId)
                 )
-                console.log('Removed')
                 showSuccessMsg('success')
             })
             .catch((err) => {
                 console.error('err:', err)
                 showErrorMsg('failed')
                 
-            });
+            })
     }
 
-    function onSetFilterBy(filterBy) {
+    function onSetFilter(filterBy) {
         setFilterBy({ ...filterBy })
     }
 
@@ -49,7 +54,7 @@ export function MailIndex() {
     return (
         <section className="mail-index">
             <h1>Mail Index</h1>
-            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+            <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
             <MailList mails={mails} onRemoveMail={onRemoveMail} />
            
         </section>

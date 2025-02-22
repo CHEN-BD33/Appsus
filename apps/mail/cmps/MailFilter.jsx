@@ -1,53 +1,59 @@
+import { utilService } from "../services/mail.util.service.js"
 
 
-const {useState, useEffect} = React
+const { useState, useEffect, useRef } = React
 
-export function MailFilter({filterBy , onSetFilterBy}){
+export function MailFilter({ filterBy, onSetFilter}) {
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    console.log(filterByToEdit)
+    const onSetFilterDebounced = useRef(utilService.debounce(onSetFilter, 500))
 
-    const[filterByToEdit, setFilterByToEdit] = useState({...filterBy})
+    useEffect(() => {
+        onSetFilterDebounced.current(filterByToEdit)
+    }, [filterByToEdit])
 
-    useEffect(()=>{
-        onSetFilterBy(filterByToEdit)
-    },[filterByToEdit])
-
-    
     function handleChange({ target }) {
-        const field = target.name
-        let value = target.value
-        // value += ','
-        switch (target.type) {
-            case 'number':
-            case 'range':
-                value = +value
-                break;
-
-            case 'checkbox':
-                value = target.checked
-                break
+        var { value, name: field } = target
+        console.log(field ,value)
+        if (field === 'isRead') {
+            value = value === 'true' ? true : value === 'false' ? false : ''
         }
 
-        setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
     }
-    
-    function onSubmitForm(ev){
+
+    function onSubmitForm(ev) {
         ev.preventDefault()
-        onSetFilterBy(filterByToEdit)
-
+        onSetFilter(filterByToEdit)
+        console.log('filterByToEdit',filterByToEdit)
     }
-    
 
-    return(
+    const { subject, isRead } = filterByToEdit
+
+    return (
         <section className="mail-filter">
             <h2>Filter Mails:</h2>
             <form onSubmit={onSubmitForm}>
-                <label htmlFor="subject">Search:</label>
-                <input name="subject" value={filterByToEdit.subject || ''}onChange={handleChange} type="text" id="bySubject"  placeholder="Search by subject..."/>
+                <label htmlFor="subject">Search by subject:</label>
+                <input
+                    value={subject}
+                    onChange={handleChange} 
+                    name="subject"
+                    type="text"
+                    id="subject"
+                />
 
                 <label htmlFor="isRead">Read:</label>
-                <select name="isRead" value={filterByToEdit.isRead || ''} onChange={handleChange}>
-                <option value="">All</option>
-                <option value="true">Read</option>
-                <option value="false">Unread</option>
+                <select
+                    value={isRead === true ? 'true' : isRead === false ? 'false' : ''}
+                    onChange={handleChange} 
+                    name="isRead"
+                    type="text"
+                    id="isRead"
+                >
+                    <option value="">All</option>
+                    <option value="true">Read</option>
+                    <option value="false">Unread</option>
                 </select>
 
                 <button>Submit</button>

@@ -7,7 +7,8 @@ export const mailService  = {
     remove,
     save,
     getEmptyMail,
-    getDefaultFilter
+    getDefaultFilter,
+    getFilterFromSearchParams
 }
 
 window.bs = mailService
@@ -17,12 +18,20 @@ function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
         .then(mails => {
             if (!mails || !mails.length) {
-                mails = gMails;
+                mails = gMails
                 _saveMailsToStorage()
             }
             if (filterBy.subject) {
                 const regExp = new RegExp(filterBy.subject, 'i')
                 mails = mails.filter(m => regExp.test(m.subject))
+            }
+
+            if (filterBy.isRead !== undefined && filterBy.isRead !== '') {
+                const isRead = filterBy.isRead === true; 
+                mails = mails.filter(m => m.isRead === isRead)
+            }
+            if (filterBy.folder) {
+                mails = mails.filter(m => m.folder === filterBy.folder)
             }
             return mails
         })
@@ -78,7 +87,7 @@ function getEmptyMail(id = '', from = '', to = '') {
 }
 
 function getDefaultFilter() {
-    return { subject: '', body: '' }
+    return { subject: '', body: '' ,isRead:'' }
 }
 
 
@@ -98,6 +107,14 @@ function _createMail() {
 function _saveMailsToStorage() {
     storageService.save(MAIL_KEY, gMails)
 }
+
+function getFilterFromSearchParams(searchParams) {
+    const subject = searchParams.get('subject') || ''
+    const isRead = searchParams.get('isRead') || ''
+    return { subject, isRead }
+}
+
+
 
     // basic user:
 const loggedinUser = {
@@ -133,7 +150,7 @@ const loggedinUser = {
     createdAt : 1561192990512, //22 June 2019 08:43
     subject: 'H1!',
     body: utilService.makeLorem(300),
-    isRead: false,
+    isRead: true,
     sentAt : 1561203990512, // 22 June 2019 11:46
     removedAt : null,
     from: 'dodo@dodo.com',
