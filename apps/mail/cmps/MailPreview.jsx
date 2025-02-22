@@ -1,10 +1,11 @@
-import { LongTxt } from "../../../cmps/LongTxt.jsx";
+import { LongTxt } from "../../../cmps/LongTxt.jsx"
 
 export function MailPreview({mail}){
 
     function onDate(timestamp){
         const date = new Date(timestamp)
-    return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+        return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+
     }
 
 

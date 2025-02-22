@@ -1,31 +1,57 @@
-import { MailList } from "../cmps/MailList.jsx"
-import { mailService } from "../services/mail-service.js"
 
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { MailList } from "../cmps/MailList.jsx"
+import { mailService } from "../services/mail.service.js"
 const {useState , useEffect} = React
+const {Link } = ReactRouterDOM
 
 
 export function MailIndex() {
-    const [mails , setMails] = useState(null)
-    const [filterBy, setFilterBy] = useState({subject:''})
+    const [mails, setMails] = useState(null)
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
    
     useEffect(() => {
         loadMails()
-      }, [filterBy])
+    }, [filterBy])
 
-      function loadMails(){
+    function loadMails() {
         mailService.query(filterBy)
-        .then(mails =>{
-            setMails(mails)
-        })
-        
+            .then((mails) => {
+                setMails(mails)
+            })
+            .catch((err) => {
+                console.error('err:', err)
+                showErrorMsg('Failed to load mails')
+            })
     }
 
-    if (!mails) return <div>Loading...</div>
+    function onRemoveMail(mailId) {
+        mailService.remove(mailId)
+            .then(() => {
+                setMails((prevMails) =>
+                    prevMails.filter((mail) => mail.id !== mailId)
+                )
+                console.log('Removed')
+                showSuccessMsg('success')
+            })
+            .catch((err) => {
+                console.error('err:', err)
+                showErrorMsg('failed')
+                
+            });
+    }
+
+    function onSetFilterBy(filterBy) {
+        setFilterBy({ ...filterBy })
+    }
+
+    if (!mails) return 'Loading..'
     return (
-    <section className="mail-index">
-     <h1>mail index</h1>
-    <MailList mails={mails}/>
-    </section>
+        <section className="mail-index">
+            <h1>Mail Index</h1>
+            <MailFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
+            <MailList mails={mails} onRemoveMail={onRemoveMail} />
+           
+        </section>
     )
 }
-

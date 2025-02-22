@@ -1,6 +1,5 @@
-
-import { utilService } from '../../../services/util.service.js'
-import { storageService } from '../../../services/async-storage.service.js'
+import { utilService } from "../../../services/util.service.js"
+import { storageService } from "./mail.async-storage.service.js"
 
 export const mailService  = {
     query,
@@ -8,12 +7,10 @@ export const mailService  = {
     remove,
     save,
     getEmptyMail,
-    _createMail,
+    getDefaultFilter
 }
 
 window.bs = mailService
-
-
 const MAIL_KEY = 'mailDB'
 
 function query(filterBy = {}) {
@@ -31,9 +28,10 @@ function query(filterBy = {}) {
         })
 }
 
-function get(mailId){
+
+function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-    .then(_setNextPrevMailId)
+        .then(_setNextPrevMailId)
 }
 
 function _setNextPrevMailId(mail) {
@@ -44,7 +42,7 @@ function _setNextPrevMailId(mail) {
         mail.nextMailId = nextMail.id
         mail.prevMailId = prevMail.id
         return mail
-    });
+    })
 }
 
     
@@ -76,8 +74,13 @@ function getEmptyMail(id = '', from = '', to = '') {
         removedAt: null,
         from: from || 'user@appsus.com',
         to: to || 'user@appsus.com',
-    };
+    }
 }
+
+function getDefaultFilter() {
+    return { subject: '', body: '' }
+}
+
 
 function _createMail() {
     return {
@@ -93,7 +96,7 @@ function _createMail() {
 }
 
 function _saveMailsToStorage() {
-    gMails.forEach(mail => storageService.put(MAIL_KEY, mail))
+    storageService.save(MAIL_KEY, gMails)
 }
 
     // basic user:
