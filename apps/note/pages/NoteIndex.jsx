@@ -56,10 +56,10 @@ export function NoteIndex() {
         <section className='note-index'>
             <h2>My Notes</h2>
             <div className="add-note">
-               <button><Link to="/note/add">Add New Note</Link></button>
+               <button>Add New Note</button>
             </div>
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-             <NoteList notes={notes} onRemove={removeNote} />
+             <NoteList notes={notes} onRemove={removeNote}  onChangeInfo={onChangeInfo} />
             
         </section>
 
