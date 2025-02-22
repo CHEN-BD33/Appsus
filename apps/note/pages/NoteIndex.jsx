@@ -4,7 +4,6 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { noteService } from '../services/note.service.js'
 
 const { useState, useEffect } = React
-const { Link } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState(null)
@@ -32,7 +31,6 @@ export function NoteIndex() {
             })
             .catch(() => {
                 showErrorMsg(`couldn't remove Note`)
-                navigate('/note')
             })
     }
 
@@ -40,7 +38,6 @@ export function NoteIndex() {
         noteService.save(noteToEdit)
             .then(() => {
                 loadNotes()
-                setSelectedNote(null)
                 showSuccessMsg('Note saved successfully!')
             })
             .catch(err => {
