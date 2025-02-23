@@ -77,6 +77,7 @@ function getEmptyMail(from = loggedinUser.email, to = ' ', subject = ' ', body =
     return {
      
         createdAt: Date.now(),
+        fullname: 'no name', 
         subject,
         body,
         isRead: false,
@@ -100,7 +101,7 @@ function _createMail() {
         body: utilService.makeLorem(15),
         isRead: false,
         removedAt: null,
-        from: loggedinUser.email,
+        from: loggedinUser.fullname,
         to: 'user@appsus.com',
     }
 }
@@ -126,6 +127,7 @@ const loggedinUser = {
     //• Model - start with a basic model of mails: 
     var gMails = [{
     id: 'e101',
+    fullname: 'momo momo',
     createdAt : 1551133930500, //February 25, 2019, at 22:32:10 
     subject: 'Miss you!',
     body: 'Would love to catch up sometimes',
@@ -137,6 +139,7 @@ const loggedinUser = {
 },
 {
     id: 'e102',
+    fullname :'bobo bobo',
     createdAt : 1551191930500, //26 February 2019 14:38
     subject: 'Love you!',
     body: utilService.makeLorem(150),
@@ -148,6 +151,7 @@ const loggedinUser = {
 },
 {
     id: 'e103',
+    fullname: 'dodo dodo' ,
     createdAt : 1561192990512, //22 June 2019 08:43
     subject: 'H1!',
     body: utilService.makeLorem(300),

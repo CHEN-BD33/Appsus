@@ -5,7 +5,6 @@ const { useState, useEffect, useRef } = React
 
 export function MailFilter({ filterBy, onSetFilter}) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    console.log(filterByToEdit)
     const onSetFilterDebounced = useRef(utilService.debounce(onSetFilter, 500))
 
     useEffect(() => {
@@ -25,7 +24,6 @@ export function MailFilter({ filterBy, onSetFilter}) {
     function onSubmitForm(ev) {
         ev.preventDefault()
         onSetFilter(filterByToEdit)
-        console.log('filterByToEdit',filterByToEdit)
     }
 
     const { subject, isRead } = filterByToEdit

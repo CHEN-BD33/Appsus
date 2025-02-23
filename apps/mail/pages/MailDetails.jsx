@@ -4,10 +4,9 @@ const { useState, useEffect } = React
 
 const { useParams,useNavigate ,Link} = ReactRouterDOM
 
-export function MailDetails(){
+export function MailDetails(onRemoveMail){
     const [mail, setMail] = useState(null)
     const params = useParams()
-    console.log('params',params)
 
     useEffect(() => {
         loadMail()
@@ -34,6 +33,7 @@ export function MailDetails(){
             <button><Link to="/mail">Back to List</Link></button>
             <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
             <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
+            <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
         </section>
     )
 
