@@ -2,9 +2,10 @@ const {Link} = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
+import { MailFolderList } from "../cmps/data-table/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
-import { MailList } from "../cmps/MailList.jsx"
 import { mailService } from "../services/mail.service.js"
+
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
@@ -46,6 +47,9 @@ export function MailIndex() {
                 
             })
     }
+    function onFolderSelect(folder) {
+        setFilterBy({ ...filterBy, status: folder });
+    }
 
     function onSetFilter(filterBy) {
         setFilterBy({ ...filterBy })
@@ -54,10 +58,9 @@ export function MailIndex() {
     if (!mails) return 'Loading..'
     return (
         <section className="mail-index">
-            <h1>Mail Index</h1>
             <button><Link to="/mail/edit">Compose</Link></button>
+            <MailFolderList onFolderSelect={onFolderSelect} />
             <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-            {/* <MailList mails={mails} onRemoveMail={onRemoveMail} /> */}
             <DataTable mails={mails}  />
            
         </section>

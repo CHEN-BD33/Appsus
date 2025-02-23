@@ -9,34 +9,56 @@ export const mailService  = {
     save,
     getEmptyMail,
     getDefaultFilter,
-    getFilterFromSearchParams
+    getFilterFromSearchParams,
+
 }
 
 window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
+const filterBy = {
+    status: 'inbox/sent/trash/draft',
+    txt: 'puki', // no need to support complex text search
+    isRead: true, // (optional property, if missing: show all)
+    isStared: true, // (optional property, if missing: show all)
+    lables: ['important', 'romantic'] // has any of the labels
+   }
+
 function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-        .then(mails => {
-            if (!mails || !mails.length) {
-                mails = gMails
-                _saveMailsToStorage()
-            }
-            if (filterBy.subject) {
-                const regExp = new RegExp(filterBy.subject, 'i')
-                mails = mails.filter(m => regExp.test(m.subject))
-            }
-
-            if (filterBy.isRead !== undefined && filterBy.isRead !== '') {
-                const isRead = filterBy.isRead === true; 
-                mails = mails.filter(m => m.isRead === isRead)
-            }
-            if (filterBy.folder) {
-                mails = mails.filter(m => m.folder === filterBy.folder)
-            }
-            return mails
-        })
-}
+      .then(mails => {
+        if (!mails || !mails.length) {
+          mails = gMails;
+          _saveMailsToStorage()
+        }
+        if (filterBy.status) {
+            mails = mails.filter(mail => mail.status === filterBy.status)
+        }
+        
+        if (filterBy.txt) {
+          const regExp = new RegExp(filterBy.txt, 'i')
+          mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+        }
+    
+        if (typeof filterBy.isRead === 'boolean') {
+          mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+        }
+        
+        if (typeof filterBy.isStared === 'boolean') {
+          mails = mails.filter(mail => mail.isStared === filterBy.isStared)
+        }
+        
+        if (filterBy.lables && filterBy.lables.length) {
+          mails = mails.filter(mail => {
+            return mail.lables && mail.lables.some(label => filterBy.lables.includes(label))
+          })
+        }
+        console.log("Filter Applied:", filterBy)
+        console.log("Filtered Mails:", mails)
+        
+        return mails
+      })
+  }
 
 
 function get(mailId) {
@@ -111,10 +133,12 @@ function _saveMailsToStorage() {
 }
 
 function getFilterFromSearchParams(searchParams) {
-    const subject = searchParams.get('subject') || ''
+    const status = searchParams.get('status') || 'inbox'
+    const txt = searchParams.get('txt') || ''
     const isRead = searchParams.get('isRead') || ''
-    return { subject, isRead }
-}
+    const isStared = searchParams.get('isStared') || ''
+    return { status, txt, isRead, isStared };
+  }
 
 
 
@@ -135,7 +159,8 @@ const loggedinUser = {
     sentAt : 1551133930594, //February 25, 2019, at 22:32:10
     removedAt : null,
     from: 'momo@momo.com',
-    to: 'user@appsus.com'
+    to: 'user@appsus.com',
+    status:'inbox'
 },
 {
     id: 'e102',
@@ -147,7 +172,8 @@ const loggedinUser = {
     sentAt : 1551192990512, //26 February 2019 14:56
     removedAt : null,
     from: 'bobo@bobo.com',
-    to: 'user2@appsus.com'
+    to: 'user2@appsus.com',
+    status:'inbox'
 },
 {
     id: 'e103',
@@ -159,7 +185,8 @@ const loggedinUser = {
     sentAt : 1561203990512, // 22 June 2019 11:46
     removedAt : null,
     from: 'dodo@dodo.com',
-    to: 'user3@appsus.com'
+    to: 'user3@appsus.com',
+    status:'inbox'
 }
 ]
 
