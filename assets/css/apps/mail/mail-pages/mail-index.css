@@ -1,1 +1,41 @@
- /* mail index  */
+body {
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f1f3f4;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.mail-index {
+    display: grid;
+    height: 100vh;
+    background-color: #f1f6f9;
+}
+
+.mail-header{
+    display: flex;
+    align-items: center;
+    height: 48px;
+}
+
+.mail-sidebar{
+    width: 187px;
+    height: calc(100vh - 105px);
+}
+
+.mailFolder-list{
+    display: flex;
+    flex-direction: column; 
+}
+
+.compose-btn{
+    border-radius: 16px;
+    color: #001d35;
+    height: 56px;
+    padding: 0 24px 0 0;
+    border-radius: 16px;
+    border: none;
+    background-color: #c2e7ff;
+}
+

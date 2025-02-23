@@ -40,7 +40,7 @@ export function MailCompose(){
     const { from ,to, subject, body } = mailToEdit
 
     return (
-        <section className='mail-edit'>
+        <section className='mail-compose'>
             <h1>{mailId ? 'Edit' : 'Compose'} Mail</h1>
             <form onSubmit={onSaveMail}>
                 <label htmlFor='from'>From</label>

@@ -21,3 +21,8 @@
 @import './apps/mail/mail-pages/mail-index.css';
 
 
+/* Mail SETUP */
+@import './apps/mail/mail-setup/typography.css';
+@import './apps/mail/mail-setup/vars.css';
+
+
