@@ -106,7 +106,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#00d'
+                    backgroundColor: '#E2DED1'
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
@@ -118,7 +118,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#00d'
+                    backgroundColor: '#E8EAED'
                 },
                 info: {
                     txt: 'Get Materna'
@@ -129,12 +129,12 @@ function _createNotes() {
                 createdAt: 1112223,
                 type: 'NoteImg',
                 isPinned: false,
+                style: {
+                    backgroundColor: '#B4DDE3'
+                },
                 info: {
                     url: 'http://some-img/me',
                     title: 'Bobi and Me'
-                },
-                style: {
-                    backgroundColor: '#00d'
                 }
             },
             {
@@ -142,7 +142,9 @@ function _createNotes() {
                 createdAt: 1112224,
                 type: 'NoteTodos',
                 isPinned: false,
-                color: 'yellow',
+                style: {
+                    backgroundColor:  '#A2E0D2'
+                },
                 info: {
                     title: 'Get my stuff together',
                     todos: [
