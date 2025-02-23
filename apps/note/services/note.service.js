@@ -11,6 +11,8 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNoteTxt,
+    getEmptyNoteImg,
+    getEmptyNoteTodos
 }
 
 function query(filterBy = {}) {
@@ -61,26 +63,23 @@ function getEmptyNoteTxt() {
     }
 }
 
-// function getEmptyNoteImg() {
-//     return {
-//         type: 'NoteImg',
-//         isPinned: false,
-//         style: { backgroundColor: '#ffffff' },
-//         info: { url: '', title: '' }
-//     }
-// }
+function getEmptyNoteImg() {
+    return {
+        type: 'NoteImg',
+        isPinned: false,
+        style: { backgroundColor: '#ffffff' },
+        info: { url: '', title: '' }
+    }
+}
 
-// function getEmptyNoteTodos() {
-//     return {
-//         type: 'NoteTodos',
-//         isPinned: false,
-//         style: { backgroundColor: '#ffffff' },
-//         info: {
-//             title: '',
-//             todos: []
-//         }
-//     }
-// }
+function getEmptyNoteTodos() {
+    return {
+        type: 'NoteTodos',
+        isPinned: false,
+        style: { backgroundColor: '#ffffff' },
+        info: { title: '', todos: [] }
+    }
+}
 
 
 function _createNote(type, info) {
@@ -143,7 +142,7 @@ function _createNotes() {
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
-                    backgroundColor:  '#A2E0D2'
+                    backgroundColor: '#A2E0D2'
                 },
                 info: {
                     title: 'Get my stuff together',

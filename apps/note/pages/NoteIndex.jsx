@@ -21,30 +21,25 @@ export function NoteIndex() {
             .catch(err => console.log('Error loading notes:', err))
     }
 
-    function onAddNote(noteToAdd) {
-        noteService.save(noteToAdd)
+    function handleChange(noteToSave) {
+        noteService.save(noteToSave)
             .then(savedNote => {
-                setNotes(prevNotes => [savedNote, ...prevNotes])
-                showSuccessMsg('Note saved successfully!')
-            })
-            .catch(err => console.log('Error loading notes:', err))
-        showErrorMsg('Failed to add note')
-    }
+                setNotes(prevNotes => {
 
-    function handleNoteUpdate(noteToUpdate) {
-        noteService.save(noteToUpdate)
-            .then(() => {
-                setNotes((prevNotes) => {
-                    const updatedNotes = [...prevNotes]
-                    const noteIndex = updatedNotes.findIndex(note => note.id === noteToUpdate.id)
-                    updatedNotes[noteIndex] = noteToUpdate
-                    return updatedNotes
+                    if (noteToSave.id) {
+                        const noteIndex = prevNotes.findIndex(note => note.id === noteToSave.id)
+                        const updatedNotes = [...prevNotes]
+                        updatedNotes[noteIndex] = savedNote
+                        return updatedNotes
+                    }
+                    return [savedNote, ...prevNotes]
+
                 })
-                // showSuccessMsg('Note updated successfully!')
+                // showSuccessMsg('Note saved successfully!')
             })
             .catch(err => {
-                console.error('Failed to update note:', err)
-                showErrorMsg('Failed to update note')
+                console.error('Failed to save note:', err)
+                showErrorMsg('Failed to save note')
             })
     }
 
@@ -69,9 +64,9 @@ export function NoteIndex() {
     return (
         <section className='note-index'>
             <h2>My Notes</h2>
-            <AddNote onAddNote={onAddNote} />
+            <AddNote onHandleChange={handleChange} />
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-            <NoteList notes={notes} onRemove={removeNote} onHandleNoteUpdate={handleNoteUpdate} />
+            <NoteList notes={notes} onRemove={removeNote} onHandleChange={handleChange} />
 
         </section>
 
