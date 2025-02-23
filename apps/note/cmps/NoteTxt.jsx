@@ -1,22 +1,23 @@
-import { utilService } from ".../services/util.service.js"
-const { useState, useEffect, useRef } = React
+const { useState, useEffect } = React
 
 export function NoteTxt({ info, onChangeInfo }) {
     const [infoToEdit, setInfoToEdit] = useState({ ...info })
-    const onChangedebounce = useRef(utilService.debounce(onChangeInfo, 3000))
+
 
     useEffect(() => {
-        onChangedebounce.current(infoToEdit)
-    }, [infoToEdit])
+        setInfoToEdit(info)
+    }, [info])
 
     function handleChange({ target }) {
         const { value } = target
-        setInfoToEdit(prevInfo => ({ ...prevInfo, txt: value }))
+        const newInfo = { ...infoToEdit, txt: value }
+        setInfoToEdit(newInfo)
+        onChangeInfo(newInfo)
     }
 
     return (
         <div className='note-text'>
-            <input type="text" value={infoToEdit.txt} onChange={handleChange} name="txt" placeholder="Enter your text..." />
+            <textarea type="text" value={infoToEdit.txt} onChange={handleChange} name="txt" style={{ backgroundColor: 'inherit' }} placeholder="Enter your text..." />
         </div>
     )
 }

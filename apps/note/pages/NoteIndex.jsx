@@ -3,7 +3,7 @@ import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 
 import { noteService } from '../services/note.service.js'
-import { eventBusService, showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 
@@ -21,15 +21,6 @@ export function NoteIndex() {
             .catch(err => console.log('Error loading notes:', err))
     }
 
-    useEffect(() => {
-        loadNotes()
-        const unsubscribe = eventBusService.on('note-update', handleNoteUpdate)
-
-        return () => {
-            unsubscribe()
-        }
-    }, [])
-
     function onAddNote(noteToAdd) {
         noteService.save(noteToAdd)
             .then(savedNote => {
@@ -40,14 +31,15 @@ export function NoteIndex() {
         showErrorMsg('Failed to add note')
     }
 
-    function handleNoteUpdate(noteToEdit) {
-        noteService.save(noteToEdit)
-            .then(savedNote => {
-                setNotes(prevNotes =>
-                    prevNotes.map(note =>
-                        note.id === savedNote.id ? savedNote : note
-                    )
-                )
+    function handleNoteUpdate(noteToUpdate) {
+        noteService.save(noteToUpdate)
+            .then(() => {
+                setNotes((prevNotes) => {
+                    const updatedNotes = [...prevNotes]
+                    const noteIndex = updatedNotes.findIndex(note => note.id === noteToUpdate.id)
+                    updatedNotes[noteIndex] = noteToUpdate
+                    return updatedNotes
+                })
                 // showSuccessMsg('Note updated successfully!')
             })
             .catch(err => {
@@ -79,7 +71,7 @@ export function NoteIndex() {
             <h2>My Notes</h2>
             <AddNote onAddNote={onAddNote} />
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-            <NoteList notes={notes} onRemove={removeNote} />
+            <NoteList notes={notes} onRemove={removeNote} onHandleNoteUpdate={handleNoteUpdate} />
 
         </section>
 
