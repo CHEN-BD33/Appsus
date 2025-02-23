@@ -1,13 +1,14 @@
 import { AddNote } from '../cmps/AddNote.jsx'
 import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+
 import { noteService } from '../services/note.service.js'
+import { eventBusService, showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 
 export function NoteIndex() {
-    const [notes, setNotes] = useState(null)
+    const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
 
     useEffect(() => {
@@ -20,15 +21,26 @@ export function NoteIndex() {
             .catch(err => console.log('Error loading notes:', err))
     }
 
+    useEffect(() => {
+        loadNotes()
+        const unsubscribe = eventBusService.on('note-update', handleNoteUpdate)
+
+        return () => {
+            unsubscribe()
+        }
+    }, [])
+
     function onAddNote(noteToAdd) {
         noteService.save(noteToAdd)
             .then(savedNote => {
                 setNotes(prevNotes => [savedNote, ...prevNotes])
                 showSuccessMsg('Note saved successfully!')
             })
+            .catch(err => console.log('Error loading notes:', err))
+        showErrorMsg('Failed to add note')
     }
 
-    function onChangeInfo(noteToEdit) {
+    function handleNoteUpdate(noteToEdit) {
         noteService.save(noteToEdit)
             .then(savedNote => {
                 setNotes(prevNotes =>
@@ -36,10 +48,14 @@ export function NoteIndex() {
                         note.id === savedNote.id ? savedNote : note
                     )
                 )
-                showSuccessMsg('Note updated successfully!')
+                // showSuccessMsg('Note updated successfully!')
+            })
+            .catch(err => {
+                console.error('Failed to update note:', err)
+                showErrorMsg('Failed to update note')
             })
     }
-    
+
     function removeNote(noteId) {
         noteService.remove(noteId)
             .then(() => {
@@ -63,7 +79,7 @@ export function NoteIndex() {
             <h2>My Notes</h2>
             <AddNote onAddNote={onAddNote} />
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-            <NoteList notes={notes} onRemove={removeNote} onChangeInfo={onChangeInfo} />
+            <NoteList notes={notes} onRemove={removeNote} />
 
         </section>
 

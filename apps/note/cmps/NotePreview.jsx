@@ -1,10 +1,16 @@
 import { NoteTxt } from "../cmps/NoteTxt.jsx"
+import { eventBusService } from "../../../services/event-bus.service.js"
 
 
-export function NotePreview({ note, onChangeInfo }) {
+export function NotePreview({ note }) {
 
+    function onChangeInfo(updatedInfo) {
+        const updateNote = { ...note, info: updatedInfo }
 
-    const backgroundColor = note.style ? note.style.backgroundColor : '#ffffff'
+        eventBusService.emit('note-update', updateNote)
+    }
+
+    const backgroundColor = note.style ? note.style.backgroundColor : 'white'
 
     return (
         <div className='note-preview' style={{ backgroundColor }}>
