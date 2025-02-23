@@ -2,24 +2,21 @@ import { utilService } from ".../services/util.service.js"
 const { useState, useEffect, useRef } = React
 
 export function NoteTxt({ info, onChangeInfo }) {
-    const [txt, setTxt] = useState(info.txt)
-    const debouncedOnChange = useRef(utilService.debounce(onChangeInfo, 3000))
+    const [infoToEdit, setInfoToEdit] = useState({ ...info })
+    const onChangedebounce = useRef(utilService.debounce(onChangeInfo, 3000))
 
     useEffect(() => {
-        setTxt(info.txt)
-    }, [info.txt])
+        onChangedebounce.current(infoToEdit)
+    }, [infoToEdit])
 
-    function handleChange(ev) {
-        const value = ev.target.value
-        setTxt(value)
-
-        const updatedInfo = { ...info, txt: value }
-        debouncedOnChange.current(updatedInfo)
+    function handleChange({ target }) {
+        const { value } = target
+        setInfoToEdit(prevInfo => ({ ...prevInfo, txt: value }))
     }
 
     return (
         <div className='note-text'>
-            <input type="text" value={txt} onChange={handleChange} name="txt" placeholder="Enter your text..." />
+            <input type="text" value={infoToEdit.txt} onChange={handleChange} name="txt" placeholder="Enter your text..." />
         </div>
     )
 }
