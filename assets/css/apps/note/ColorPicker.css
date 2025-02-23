@@ -1,0 +1,41 @@
+.color-picker {
+    position: relative;
+}
+
+.color-picker-btn {
+    position: relative;
+}
+
+.color-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 5px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1000;
+}
+
+.color-option {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.note-text textarea {
+    outline: none;
+    padding: 8px;
+    border-radius: 4px;
+    resize: none;
+    font-family: inherit;
+}
