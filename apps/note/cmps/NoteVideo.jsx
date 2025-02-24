@@ -37,7 +37,7 @@ return (
 
         {infoToEdit.url && (
             <div className='video-container'>
-                <iframe src={getYoutubeEmbUrl(infoToEdit.url)} title={infoToEdit.title} frameBorder='0' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                <iframe src={getYoutubeEmbUrl(infoToEdit.url)} title={infoToEdit.title} />
             </div>
         )}
     </section>
