@@ -1,5 +1,6 @@
 import { NoteTxt } from "../cmps/NoteTxt.jsx"
 import { NoteImg } from "./NoteImg.jsx"
+import { NoteVideo } from "./NoteVideo.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
 
@@ -33,6 +34,8 @@ function DynamicCmp({ type, info, onChangeInfo }) {
             return <NoteTxt info={info} onChangeInfo={onChangeInfo} />
         case 'NoteImg':
             return <NoteImg info={info} onChangeInfo={onChangeInfo} />
+        case 'NoteVideo':
+            return <NoteVideo info={info} onChangeInfo={onChangeInfo} />
         default:
             return <div>Unsupported note type</div>
     }

@@ -1,5 +1,7 @@
 import { NoteTxt } from "./NoteTxt.jsx"
 import { NoteImg } from "./NoteImg.jsx"
+import { NoteVideo } from "./NoteVideo.jsx"
+
 import { noteService } from "../services/note.service.js"
 
 const { useState } = React
@@ -22,7 +24,10 @@ export function AddNote({ onHandleChange }) {
                 setNote(noteService.getEmptyNoteTxt())
                 break
             case 'NoteImg':
-                setNote(noteService.getEmptyNoteImg())
+                setNote(noteService.getEmptyNoteImgVid())
+                break
+            case 'NoteVideo':
+                setNote(noteService.getEmptyNoteImgVid())
                 break
         }
     }
@@ -32,7 +37,7 @@ export function AddNote({ onHandleChange }) {
     }
 
     function resetNote() {
-        const emptyNote = noteType === 'NoteTxt' ? noteService.getEmptyNoteTxt() : noteService.getEmptyNoteImg()
+        const emptyNote = noteType === 'NoteTxt' ? noteService.getEmptyNoteTxt() : noteService.getEmptyNoteImgVid()
         setNote(emptyNote)
     }
 
@@ -43,6 +48,7 @@ export function AddNote({ onHandleChange }) {
                     {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} />)}
                     {/* <input type="text" id="txt" name="txt" value={note} onChange={(e) => setNote(e.target.value)} placeholder='Enter text..' /> */}
                     {noteType === 'NoteImg' && (<NoteImg info={note.info} onChangeInfo={onChangeInfo} />)}
+                    {noteType === 'NoteVideo' && (<NoteVideo info={note.info} onChangeInfo={onChangeInfo} />)}
                 </section>
 
                 <section className='note-actions'>
@@ -50,6 +56,7 @@ export function AddNote({ onHandleChange }) {
 
                         <button type='button' onClick={() => handleTypeChange('NoteTxt')} title='Text Note'>Text</button>
                         <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'>Image</button>
+                        <button type='button' onClick={() => handleTypeChange('NoteVideo')} title='Video Note'>Video</button>
 
                     </div>
 
