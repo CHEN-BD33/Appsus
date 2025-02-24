@@ -63,9 +63,9 @@ function getEmptyNoteTxt() {
     }
 }
 
-function getEmptyNoteImgVid() {
+function getEmptyNoteImgVid(type = 'NoteImg') {
     return {
-        type: 'NoteImg',
+        type,
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
         info: { url: '', title: '' }
@@ -113,7 +113,7 @@ function _createNotes() {
             },
             {
                 id: 'n102',
-                createdAt: 1112222,
+                createdAt: 1112223,
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
@@ -125,7 +125,7 @@ function _createNotes() {
             },
             {
                 id: 'n103',
-                createdAt: 1112223,
+                createdAt: 1112224,
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
@@ -138,7 +138,7 @@ function _createNotes() {
             },
             {
                 id: 'n104',
-                createdAt: 1112224,
+                createdAt: 1112225,
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
@@ -154,7 +154,7 @@ function _createNotes() {
             },
             {
                 id: 'n105',
-                createdAt: 1112225,
+                createdAt: 1112226,
                 type: 'NoteVideo',
                 isPinned: false,
                 style: {
