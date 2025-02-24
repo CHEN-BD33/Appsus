@@ -61,6 +61,12 @@ outline: none;
     padding: 0 16px 0 0;
 }
 
+
+.mail-sidebar  nav {
+    display: flex;
+    gap: 1em;
+}
+
 .compose-btn-container{
     height: 56px;
     padding: 8px 0 16px 8px;

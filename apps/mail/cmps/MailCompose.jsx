@@ -36,12 +36,19 @@ export function MailCompose(){
 
         setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
     }
+    function onClose() {
+        navigate('/mail')
+      }
 
     const { from ,to, subject, body } = mailToEdit
 
     return (
         <section className='mail-compose'>
-            <h1>{mailId ? 'Edit' : 'Compose'} Mail</h1>
+            <div className="mail-compose-header">
+            <h2>{mailId ? "Edit Message" : "New Message"}</h2>
+            <button onClick={onClose} className="close-btn">X</button>
+            </div>
+            
             <form onSubmit={onSaveMail}>
                 <label htmlFor='from'>From</label>
                 <input

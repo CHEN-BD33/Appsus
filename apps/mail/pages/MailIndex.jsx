@@ -1,4 +1,4 @@
-const {Link} = ReactRouterDOM
+const {Link , Outlet} = ReactRouterDOM 
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
@@ -6,6 +6,7 @@ import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailCompose } from "../cmps/MailCompose.jsx"
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
@@ -48,7 +49,7 @@ export function MailIndex() {
             })
     }
     function onFolderSelect(folder) {
-        setFilterBy({ ...filterBy, status: folder });
+        setFilterBy({ ...filterBy, status: folder })
     }
 
     function onSetFilter(filterBy) {
@@ -60,17 +61,24 @@ export function MailIndex() {
         <section className="mail-index">
            
             <div className="mail-container">
+
             <div className="mail-sidebar">
-                <div className="compose-btn-container">
-            <button className="compose-btn"><Link to="/mail/edit">Compose</Link> </button>
-                </div>
+                <nav className="compose-btn-container">
+                    <Link to="/mail/edit">
+                        <button className="compose-btn">Compose</button>
+                    </Link>
+                </nav>
                 <MailFolderList onFolderSelect={onFolderSelect} />
-                </div>
+            </div>
+
             <div className="mail-main">
                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 <DataTable mails={mails} onRemoveMail={onRemoveMail} />
             </div>
             </div>
+            
+            <Outlet />
         </section>
     )
 }
+
