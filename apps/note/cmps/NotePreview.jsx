@@ -1,19 +1,20 @@
 import { NoteTxt } from "../cmps/NoteTxt.jsx"
 import { NoteImg } from "./NoteImg.jsx"
 import { NoteVideo } from "./NoteVideo.jsx"
+import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
 
-export function NotePreview({ note, onHandleChange }) {
+export function NotePreview({ note, handleChange }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
-        onHandleChange(updatedNote)
+        handleChange(updatedNote)
     }
 
     function onChangeColor(color) {
         const updatedNote = { ...note, style: { ...note.style, backgroundColor: color } }
-        onHandleChange(updatedNote)
+        handleChange(updatedNote)
     }
 
     const backgroundColor = note.style ? note.style.backgroundColor : 'white'
@@ -36,6 +37,8 @@ function DynamicCmp({ type, info, onChangeInfo }) {
             return <NoteImg info={info} onChangeInfo={onChangeInfo} />
         case 'NoteVideo':
             return <NoteVideo info={info} onChangeInfo={onChangeInfo} />
+        case 'NoteTodos':
+            return <NoteTodos info={info} onChangeInfo={onChangeInfo} />
         default:
             return <div>Unsupported note type</div>
     }
