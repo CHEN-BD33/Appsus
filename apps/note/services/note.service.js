@@ -11,7 +11,7 @@ export const noteService = {
     save,
     getDefaultFilter,
     getEmptyNoteTxt,
-    getEmptyNoteImg,
+    getEmptyNoteImgVid,
     getEmptyNoteTodos
 }
 
@@ -63,7 +63,7 @@ function getEmptyNoteTxt() {
     }
 }
 
-function getEmptyNoteImg() {
+function getEmptyNoteImgVid() {
     return {
         type: 'NoteImg',
         isPinned: false,
@@ -132,8 +132,8 @@ function _createNotes() {
                     backgroundColor: '#B4DDE3'
                 },
                 info: {
-                    url: 'http://some-img/me',
-                    title: 'Bobi and Me'
+                    url: 'https://www.israelhayom.co.il/wp-content/uploads/2024/12/17/17/veo2-960x640.jpg',
+                    title: 'Bobi'
                 }
             },
             {
@@ -151,7 +151,20 @@ function _createNotes() {
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
                 }
-            }
+            },
+            {
+                id: 'n105',
+                createdAt: 1112225,
+                type: 'NoteVideo',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#B4DDE3'
+                },
+                info: {
+                    url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
+                    title: 'SnoopDogg'
+                }
+            },
 
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
