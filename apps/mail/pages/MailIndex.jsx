@@ -2,7 +2,7 @@ const {Link} = ReactRouterDOM
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { DataTable } from "../cmps/data-table/DataTable.jsx"
-import { MailFolderList } from "../cmps/data-table/MailFolderList.jsx"
+import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
