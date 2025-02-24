@@ -32,7 +32,8 @@ export function MailFilter({ filterBy, onSetFilter}) {
     return (
         <section className="mail-filter">
           <form onSubmit={onSubmit}>
-            <label htmlFor="txt">Search:</label>
+            <div className="search-container">
+              <img src="assets/css/apps/mail/images/search-icon.svg"/>
             <input
               id="txt"
               name="txt"
@@ -41,8 +42,10 @@ export function MailFilter({ filterBy, onSetFilter}) {
               onChange={handleChange}
               placeholder="Search mail"
             />
+            </div>
+            
     
-            <label htmlFor="isRead">Read:</label>
+            {/* <label htmlFor="isRead">Read:</label>
             <select
               id="isRead"
               name="isRead"
@@ -52,9 +55,9 @@ export function MailFilter({ filterBy, onSetFilter}) {
               <option value="">All</option>
               <option value="true">Read</option>
               <option value="false">Unread</option>
-            </select>
+            </select> */}
     
-            <button type="submit">submit</button>
+            {/* <button type="submit">submit</button> */}
           </form>
         </section>
       )

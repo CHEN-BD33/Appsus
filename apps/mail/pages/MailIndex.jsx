@@ -58,18 +58,19 @@ export function MailIndex() {
     if (!mails) return 'Loading..'
     return (
         <section className="mail-index">
-            <div className="mail-header">
-                
-                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                </div>
+           
+            <div className="mail-container">
             <div className="mail-sidebar">
+                <div className="compose-btn-container">
             <button className="compose-btn"><Link to="/mail/edit">Compose</Link> </button>
+                </div>
                 <MailFolderList onFolderSelect={onFolderSelect} />
                 </div>
             <div className="mail-main">
+               <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 <DataTable mails={mails} onRemoveMail={onRemoveMail} />
             </div>
-           
+            </div>
         </section>
     )
 }

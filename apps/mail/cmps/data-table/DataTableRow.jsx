@@ -16,7 +16,7 @@ export function DataTableRow({mail}) {
                 </td>
                 <td>{mail.fullName}</td>
                 <td>{mail.subject}</td>
-                <td> <LongTxt txt={mail.body} /></td>
+                <td> <LongTxt txt={mail.body}/></td>
 
             </tr>
             <tr hidden={!isExpanded}>
