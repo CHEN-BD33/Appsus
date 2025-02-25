@@ -7,7 +7,8 @@ export const utilService = {
     getDayName,
     getMonthName,
     loadFromStorage,
-    saveToStorage
+    saveToStorage,
+    debounce,
 }
 
 function saveToStorage(key, val) {
@@ -72,3 +73,15 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
+<<<<<<< HEAD
+=======
+function debounce(callback, wait) {
+    let timeoutId = null;
+    return (...args) => {
+        window.clearTimeout(timeoutId);
+        timeoutId = window.setTimeout(() => {
+            callback(...args);
+        }, wait);
+    };
+}
+>>>>>>> eb247558470a9e948d9b71b1dc7c461607761344

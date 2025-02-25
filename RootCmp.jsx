@@ -3,9 +3,12 @@ const Router = ReactRouterDOM.HashRouter
 
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
-import { About } from './pages/About.jsx'
+
 import { Home } from './pages/Home.jsx'
+import { About } from './pages/About.jsx'
+
 import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
+
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 import { MailDetails } from './apps/mail/pages/MailDetails.jsx'
 import { MailCompose } from './apps/mail/cmps/MailCompose.jsx'

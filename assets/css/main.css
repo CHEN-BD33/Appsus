@@ -11,6 +11,7 @@
 
 
 @import './apps/note/NoteIndex.css';
+<<<<<<< HEAD
 
 
 /* Mail Components */
@@ -27,3 +28,8 @@
 @import './apps/mail/mail-setup/vars.css';
 
 
+=======
+@import './apps/note/ColorPicker.css';
+@import './apps/mail/MailIndex.css';
+@import './apps/mail/MailList.css';
+>>>>>>> eb247558470a9e948d9b71b1dc7c461607761344
