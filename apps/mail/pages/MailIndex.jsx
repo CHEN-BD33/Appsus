@@ -1,7 +1,6 @@
 const {Link , Outlet} = ReactRouterDOM 
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
-import { DataTable } from "../cmps/data-table/DataTable.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
@@ -73,7 +72,7 @@ export function MailIndex() {
 
             <div className="mail-main">
                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                <DataTable mails={mails} onRemoveMail={onRemoveMail} />
+                <MailList mails={mails} />
             </div>
             </div>
             

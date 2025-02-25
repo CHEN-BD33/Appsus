@@ -40,50 +40,38 @@ export function MailCompose(){
         navigate('/mail')
       }
 
-    const { from ,to, subject, body } = mailToEdit
+   
 
     return (
         <section className='mail-compose'>
             <div className="mail-compose-header">
             <h2>{mailId ? "Edit Message" : "New Message"}</h2>
             <button onClick={onClose} className="close-btn">X</button>
+            <button></button>
             </div>
             
             <form onSubmit={onSaveMail}>
-                <label htmlFor='from'>From</label>
+               
                 <input
                     onChange={handleChange}
-                    value={from}
-                    type='email'
-                    name='from'
-                    id='from'
-                    disabled 
-                />
-    
-                <label htmlFor='to'>To</label>
-                <input
-                    onChange={handleChange}
-                    value={to}
                     type='email'
                     name='to'
                     id='to'
+                    placeholder="To"
                     required
                 />
     
-                <label htmlFor='subject'>Subject</label>
                 <input
                     onChange={handleChange}
-                    value={subject}
                     type='text'
                     name='subject'
                     id='subject'
+                    placeholder="Subject"
                     required
                 />
     
-                <label htmlFor='body'>Body</label>
                 <textarea
                     onChange={handleChange}
-                    value={body}
                     name='body'
                     id='body'
                     required

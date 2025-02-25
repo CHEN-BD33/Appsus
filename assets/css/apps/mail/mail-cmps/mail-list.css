@@ -1,9 +1,38 @@
  /* mail list */
 
  .mail-list {
- 
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.mail-list li {
- 
+.mail-preview {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.mail-preview:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Optional: If you have headers, style them */
+.mail-list-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr;
+    font-weight: bold;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+}
+
+.mail-list p button{
+    visibility: hidden;
 }

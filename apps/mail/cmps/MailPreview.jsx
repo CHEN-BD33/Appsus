@@ -1,6 +1,10 @@
 import { LongTxt } from "../../../cmps/LongTxt.jsx"
+const {useNavigate} = ReactRouterDOM 
+
+
 
 export function MailPreview({mail}){
+    const navigate = useNavigate()
 
     function onDate(timestamp){
         const date = new Date(timestamp)
@@ -8,15 +12,18 @@ export function MailPreview({mail}){
 
     }
 
+    function handleRowClick() {
+        navigate(`/mail/${mail.id}`)
+   
+    }
 
     return (
-        <section className="mail-preview">
-           <h4> {mail.subject}</h4>
-            <p>From: {mail.from}</p>
-            <p>Sent At: {onDate(mail.sentAt)}</p>
-            <LongTxt txt={mail.body} />
-        </section>
+        <tr className="mail-preview" onClick={handleRowClick}>
+            <td>{mail.fullname}</td>
+            <td>{mail.subject}</td>
+            <td><LongTxt txt={mail.body} /></td>
+            <td>{onDate(mail.sentAt)}</td>    
+        </tr>     
     )
-
 
 }

@@ -97,20 +97,19 @@ function save(mail) {
 }
 
 
-function getEmptyMail(from = loggedinUser.email, to = ' ', subject = ' ', body = ' ') {
+function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
     return {
-    fullname: 'no name',
+    fullname: loggedinUser.fullname,
     createdAt: Date.now(), 
     subject,
     body,
     isRead: false,
     sentAt :0, 
     removedAt : null,
-    from: from || loggedinUser.email,
+    from: loggedinUser.email,
     to,
     status:'inbox'
      
-    
     }
 }
 
