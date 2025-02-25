@@ -59,7 +59,7 @@ function getEmptyNoteTxt() {
         type: 'NoteTxt',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { txt: '' }
+        info: { title: '', txt: '' }
     }
 }
 
@@ -120,6 +120,7 @@ function _createNotes() {
                     backgroundColor: '#E8EAED'
                 },
                 info: {
+                    title: 'SHOP',
                     txt: 'Get Materna'
                 }
             },
