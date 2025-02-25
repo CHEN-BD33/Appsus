@@ -73,6 +73,8 @@ function getMonthName(date) {
     return monthNames[date.getMonth()]
 }
 
+<<<<<<< HEAD
+=======
 function debounce(callback, wait) {
     let timeoutId = null;
     return (...args) => {
@@ -82,3 +84,4 @@ function debounce(callback, wait) {
         }, wait);
     };
 }
+>>>>>>> eb247558470a9e948d9b71b1dc7c461607761344
