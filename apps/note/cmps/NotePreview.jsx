@@ -5,7 +5,7 @@ import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
 
-export function NotePreview({ note, handleChange }) {
+export function NotePreview({ note, onRemove, handleChange }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -21,18 +21,19 @@ export function NotePreview({ note, handleChange }) {
 
     return (
         <section className='note-preview' style={{ backgroundColor }}>
+            <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
             <section className='note-actions'>
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
+                <button onClick={() => onRemove(note.id)} className='close'><img src='assets\css\imgs\delete.svg'></img></button>
             </section>
-            <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} />
         </section>
     )
 }
 
-function DynamicCmp({ type, info, onChangeInfo }) {
+function DynamicCmp({ type, info, onChangeInfo, isPreview }) {
     switch (type) {
         case 'NoteTxt':
-            return <NoteTxt info={info} onChangeInfo={onChangeInfo} />
+            return <NoteTxt info={info} onChangeInfo={onChangeInfo} isPreview={isPreview} />
         case 'NoteImg':
             return <NoteImg info={info} onChangeInfo={onChangeInfo} />
         case 'NoteVideo':

@@ -21,7 +21,7 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
     return (
         <section className='color-picker'>
             <section className='color-picker-btn'>
-                <button onClick={() => setIsOpen(!isOpen)} style={{ backgroundColor }}>color</button>
+                <button onClick={() => setIsOpen(!isOpen)} style={{ backgroundColor }}><img src='assets\css\imgs\colorpicker.svg'></img></button>
 
                 {isOpen && (
                     <div className='color-options'>

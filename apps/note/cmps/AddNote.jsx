@@ -2,20 +2,44 @@ import { NoteTxt } from "./NoteTxt.jsx"
 import { NoteImg } from "./NoteImg.jsx"
 import { NoteVideo } from "./NoteVideo.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
+import { ColorPicker } from "./ColorPicker.jsx"
+
 
 import { noteService } from "../services/note.service.js"
 
-const { useState } = React
+const { useState, useEffect, useRef } = React
 
 export function AddNote({ handleChange }) {
     const [note, setNote] = useState(noteService.getEmptyNoteTxt())
     const [noteType, setNoteType] = useState('NoteTxt')
+    const [isExpanded, setIsExpanded] = useState(false)
+    const noteRef = useRef(null)
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (noteRef.current && !noteRef.current.contains(event.target)) {
+                if (isExpanded) {
+                    handleSubmit(null)
+                }
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [isExpanded])
+
+
 
     function handleSubmit(ev) {
-        ev.preventDefault()
+        if (ev) {
+            ev.preventDefault()
+            ev.stopPropagation()
+        } 
 
         handleChange(note)
         resetNote()
+        setIsExpanded(false)
     }
 
     function handleTypeChange(type) {
@@ -40,6 +64,11 @@ export function AddNote({ handleChange }) {
         setNote(prevNote => ({ ...prevNote, info: newInfo }))
     }
 
+    function onChangeColor(color) {
+        const updatedNote = { ...note, style: { ...note.style, backgroundColor: color } }
+        handleChange(updatedNote)
+    }
+
     function resetNote() {
         let emptyNote
         switch (noteType) {
@@ -59,29 +88,45 @@ export function AddNote({ handleChange }) {
         setNote(emptyNote)
     }
 
+    function expandNote() {
+        setIsExpanded(true)
+    }
+
     return (
-        <div className='add-note-container'>
-            <form onSubmit={handleSubmit}>
-
-                <section className='add-note'>
-                    {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} />)}
-                    {/* <input type="text" id="txt" name="txt" value={note} onChange={(e) => setNote(e.target.value)} placeholder='Enter text..' /> */}
-                    {noteType === 'NoteImg' && (<NoteImg info={note.info} onChangeInfo={onChangeInfo} />)}
-                    {noteType === 'NoteVideo' && (<NoteVideo info={note.info} onChangeInfo={onChangeInfo} />)}
-                    {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
-                </section>
-
-                <section className='note-actions'>
-                    <div className='note-type-btn'>
-                        <button type='button' onClick={() => handleTypeChange('NoteTxt')} title='Text Note'>Text</button>
-                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'>Image</button>
-                        <button type='button' onClick={() => handleTypeChange('NoteVideo')} title='Video Note'>Video</button>
-                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'>Todos</button>
+        <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}>
+            {!isExpanded ? (
+                // Collapsed state
+                <div className="add-note-compact" onClick={expandNote}>
+                    <div className="add-note-types">
+                        <NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={false} />
                     </div>
-                    <button type='submit'>Add Note</button>
-                </section>
+                    <div className="note-more-types">
+                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'><img src='assets\css\imgs\notetodos.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'><img src='assets\css\imgs\noteimage.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteVideo')} title='Video Note'><i className="fa-brands fa-youtube"></i></button>
+                    </div>
+                </div>
+            ) : (
+                //Expand state
+                <form onSubmit={handleSubmit}>
 
-            </form>
-        </div>
+                    <section className='add-note'>
+                        {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={true} />)}
+                        {noteType === 'NoteImg' && (<NoteImg info={note.info} onChangeInfo={onChangeInfo} />)}
+                        {noteType === 'NoteVideo' && (<NoteVideo info={note.info} onChangeInfo={onChangeInfo} />)}
+                        {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
+                    </section>
+
+                    <div className='note-btn'>
+                        <ColorPicker onChangeColor={onChangeColor} />
+                    </div>
+                    <section className='note-actions'>
+                    <button type="submit" className="save-button">Save</button>
+                    <button type="button" onClick={() => setIsExpanded(false)} className="close-button">Close</button>
+                    </section>
+
+                </form>
+            )}
+        </div >
     )
 }
