@@ -19,7 +19,7 @@ export function MailPreview({mail}){
 
     return (
         <tr className="mail-preview" onClick={handleRowClick}>
-            <td>{mail.fullname}</td>
+            <span></span><td>{mail.fullname}</td>
             <td>{mail.subject}</td>
             <td><LongTxt txt={mail.body} /></td>
             <td>{onDate(mail.sentAt)}</td>    

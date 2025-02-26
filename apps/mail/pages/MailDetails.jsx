@@ -25,7 +25,7 @@ export function MailDetails(onRemoveMail){
 
     return (
         <section className="mail-details">
-            <h1>Mail subject: {mail.subject}</h1>
+            <h1>{mail.subject}</h1>
             <h3>From:{mail.from}</h3>
             <h3>To:{mail.to}</h3>
             <h3>Sent At:{new Date(mail.sentAt).toLocaleString()}</h3>

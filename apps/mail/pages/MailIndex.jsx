@@ -5,7 +5,6 @@ import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
-import { MailCompose } from "../cmps/MailCompose.jsx"
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
@@ -14,7 +13,7 @@ export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
 
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
 
    
     useEffect(() => {

@@ -44,10 +44,10 @@ export function MailCompose(){
 
     return (
         <section className='mail-compose'>
+
             <div className="mail-compose-header">
             <h2>{mailId ? "Edit Message" : "New Message"}</h2>
             <button onClick={onClose} className="close-btn">X</button>
-            <button></button>
             </div>
             
             <form onSubmit={onSaveMail}>
@@ -76,8 +76,10 @@ export function MailCompose(){
                     id='body'
                     required
                 ></textarea>
-    
-                <button type='submit'>Save</button>
+
+                <div className="mail-compose-footer">
+                    <button type='submit'>Send</button>
+                </div>
             </form>
         </section>
     )

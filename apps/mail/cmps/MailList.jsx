@@ -1,4 +1,4 @@
-import { MailDetails } from "../pages/MailDetails.jsx"
+
 import { MailPreview } from "./MailPreview.jsx"
 
 
