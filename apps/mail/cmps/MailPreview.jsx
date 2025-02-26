@@ -3,7 +3,7 @@ const {useNavigate} = ReactRouterDOM
 
 
 
-export function MailPreview({mail}){
+export function MailPreview({mail ,onMarkAsRead }){
     const navigate = useNavigate()
 
     function onDate(timestamp){
@@ -13,16 +13,22 @@ export function MailPreview({mail}){
     }
 
     function handleRowClick() {
+        if (!mail.isRead) onMarkAsRead(mail.id)
         navigate(`/mail/${mail.id}`)
-   
+        mail.isRead =  true
     }
 
     return (
-        <tr className="mail-preview" onClick={handleRowClick}>
-            <span></span><td>{mail.fullname}</td>
-            <td>{mail.subject}</td>
-            <td><LongTxt txt={mail.body} /></td>
-            <td>{onDate(mail.sentAt)}</td>    
+        <tr className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`} onClick={handleRowClick}>
+            <td className="fullname">{mail.fullname}</td>
+            
+            <td className="text">
+                <span className="subject">{mail.subject}</span>
+                <span> - </span>
+                <span className="body"><LongTxt txt={ mail.body} /></span>
+                
+            </td>
+            <td className="date">{onDate(mail.sentAt)}</td>    
         </tr>     
     )
 

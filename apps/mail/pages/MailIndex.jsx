@@ -17,8 +17,8 @@ export function MailIndex() {
 
    
     useEffect(() => {
-        setSearchParams(filterBy)
         loadMails()
+        setSearchParams(filterBy)
     }, [filterBy])
 
     function loadMails() {
@@ -31,6 +31,25 @@ export function MailIndex() {
                 showErrorMsg('Failed to load mails')
             })
     }
+
+    function onMarkAsRead(mailId) {
+        mailService.get(mailId) 
+            .then((mail) => {
+                mail.isRead = true 
+                return mailService.save(mail) 
+            })
+            .then(() => {
+                setMails((prevMails) =>
+                    prevMails.map((mail) =>
+                        mail.id === mailId ? { ...mail, isRead: true } : mail
+                    )
+                )
+            })
+            .catch((err) => {
+                console.error('err:', err)
+            })
+    }
+
 
     function onRemoveMail(mailId) {
         mailService.remove(mailId)
@@ -71,7 +90,7 @@ export function MailIndex() {
 
             <div className="mail-main">
                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                <MailList mails={mails} />
+               <MailList mails={mails} onMarkAsRead={onMarkAsRead} />
             </div>
             </div>
             

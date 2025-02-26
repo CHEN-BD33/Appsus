@@ -176,7 +176,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'bobo@bobo.com',
     to: 'user2@appsus.com',
-      status:'inbox'
+    status:'inbox'
 },
 {
     id: 'e103',
@@ -189,7 +189,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'dodo@dodo.com',
     to: 'user3@appsus.com',
-      status:'inbox'
+    status:'inbox'
 }
 ]
 

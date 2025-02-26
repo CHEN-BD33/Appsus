@@ -1,16 +1,25 @@
-import { MailUnreadCounter } from "./MailUnreadCounter.jsx";
+import { MailUnreadCounter } from "./MailUnreadCounter.jsx"
+const {useNavigate} = ReactRouterDOM 
+
 
 
 export function MailFolderList({ onFolderSelect }){
-     return(
-        <section className="mailFolder-list">
 
-        <button onClick={() => onFolderSelect('inbox')}>Inbox <MailUnreadCounter /></button>
-        <button onClick={() => onFolderSelect('sent')}>Sent</button>
-        <button onClick={() => onFolderSelect('trash')}>Trash</button>
-        <button onClick={() => onFolderSelect('draft')}>Draft</button>
-        </section>
-        )
+        const navigate = useNavigate()
+
+        function handleFolderClick(folder) {
+            onFolderSelect(folder)
+        }
+        return (
+                <section className="mailFolder-list">
+                    <button onClick={() => handleFolderClick("")}>
+                        Inbox <MailUnreadCounter />
+                    </button>
+                    <button onClick={() => handleFolderClick("sent")}>Sent</button>
+                    <button onClick={() => handleFolderClick("trash")}>Trash</button>
+                    <button onClick={() => handleFolderClick("draft")}>Draft</button>
+                </section>
+            )
 
 }
 
