@@ -1,0 +1,190 @@
+.add-note-container {
+    max-width: 600px;
+    margin: 0 auto 32px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 #202124;
+}
+
+.add-note-compact {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    width: 100%;
+    min-height: 46px;
+    justify-content: space-between;
+}
+
+.note-more-types,
+.note-actions {
+    display: flex;
+    align-items: center;
+
+}
+
+.note-more-types {
+    gap: 20px;
+    padding-right: 8px;
+}
+
+
+.note-more-types button {
+    width: 24px;
+    height: 24px;
+    opacity: 0.54;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.note-more-types button:hover {
+    opacity: 1;
+}
+
+.note-more-types img,
+.note-more-types i {
+    width: 20px;
+    height: 20px;
+    color: var(--gray3);
+}
+
+.note-more-types .fa-youtube {
+    font-size: 20px;
+}
+
+/* //expanded// */
+
+.add-note form {
+    padding: 12px 16px;
+}
+
+.add-note-container.expanded .add-note {
+    margin-bottom: 8px;
+}
+
+.note-actions {
+    justify-content: space-between;
+    padding-top: 8px;
+    margin-top: auto;
+}
+
+.note-actions .save-button,
+.note-actions .close-button {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--gray5);
+    background: none;
+    border: none;
+    min-width: 70px;
+    margin-left: 8px;
+    /* transition: background-color 0.2s; */
+}
+
+.note-actions .save-button:hover,
+.note-actions .close-button:hover {
+    background-color: var(rgba(95, 99, 104, 0.157));
+}
+
+
+/* input */
+
+.note-text-title::placeholder,
+.note-img-title input::placeholder,
+.note-video-title input::placeholder,
+.note-todos-title input::placeholder,
+.note-text-title,
+.note-img-title input,
+.note-video-title input,
+.note-todos-title input,
+.note-text-txt::placeholder,
+.note-img-url input::placeholder,
+.note-video-url input::placeholder,
+.note-add-new-todo input::placeholder,
+.filter-container input::placeholder,
+.note-text-txt,
+.note-img-url input,
+.note-video-url input,
+.note-add-new-todo input {
+    border: none;
+    outline: none;
+    color: var(--grey5);
+    background: #fff;
+    font-family: 'google sans', 'Roboto', Arial, sans-serif;
+}
+
+.note-text-title::placeholder,
+.note-img-title input::placeholder,
+.note-video-title input::placeholder,
+.note-todos-title input::placeholder,
+.note-text-title,
+.note-img-title input,
+.note-video-title input,
+.note-todos-title input {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+}
+
+.note-text-txt::placeholder,
+.note-img-url input::placeholder,
+.note-video-url input::placeholder,
+.note-add-new-todo input::placeholder,
+.filter-container input::placeholder,
+.note-text-txt,
+.note-img-url input,
+.note-video-url input,
+.note-add-new-todo input {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+}
+
+.note-text-txt {
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.note-img-url input,
+.note-video-url input,
+.note-text-txt {
+    margin-bottom: 12px;
+}
+
+.note-img,
+.note-video {
+    display: flex;
+    flex-direction: column;
+}
+
+.note-img img {
+    width: 100%;
+    border-radius: 4px;
+    margin-top: 8px;
+    border: none;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin-top: 8px;
+    border: none;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 4px;
+}
