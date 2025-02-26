@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+}
+
+
 body {
     margin: 0;
 }
@@ -20,4 +25,10 @@ img {
     height: 100%;
     width: 100%;
     object-fit: cover;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
