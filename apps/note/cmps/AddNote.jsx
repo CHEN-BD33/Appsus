@@ -120,7 +120,7 @@ export function AddNote({ handleChange }) {
                     <section className='note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
                     <button type="submit" className="save-button">Save</button>
-                    <button type="button" onClick={() => setIsExpanded(false)} className="close-button">Close</button>
+                    <button type="button" onClick={() => setIsExpanded(false)} info={note.info = ''}className="close-button">Close</button>
                     </section>
 
                 </form>

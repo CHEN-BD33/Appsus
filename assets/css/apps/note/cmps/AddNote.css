@@ -1,14 +1,18 @@
 .add-note-container {
     max-width: 600px;
-    margin: 0 auto 32px;
+    width: 100%;
+    margin: auto;
     border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     background-color: #fff;
-    box-shadow: 0 1px 2px 0 #202124;
+    box-shadow: 0 1px 2px 0 var(--gray5);
+    text-align: start;
+    margin-bottom: 60px;
 }
 
 .add-note-compact {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 12px 16px;
     width: 100%;
@@ -52,7 +56,7 @@
 }
 
 .note-more-types .fa-youtube {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 /* //expanded// */
@@ -75,7 +79,7 @@
 .note-actions .close-button {
     padding: 8px 12px;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 0.875rem;
     color: var(--gray5);
     background: none;
     border: none;
@@ -86,36 +90,21 @@
 
 .note-actions .save-button:hover,
 .note-actions .close-button:hover {
-    background-color: var(rgba(95, 99, 104, 0.157));
+    background-color: rgba(95, 99, 104, 0.157);
 }
 
 
 /* input */
-
-.note-text-title::placeholder,
-.note-img-title input::placeholder,
-.note-video-title input::placeholder,
-.note-todos-title input::placeholder,
-.note-text-title,
-.note-img-title input,
-.note-video-title input,
-.note-todos-title input,
-.note-text-txt::placeholder,
-.note-img-url input::placeholder,
-.note-video-url input::placeholder,
-.note-add-new-todo input::placeholder,
-.filter-container input::placeholder,
-.note-text-txt,
-.note-img-url input,
-.note-video-url input,
-.note-add-new-todo input {
+ input {
     border: none;
     outline: none;
-    color: var(--grey5);
+    border: none;
+    padding: 16px;
+    color: var(--gray5);
     background: #fff;
     font-family: 'google sans', 'Roboto', Arial, sans-serif;
-}
-
+ }
+ 
 .note-text-title::placeholder,
 .note-img-title input::placeholder,
 .note-video-title input::placeholder,
@@ -125,9 +114,9 @@
 .note-video-title input,
 .note-todos-title input {
     margin-bottom: 8px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
-    line-height: 24px;
+    line-height: 1.5rem;
     letter-spacing: 0.1px;
 }
 
@@ -140,16 +129,25 @@
 .note-img-url input,
 .note-video-url input,
 .note-add-new-todo input {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
     letter-spacing: 0.2px;
 }
 
-.note-text-txt {
+.note-text-txt,.note-text-txt::placeholder,
+.note-text-title,.note-text-title::placeholder {
     border: none;
     outline: none;
     resize: none;
-}
+    padding: 16px;
+    color: var(--gray5);
+    background: #fff;
+    font-family: 'google sans', 'Roboto', Arial, sans-serif;
+ }
+
+ .note-text-txt,.note-text-txt::placeholder{
+    overflow: hidden;
+ }
 
 .note-img-url input,
 .note-video-url input,
