@@ -21,6 +21,9 @@
 
 /* Mail pages */
 @import './apps/mail/mail-pages/mail-index.css';
+@import './apps/mail/mail-pages/mail-details.css';
+
+
 
 
 /* Mail SETUP */

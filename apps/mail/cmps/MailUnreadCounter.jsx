@@ -15,11 +15,9 @@ export function MailUnreadCounter(){
             .catch(err => console.log('err:', err))
     }, [])
 
-    return (
-        <div>
-            <h2>{unreadCount}</h2>
-        </div>
-    )
+    return <span className="unread-count">{unreadCount}</span>
+       
+    
 
 
 

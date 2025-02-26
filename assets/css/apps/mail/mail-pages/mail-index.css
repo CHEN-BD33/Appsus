@@ -83,6 +83,10 @@ outline: none;
     max-width: 240px;
 }
 
+.unread-count{
+    font-size: 14px;
+}
+
 .mailFolder-list button{
     display: flex;
     height: 32px;
@@ -91,6 +95,7 @@ outline: none;
     align-items: center;
     background-color: transparent;
     cursor: pointer;
+    justify-content: space-between;
 }
 
 .mailFolder-list button:hover{

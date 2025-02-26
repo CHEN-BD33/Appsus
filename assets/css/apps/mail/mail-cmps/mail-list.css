@@ -25,8 +25,7 @@
 
 .mail-preview td {
     padding: 10px 15px;
-    background-color: #ffffff;
-    font-size: 14px bold;
+    font-size: 14px ;
     color: #333;
     white-space: nowrap;
     overflow: hidden;
@@ -64,7 +63,14 @@
 .mail-list p button{
     visibility: hidden;
 }
+.mail-list .unread{
+    background-color: #f2f6fc;
 
-.mail-list .mail-preview .unread{
-    color: #2e5896;
+}
+.mail-list .unread{
+    background-color: #ffffff;
+}
+
+.mail-preview .bold{
+    font-weight: bold;
 }

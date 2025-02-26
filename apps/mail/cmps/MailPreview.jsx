@@ -20,15 +20,15 @@ export function MailPreview({mail ,onMarkAsRead }){
 
     return (
         <tr className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`} onClick={handleRowClick}>
-            <td className="fullname">{mail.fullname}</td>
+            <td className={`fullname ${mail.isRead ? '' : 'bold'}`}>{mail.fullname}</td>
             
             <td className="text">
-                <span className="subject">{mail.subject}</span>
+                <span className={`subject ${mail.isRead ? '' : 'bold'}`} >{mail.subject}</span>
                 <span> - </span>
                 <span className="body"><LongTxt txt={ mail.body} /></span>
                 
             </td>
-            <td className="date">{onDate(mail.sentAt)}</td>    
+            <td className={`date ${mail.isRead ? '' : 'bold'}`}>{onDate(mail.sentAt)}</td>    
         </tr>     
     )
 
