@@ -3,6 +3,7 @@
 @import './basics/base.css';
 @import './basics/helpers.css';
 @import './basics/layout.css';
+@import './basics/typography.css';
 
 @import './cmps/Home.css';
 @import './cmps/UserMsg.css';
@@ -10,7 +11,9 @@
 @import './cmps/LabelPicker.css';
 
 
-@import './apps/note/NoteIndex.css';
-@import './apps/note/ColorPicker.css';
+@import './apps/note/pages/NoteIndex.css';
+@import './apps/note/cmps/NoteFilter.css';
+@import './apps/note/cmps/ColorPicker.css';
+
 @import './apps/mail/MailIndex.css';
 @import './apps/mail/MailList.css';
