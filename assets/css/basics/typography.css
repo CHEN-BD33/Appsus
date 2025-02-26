@@ -1,0 +1,25 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('assets/css/fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Roboto-Medium';
+    src: url('assets/css/fonts/Roboto-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('assets/css/fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Google Sans-Medium';
+    src: url('assets/css/fonts/OpenSans-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Product Sans';
+    src: url('assets/css/fonts/ProductSans-Regular.ttf');
+}
+

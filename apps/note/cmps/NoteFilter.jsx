@@ -5,7 +5,7 @@ const { useState, useEffect, useRef } = React
 export function NoteFilter({ filterBy, onFilterBy }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-    const initialFilterBy = useRef({ ...filterBy })
+    // const initialFilterBy = useRef({ ...filterBy })
 
     const onSetFilterDebounce = useRef(utilService.debounce(onFilterBy, 1500))
 
@@ -18,9 +18,9 @@ export function NoteFilter({ filterBy, onFilterBy }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, txt: value }))
     }
 
-    function reset() {
-        setFilterByToEdit(initialFilterBy.current)
-    }
+    // function reset() {
+    //     setFilterByToEdit(initialFilterBy.current)
+    // }
 
     function onSubmitForm(ev) {
         ev.preventDefault()
@@ -29,13 +29,11 @@ export function NoteFilter({ filterBy, onFilterBy }) {
 
     return (
         <section className="note-filter">
-            <h2>Search Notes</h2>
 
             <form onSubmit={onSubmitForm} className="filter-container">
-                <label htmlFor="search-input">Search</label>
+                <label htmlFor="search-input"></label>
                 <input name="txt" value={filterByToEdit.txt || ''} onChange={handleChange} type="text" id="searchInput" placeholder="Search in notes..." />
-                <button type="button" onClick={reset}>Reset</button>
-                <button>Submit</button>
+                {/* <button type="button" onClick={reset}>Reset</button> */}
             </form>
         </section>
     )

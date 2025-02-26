@@ -63,9 +63,9 @@ export function NoteIndex() {
 
     return (
         <section className='note-index'>
-            <h2>My Notes</h2>
-            <AddNote handleChange={handleChange} />
+           
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
+            <AddNote handleChange={handleChange} />
             <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} />
 
         </section>
