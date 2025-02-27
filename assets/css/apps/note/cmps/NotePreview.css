@@ -6,6 +6,8 @@
     border-radius: 8px;
     transition: box-shadow 0.2s;
     position: relative;
+    max-height: 600px;
+    width: 100%;
 }
 
 .note-preview:hover {

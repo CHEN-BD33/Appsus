@@ -12,13 +12,14 @@
 
 .add-note-compact {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
+    justify-content: space-between;
     padding: 12px 16px;
     width: 100%;
-    min-height: 46px;
-    justify-content: space-between;
+    height: 46px;
 }
+
 
 .note-more-types,
 .note-actions {
@@ -146,6 +147,7 @@
  } 
 
  .note-text-txt,.note-text-txt::placeholder{
+    height: 60px;
     overflow: hidden;
  }
 
