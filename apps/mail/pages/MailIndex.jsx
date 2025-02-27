@@ -5,7 +5,6 @@ import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
-import { MailCompose } from "../cmps/MailCompose.jsx"
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
@@ -13,13 +12,11 @@ const { useSearchParams } = ReactRouterDOM
 export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
+    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
 
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams))
-
-   
     useEffect(() => {
-        setSearchParams(filterBy)
         loadMails()
+        setSearchParams(filterBy)
     }, [filterBy])
 
     function loadMails() {
@@ -32,6 +29,25 @@ export function MailIndex() {
                 showErrorMsg('Failed to load mails')
             })
     }
+
+    function onMarkAsRead(mailId) {
+        mailService.get(mailId) 
+            .then((mail) => {
+                mail.isRead = true 
+                return mailService.save(mail) 
+            })
+            .then(() => {
+                setMails((prevMails) =>
+                    prevMails.map((mail) =>
+                        mail.id === mailId ? { ...mail, isRead: true } : mail
+                    )
+                )
+            })
+            .catch((err) => {
+                console.error('err:', err)
+            })
+    }
+
 
     function onRemoveMail(mailId) {
         mailService.remove(mailId)
@@ -72,7 +88,7 @@ export function MailIndex() {
 
             <div className="mail-main">
                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-                <MailList mails={mails} />
+               <MailList mails={mails} onMarkAsRead={onMarkAsRead} />
             </div>
             </div>
             

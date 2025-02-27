@@ -4,7 +4,7 @@ const { useState, useEffect } = React
 
 const { useParams,useNavigate ,Link} = ReactRouterDOM
 
-export function MailDetails(onRemoveMail){
+export function MailDetails(){
     const [mail, setMail] = useState(null)
     const params = useParams()
 
@@ -25,16 +25,18 @@ export function MailDetails(onRemoveMail){
 
     return (
         <section className="mail-details">
-            <h1>Mail subject: {mail.subject}</h1>
-            <h3>From:{mail.from}</h3>
-            <h3>To:{mail.to}</h3>
-            <h3>Sent At:{new Date(mail.sentAt).toLocaleString()}</h3>
-            <p>{mail.body}</p>
+            <h1 className="mail-subject">{mail.subject}</h1>
+            <h3 className="sender-info">{mail.from} {mail.fullName}</h3>
+            <h3 className="mail-to" >To:{mail.to}</h3>
+            <h3 className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</h3>
+            <p className="mail-body">{mail.body}</p>
+            <div className="action-buttons">
             <button><Link to="/mail">Back to List</Link></button>
             <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
             <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
             <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
-        </section>
+            </div>
+            </section>
     )
 
 

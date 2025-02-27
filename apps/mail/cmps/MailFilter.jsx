@@ -43,21 +43,7 @@ export function MailFilter({ filterBy, onSetFilter}) {
               placeholder="Search mail"
             />
             </div>
-            
-    
-            {/* <label htmlFor="isRead">Read:</label>
-            <select
-              id="isRead"
-              name="isRead"
-              value={isRead === true ? 'true' : isRead === false ? 'false' : ''}
-              onChange={handleChange}
-            >
-              <option value="">All</option>
-              <option value="true">Read</option>
-              <option value="false">Unread</option>
-            </select> */}
-    
-            {/* <button type="submit">submit</button> */}
+
           </form>
         </section>
       )

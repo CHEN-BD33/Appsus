@@ -29,10 +29,16 @@
 
 /* Mail pages */
 @import './apps/mail/mail-pages/mail-index.css';
+@import './apps/mail/mail-pages/mail-details.css';
+
+
 
 
 /* Mail SETUP */
 @import './apps/mail/mail-setup/typography.css';
 
+
+
+@import './apps/note/ColorPicker.css';
 
 
