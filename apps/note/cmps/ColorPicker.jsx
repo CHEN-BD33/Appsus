@@ -21,12 +21,18 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
     return (
         <section className='color-picker'>
             <section className='color-picker-btn'>
-                <button onClick={() => setIsOpen(!isOpen)} style={{ backgroundColor }}><img src='assets\css\imgs\colorpicker.svg'></img></button>
+                <button onClick={(e) => {
+                    e.stopPropagation()
+                    e.preventDefault()
+                    setIsOpen(!isOpen)
+                }} style={{ backgroundColor }}><img src='assets\css\imgs\colorpicker.svg'></img></button>
 
                 {isOpen && (
                     <div className='color-options'>
                         {colors.map(color => (
-                            <div key={color} className='color-option' style={{ backgroundColor: color }} onClick={() => {
+                            <div key={color} className='color-option' style={{ backgroundColor: color }} onClick={(e) => {
+                                e.stopPropagation()
+                                e.preventDefault()
                                 onChangeColor(color)
                                 setIsOpen(false)
                             }}>

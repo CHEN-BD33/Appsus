@@ -46,7 +46,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        const noteToSave = _createNote(note.type, note.info)
+        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor)
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }
@@ -82,14 +82,14 @@ function getEmptyNoteTodos() {
 }
 
 
-function _createNote(type, info) {
+function _createNote(type, info, backgroundColor) {
     return {
         id: utilService.makeId(),
         createdAt: Date.now(),
         type,
         isPinned: false,
         style: {
-            backgroundColor: '#ffffff'
+            backgroundColor,
         },
         info
     }

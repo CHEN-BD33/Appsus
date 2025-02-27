@@ -35,7 +35,7 @@ export function AddNote({ handleChange }) {
         if (ev) {
             ev.preventDefault()
             ev.stopPropagation()
-        } 
+        }
 
         handleChange(note)
         resetNote()
@@ -66,9 +66,9 @@ export function AddNote({ handleChange }) {
     }
 
     function onChangeColor(color) {
-        const updatedNote = { ...note, style: { ...note.style, backgroundColor: color } }
-        handleChange(updatedNote)
+        setNote(prevNote => ({ ...prevNote,style: { ...prevNote.style, backgroundColor: color }}));
     }
+
 
     function resetNote() {
         let emptyNote
@@ -94,7 +94,8 @@ export function AddNote({ handleChange }) {
     }
 
     return (
-        <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}>
+        <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
+            style={isExpanded ? { backgroundColor: note.style.backgroundColor } : {}}>
             {!isExpanded ? (
                 // Collapsed state
                 <div className="add-note-compact" onClick={expandNote}>
@@ -109,7 +110,8 @@ export function AddNote({ handleChange }) {
                 </div>
             ) : (
                 //Expand state
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}
+                    style={{ backgroundColor: note.style.backgroundColor }}>
 
                     <section className='add-note'>
                         {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={true} />)}
@@ -120,8 +122,8 @@ export function AddNote({ handleChange }) {
 
                     <section className='note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
-                    <button type="submit" className="save-button">Save</button>
-                    <button type="button" onClick={() => setIsExpanded(false)} info={note.info}className="close-button">Close</button>
+                        <button type="submit" className="save-button">Save</button>
+                        <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
                     </section>
 
                 </form>
