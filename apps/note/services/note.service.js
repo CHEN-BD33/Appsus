@@ -117,7 +117,7 @@ function _createNotes() {
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#E8EAED'
+                    backgroundColor: '#F6C5A2'
                 },
                 info: {
                     title: 'SHOP',
@@ -159,7 +159,7 @@ function _createNotes() {
                 type: 'NoteVideo',
                 isPinned: false,
                 style: {
-                    backgroundColor: '#B4DDE3'
+                    backgroundColor: '#FEF3A0'
                 },
                 info: {
                     url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
