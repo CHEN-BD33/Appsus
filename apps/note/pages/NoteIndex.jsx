@@ -3,7 +3,7 @@ import { NoteFilter } from '../cmps/NoteFilter.jsx'
 import { NoteList } from '../cmps/NoteList.jsx'
 
 import { noteService } from '../services/note.service.js'
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
+import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
 
@@ -63,9 +63,9 @@ export function NoteIndex() {
 
     return (
         <section className='note-index'>
-            <h2>My Notes</h2>
+           
+            {/* <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} /> */}
             <AddNote handleChange={handleChange} />
-            <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
             <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} />
 
         </section>

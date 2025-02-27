@@ -117,12 +117,10 @@ export function AddNote({ handleChange }) {
                         {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
                     </section>
 
-                    <div className='note-btn'>
-                        <ColorPicker onChangeColor={onChangeColor} />
-                    </div>
                     <section className='note-actions'>
+                        <ColorPicker onChangeColor={onChangeColor} />
                     <button type="submit" className="save-button">Save</button>
-                    <button type="button" onClick={() => setIsExpanded(false)} className="close-button">Close</button>
+                    <button type="button" onClick={() => setIsExpanded(false)} info={note.info = ''}className="close-button">Close</button>
                     </section>
 
                 </form>

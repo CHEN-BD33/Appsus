@@ -49,7 +49,7 @@ export function NoteTodos({ info, onChangeInfo }) {
 
             <section className='note-todos-list'>
                 <ul>
-                    {infoToEdit.todos.map((todo, idx) => (
+                    {infoToEdit.todos && infoToEdit.todos.map((todo, idx) => (
                         <li key={idx} className='todo-item'>
                             <input type='checkbox' checked={todo.doneAt !== null} onChange={() => toggleTodo(idx)} id={`todo-${idx}`} />
                             <label htmlFor={`todo-${idx}`} style={{ textDecoration: todo.doneAt ? 'line-through' : 'none', color: todo.doneAt ? '#888' : 'inherit', cursor: 'pointer', userSelect: 'none' }}>{todo.txt}</label>
