@@ -1,9 +1,10 @@
 .mail-compose {
-    width: 400px;
-    padding: 20px;
+    
+    width: 360px;
+    padding: 0;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     /* font-family: Arial, sans-serif; */
     position: fixed;
     bottom: 0;
@@ -11,68 +12,91 @@
 }
 
 .mail-compose-header {
-    padding: 0;
+    background-color:#f2f6fc;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    padding: 10px;
 }
 
 .mail-compose-header h2 {
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: normal;
+    color: #333;
     margin: 0;
 }
 
-.close-btn {
+.mail-compose .close-btn {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     color: #777;
     transition: color 0.3s;
 }
 
+.mail-compose .close-btn:hover {
+    color: #000;
+}
 
-form {
+
+.mail-compose form {
     display: flex;
     flex-direction: column;
+    padding: 0 12px 0;
+   
+    
 }
 
-input, textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+.mail-compose input,.mail-compose textarea {
+    margin: 5px;
     font-size: 14px;
-    border:none;
-    border-bottom: 1px solid rgb(189, 189, 189);
+    border: none;
+    color: #333;
 }
 
-input:disabled {
+.mail-compose input{
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.mail-compose input::placeholder, .mail-compose textarea::placeholder {
+    color: #999;
+}
+
+.mail-compose input:disabled {
     background-color: #f5f5f5;
 }
 
-input:focus, textarea:focus{
+.mail-compose input:focus, .mail-compose textarea:focus{
+    border-bottom: 1px solid #666;
     outline: none;
 }
-textarea {
-    resize: vertical;
+.mail-compose textarea {
+    resize: none;
     min-height: 380px;
 }
 
+.mail-compose-footer{
+    display: flex;
+    height: 32px;
+    padding: 12px 0 16px;
+}
 
-button[type="submit"] {
-    background-color: #254bbd;
+.mail-compose button[type="submit"] {
+    background-color: #0366d6;
     color: white;
     border: none;
-    line-height: 18px;
+    padding: 8px 20px;
     text-align: center;
-    border-radius: 18px 0px 0px 18px;    
+    border-radius: 18px;
     font-size: 14px;
     cursor: pointer;
     transition: background 0.3s;
-    box-shadow:none
+    align-self: flex-start;
 }
 
-button[type="submit"]:hover {
-    background-color: #254bbd;
+.mail-compose button[type="submit"]:hover {
+    background-color: #0350a6;
 }

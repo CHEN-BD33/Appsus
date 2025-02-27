@@ -22,7 +22,6 @@ body {
 .mail-main{
     display: flex;
     flex-direction: column;
-    width: -webkit-fill-available;
 }
 
 .mail-filter{
@@ -35,7 +34,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #e2eaf3;
+    background-color: #e9eef6;
     height: 56px;
     border-radius: 10px;
     padding: 0 0 0 8px;
@@ -84,6 +83,10 @@ outline: none;
     max-width: 240px;
 }
 
+.unread-count{
+    font-size: 14px;
+}
+
 .mailFolder-list button{
     display: flex;
     height: 32px;
@@ -92,6 +95,7 @@ outline: none;
     align-items: center;
     background-color: transparent;
     cursor: pointer;
+    justify-content: space-between;
 }
 
 .mailFolder-list button:hover{

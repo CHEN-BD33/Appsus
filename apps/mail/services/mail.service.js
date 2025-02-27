@@ -29,7 +29,7 @@ const filterBy = {
       .then(mails => {
         if (!mails || !mails.length) {
           mails = gMails;
-          _saveMailsToStorage();
+          _saveMailsToStorage()
         }
         
         if (filterBy.status) {
@@ -37,27 +37,25 @@ const filterBy = {
         }
         
         if (filterBy.txt) {
-          const regExp = new RegExp(filterBy.txt, 'i');
-          mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body));
+          const regExp = new RegExp(filterBy.txt, 'i')
+          mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
         }
     
         if (typeof filterBy.isRead === 'boolean') {
-          mails = mails.filter(mail => mail.isRead === filterBy.isRead);
+          mails = mails.filter(mail => mail.isRead === filterBy.isRead)
         }
         
         if (typeof filterBy.isStared === 'boolean') {
-          mails = mails.filter(mail => mail.isStared === filterBy.isStared);
+          mails = mails.filter(mail => mail.isStared === filterBy.isStared)
         }
         
         if (filterBy.lables && filterBy.lables.length) {
           mails = mails.filter(mail => {
-            return mail.lables && mail.lables.some(label => filterBy.lables.includes(label));
-          });
+            return mail.lables && mail.lables.some(label => filterBy.lables.includes(label))
+          })
         }
         
-        console.log("Filter Applied:", filterBy);
-        console.log("Filtered Mails:", mails);
-        
+      
         return mails
       })
   }
@@ -103,12 +101,12 @@ function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
     createdAt: Date.now(), 
     subject,
     body,
-    isRead: false,
+    isRead: true,
     sentAt :0, 
     removedAt : null,
     from: loggedinUser.email,
     to,
-    status:'inbox'
+    status:'sent'
      
     }
 }
@@ -176,7 +174,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'bobo@bobo.com',
     to: 'user2@appsus.com',
-      status:'inbox'
+    status:'inbox'
 },
 {
     id: 'e103',
@@ -189,7 +187,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'dodo@dodo.com',
     to: 'user3@appsus.com',
-      status:'inbox'
+    status:'inbox'
 }
 ]
 
