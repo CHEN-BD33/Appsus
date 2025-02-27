@@ -1,6 +1,12 @@
- /* note index */
+ * {
+    box-sizing: border-box;
+}
 
  .note-index {
-     padding: 80px 16px 16px;
-     margin: auto;
- }
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    padding: 20px;
+}
+ 
+
