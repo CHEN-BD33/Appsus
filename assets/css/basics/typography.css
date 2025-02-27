@@ -1,25 +1,25 @@
 @font-face {
     font-family: 'Roboto';
-    src: url('assets/css/fonts/Roboto-Regular.ttf');
+    src: url('/assets/css/basics/fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Roboto-Medium';
-    src: url('assets/css/fonts/Roboto-Medium.ttf');
+    src: url('/assets/css/basics/fonts/Roboto-Medium.ttf');
 }
 
 @font-face {
     font-family: 'Google Sans';
-    src: url('assets/css/fonts/OpenSans-Regular.ttf');
+    src: url('/assets/css/basics/fonts/OpenSans-Regular.ttf');
 }
 
 @font-face {
     font-family: 'Google Sans-Medium';
-    src: url('assets/css/fonts/OpenSans-Medium.ttf');
+    src: url('/assets/css/basics/fonts/OpenSans-Medium.ttf');
 }
 
 @font-face {
     font-family: 'Product Sans';
-    src: url('assets/css/fonts/ProductSans-Regular.ttf');
+    src: url('/assets/css/basics/fonts/ProductSans-Regular.ttf');
 }
 
