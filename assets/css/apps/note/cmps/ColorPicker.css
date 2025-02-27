@@ -3,8 +3,25 @@
     margin-right: auto;
 }
 
-.color-picker-btn {
-    position: relative;
+.color-picker button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.color-picker button img {
+    width: 14px;
+    height: 14px;
+}
+
+.color-picker button:hover {
+    opacity: 1;
+    border-radius: 50%;
+    background-color: rgba(95, 99, 104, 0.1);
 }
 
 .color-options {
@@ -22,8 +39,8 @@
 }
 
 .color-option {
-    width: 25px;
-    height: 25px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid #ddd;
@@ -31,10 +48,4 @@
 
 .color-option:hover {
     transform: scale(1.1);
-}
-
-.color-picker-btn img {
-    width: 16px;
-    height: 16px;
-    opacity: 0.7;
 }
