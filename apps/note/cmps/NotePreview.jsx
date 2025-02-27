@@ -5,7 +5,7 @@ import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
 
-export function NotePreview({ note, onRemove, handleChange }) {
+export function NotePreview({ note, onRemove, handleChange, onDuplicate }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -24,7 +24,8 @@ export function NotePreview({ note, onRemove, handleChange }) {
             <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
             <section className='note-actions'>
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
-                <button onClick={() => onRemove(note.id)} className='close'><img src='assets\css\imgs\delete.svg'></img></button>
+                <button onClick={() => onDuplicate(note.id)} className='duplicate-btn' title='Copy note'><i class="fa-regular fa-clone"></i></button>
+                <button onClick={() => onRemove(note.id)} className='close' title='Delete note'><img src='assets\css\imgs\delete.svg'></img></button>
             </section>
         </section>
     )

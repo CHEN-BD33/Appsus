@@ -12,7 +12,8 @@ export const noteService = {
     getDefaultFilter,
     getEmptyNoteTxt,
     getEmptyNoteImgVid,
-    getEmptyNoteTodos
+    getEmptyNoteTodos,
+    duplicate
 }
 
 function query(filterBy = {}) {
@@ -79,6 +80,14 @@ function getEmptyNoteTodos() {
         style: { backgroundColor: '#ffffff' },
         info: { title: '', todos: [] }
     }
+}
+
+function duplicate(noteId) {
+    return get(noteId)
+        .then(note => {
+            const duplicatedNote = { ...note, id: null }
+            return save(duplicatedNote)
+        })
 }
 
 

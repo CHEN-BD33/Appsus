@@ -54,6 +54,19 @@ export function NoteIndex() {
                 showErrorMsg(`couldn't remove Note`)
             })
     }
+
+    function duplicateNote(noteId) {
+        noteService.duplicate(noteId)
+            .then(duplicateNote => {
+                setNotes(prevNotes => [duplicateNote, ...prevNotes])
+                showSuccessMsg('Note duplicated successfully!')
+            })
+            .catch(err => {
+                console.error('Failed to duplicate note:', err)
+                showErrorMsg('Failed to duplicate note')
+            })
+    }
+
     function onSetFilterBy(newFilter) {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
@@ -63,10 +76,10 @@ export function NoteIndex() {
 
     return (
         <section className='note-index'>
-           
+
             {/* <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} /> */}
             <AddNote handleChange={handleChange} />
-            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} />
+            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} />
 
         </section>
 
