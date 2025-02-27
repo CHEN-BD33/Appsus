@@ -8,7 +8,7 @@ export function MailPreview({mail ,onMarkAsRead }){
 
     function onDate(timestamp){
         const date = new Date(timestamp)
-        return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+        return date.toLocaleDateString(undefined, {  month: 'short', day: 'numeric' })
 
     }
 
@@ -17,7 +17,7 @@ export function MailPreview({mail ,onMarkAsRead }){
         navigate(`/mail/${mail.id}`)
         mail.isRead =  true
     }
-
+    
     return (
         <tr className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`} onClick={handleRowClick}>
             <td className={`fullname ${mail.isRead ? '' : 'bold'}`}>{mail.fullname}</td>

@@ -101,12 +101,12 @@ function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
     createdAt: Date.now(), 
     subject,
     body,
-    isRead: false,
+    isRead: true,
     sentAt :0, 
     removedAt : null,
     from: loggedinUser.email,
     to,
-    status:'inbox'
+    status:'sent'
      
     }
 }

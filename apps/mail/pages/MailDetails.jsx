@@ -4,7 +4,7 @@ const { useState, useEffect } = React
 
 const { useParams,useNavigate ,Link} = ReactRouterDOM
 
-export function MailDetails(onRemoveMail){
+export function MailDetails(){
     const [mail, setMail] = useState(null)
     const params = useParams()
 

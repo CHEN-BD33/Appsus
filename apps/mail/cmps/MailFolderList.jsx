@@ -12,7 +12,7 @@ export function MailFolderList({ onFolderSelect }){
         }
         return (
                 <section className="mailFolder-list">
-                    <button onClick={() => handleFolderClick("")}>
+                    <button onClick={() => handleFolderClick("inbox")}>
                         Inbox <MailUnreadCounter />
                     </button>
                     <button onClick={() => handleFolderClick("sent")}>Sent</button>
@@ -22,7 +22,5 @@ export function MailFolderList({ onFolderSelect }){
             )
 
 }
-
-
 
 
