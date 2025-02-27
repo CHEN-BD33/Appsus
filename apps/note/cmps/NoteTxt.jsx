@@ -23,7 +23,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
         }
         else if (info.txt && !info.title) {
             return (
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter your text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             )
         }
         else {
@@ -32,7 +32,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                     <section>
                         <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                     </section>
-                    <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                    <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
                 </section>
             )
         }
@@ -44,7 +44,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                 <section>
                     <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                 </section>
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             </section>
         )
     }
@@ -52,7 +52,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
     else {
         return (
             <section className='note-text'>
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             </section>
         )
     }
