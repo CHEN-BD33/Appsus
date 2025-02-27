@@ -10,6 +10,7 @@
 @import './cmps/AppHeader.css';
 @import './cmps/LabelPicker.css';
 
+/* Notes */
 
 @import './apps/note/pages/NoteIndex.css';
 @import './apps/note/cmps/NoteFilter.css';
@@ -34,8 +35,4 @@
 @import './apps/mail/mail-setup/typography.css';
 
 
-
-
-@import './apps/mail/MailIndex.css';
-@import './apps/mail/MailList.css';
 
