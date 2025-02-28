@@ -100,7 +100,6 @@
     border: none;
     outline: none;
     border: none;
-    padding: 16px;
     color: var(--gray5);
     background: #fff;
     font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
@@ -141,7 +140,6 @@
     border: none;
     outline: none;
     resize: none;
-    padding: 16px;
     color: var(--gray5);
     background: #fff;
  } 
