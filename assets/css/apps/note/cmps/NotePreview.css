@@ -14,42 +14,50 @@
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
 }
 
-.note-preview .note-actions {
+.note-preview .preview-note-actions {
     display: flex;
+    justify-content: start;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s;
     margin-top: auto;
     padding-top: 12px;
-    gap: 8px;
+    gap: 4px;
 }
 
-.note-preview:hover .note-actions {
+.note-preview:hover .preview-note-actions {
     visibility: visible;
     opacity: 1;
 }
 
-.note-preview .note-actions button {
+.note-preview .preview-note-actions button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 26px;
     height: 26px;
-    opacity: 0.7;
+    opacity: 0.54;
     transition: opacity 0.2s;
     padding: 0;
 }
 
-.note-preview .note-actions button:hover {
+.note-preview .preview-note-actions button:hover {
     opacity: 1;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
 }
 
-.note-preview .note-actions img {
-    width: 14px;
-    height: 14px;
+.note-preview .preview-note-actions img {
+    width: 18px;
+    height: 18px;
 }
+
+.duplicate-btn i {
+   font-size: 16px;
+}
+
+
+
 .pin-button {
     display: flex;
     align-items: center;
@@ -74,17 +82,17 @@
 }
 
 .pin-button:hover {
-    opacity: 1;
+    opacity: 0.87;
     background-color: rgba(95, 99, 104, 0.1);
-    color:var(--gray5);
+    color: var(--gray5);
 }
 
 .pin-button:hover .pin-icon {
-    filter: brightness(0.8); 
+    filter: brightness(0.8);
 }
 
 .pin-icon {
     width: 24px;
     height: 24px;
-    transition: filter 0.2s ease; 
+    transition: filter 0.2s ease;
 }

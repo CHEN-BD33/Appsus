@@ -20,9 +20,8 @@
     height: 46px;
 }
 
-
 .note-more-types,
-.note-actions {
+.add-note-actions {
     display: flex;
     align-items: center;
 
@@ -70,14 +69,14 @@
     margin-bottom: 8px;
 }
 
-.note-actions {
-    justify-content: space-between;
+.add-note-actions {
+    justify-content: start;
     padding-top: 8px;
     margin-top: auto;
 }
 
-.note-actions .save-button,
-.note-actions .close-button {
+.add-note-actions .save-button,
+.add-note-actions .close-button {
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 0.875rem;
@@ -89,8 +88,8 @@
     /* transition: background-color 0.2s; */
 }
 
-.note-actions .save-button:hover,
-.note-actions .close-button:hover {
+.add-note-actions .save-button:hover,
+.add-note-actions .close-button:hover {
     background-color: rgba(95, 99, 104, 0.157);
 }
 

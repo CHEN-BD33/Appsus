@@ -24,7 +24,7 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate, onToggl
             <button onClick={() => onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                 <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
             <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
-            <section className='note-actions'>
+            <section className='preview-note-actions'>
                 {/* <button onClick={() =>onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                     <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt= {note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button> */}
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
