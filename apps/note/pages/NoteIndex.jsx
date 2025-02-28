@@ -55,6 +55,23 @@ export function NoteIndex() {
             })
     }
 
+    function togglePin(noteId) {
+        const note = notes.find(note => note.id === noteId)
+        if (!note) return
+
+        const updatedNote = { ...note, isPinned: !note.isPinned }
+
+        noteService.save(updatedNote)
+            .then(savedNote => {
+                setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
+                showSuccessMsg(savedNote.isPinned ? 'Note Pinned!' : 'Note Unpinned')
+            })
+            .catch(err => {
+                console.error('Faild to update pin status', err)
+                showErrorMsg('Faild to update pin status')
+            })
+    }
+
     function duplicateNote(noteId) {
         noteService.duplicate(noteId)
             .then(duplicateNote => {
@@ -79,7 +96,7 @@ export function NoteIndex() {
 
             {/* <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} /> */}
             <AddNote handleChange={handleChange} />
-            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} />
+            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} />
 
         </section>
 

@@ -5,7 +5,7 @@ import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
 
-export function NotePreview({ note, onRemove, handleChange, onDuplicate }) {
+export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -23,8 +23,10 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate }) {
         <section className='note-preview' style={{ backgroundColor }}>
             <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
             <section className='note-actions'>
+                <button onClick={() =>onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
+                    <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt= {note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
-                <button onClick={() => onDuplicate(note.id)} className='duplicate-btn' title='Copy note'><i class="fa-regular fa-clone"></i></button>
+                <button onClick={() => onDuplicate(note.id)} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>
                 <button onClick={() => onRemove(note.id)} className='close' title='Delete note'><img src='assets\css\imgs\delete.svg'></img></button>
             </section>
         </section>
