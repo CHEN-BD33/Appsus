@@ -24,16 +24,29 @@ function query(filterBy = {}) {
                 notes = notes.filter(note => {
                     if (note.type === 'NoteTxt') {
                         return regExp.test(note.info.txt)
+                    } else if (note.type === 'NoteImg' || note.type === 'NoteVideo') {
+                        return regExp.test(note.info.title || '')
+                    } else if (note.type === 'NoteTodos') {
+                        return regExp.test(note.info.title || '') ||
+                            note.info.todos.some(todo => regExp.test(todo.txt))
                     }
                     return false
                 })
             }
+
             if (filterBy.type) {
                 notes = notes.filter(note => note.type === filterBy.type)
             }
+            notes.sort((a, b) => {
+                if (a.isPinned && !b.isPinned) return -1
+                if (!a.isPinned && b.isPinned) return 1
+                return b.createdAt - a.createdAt
+            })
+            
             return notes
         })
 }
+
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
@@ -91,12 +104,12 @@ function duplicate(noteId) {
 }
 
 
-function _createNote(type, info, backgroundColor) {
+function _createNote(type, info, backgroundColor, isPinned = false) {
     return {
         id: utilService.makeId(),
         createdAt: Date.now(),
         type,
-        isPinned: false,
+        isPinned,
         style: {
             backgroundColor,
         },
