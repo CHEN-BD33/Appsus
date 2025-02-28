@@ -50,4 +50,41 @@
     width: 14px;
     height: 14px;
 }
+.pin-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.54;
+    visibility: hidden;
+    z-index: 10;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    border-radius: 50%;
+}
 
+.note-preview:hover .pin-button {
+    visibility: visible;
+}
+
+.pin-button:hover {
+    opacity: 1;
+    background-color: rgba(95, 99, 104, 0.1);
+    color:var(--gray5)
+}
+
+.pin-button:hover .pin-icon {
+    filter: brightness(0.8); 
+}
+
+.pin-icon {
+    width: 22px;
+    height: 22px;
+    transition: filter 0.2s ease; 
+}
