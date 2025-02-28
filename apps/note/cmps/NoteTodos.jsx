@@ -23,7 +23,7 @@ export function NoteTodos({ info, onChangeInfo }) {
             doneAt: null
         }
 
-        const newTodo = { ...infoToEdit, todo: [...infoToEdit.todo, todo] }
+        const newInfo = { ...infoToEdit, todos: [...infoToEdit.todos || [], todo] }
 
         setInfoToEdit(newInfo)
         onChangeInfo(newInfo)
@@ -31,11 +31,19 @@ export function NoteTodos({ info, onChangeInfo }) {
 
     }
 
+    function removeTodo(idx) {
+        const updatedTodos = infoToEdit.todos.filter((todo, index) => index !== idx)
+        const newInfo = { ...infoToEdit, todos: updatedTodos }
+
+        setInfoToEdit(newInfo)
+        onChangeInfo(newInfo)
+    }
+
     function toggleTodo(idx) {
         const updatedTodos = [...infoToEdit.todos]
         updatedTodos[idx].doneAt = updatedTodos[idx].doneAt ? null : Date.now()
 
-        const newInfo = { ...infoToEdit, todo: updatedTodos }
+        const newInfo = { ...infoToEdit, todos: updatedTodos }
 
         setInfoToEdit(newInfo)
         onChangeInfo(newInfo)
@@ -44,7 +52,7 @@ export function NoteTodos({ info, onChangeInfo }) {
     return (
         <section className='note-todos'>
             <section className='note-todos-title'>
-                <input type='text' name='title' value={infoToEdit.title} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder='Enter title...' />
+                <input type='text' name='title' value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder='Enter title...' />
             </section>
 
             <section className='note-todos-list'>
@@ -53,6 +61,7 @@ export function NoteTodos({ info, onChangeInfo }) {
                         <li key={idx} className='todo-item'>
                             <input type='checkbox' checked={todo.doneAt !== null} onChange={() => toggleTodo(idx)} id={`todo-${idx}`} />
                             <label htmlFor={`todo-${idx}`} style={{ textDecoration: todo.doneAt ? 'line-through' : 'none', color: todo.doneAt ? '#888' : 'inherit', cursor: 'pointer', userSelect: 'none' }}>{todo.txt}</label>
+                            <button className='remove-todo-btn' onClick={() => removeTodo(idx)}>X</button>
 
                         </li>
                     ))}
@@ -60,9 +69,13 @@ export function NoteTodos({ info, onChangeInfo }) {
             </section>
 
             <section className='note-add-new-todo'>
-                <form onSubmit={handleAddTodo}>
-                    <input type='text' value={newTodo} onChange={(e) => setNewTodo(e.target.value)} style={{ backgroundColor: 'inherit', border: 'none' }} placeholder='List Item' />
-                </form>
+                <span>+</span><input type='text' value={newTodo} onChange={(e) => setNewTodo(e.target.value)} onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault()
+                        handleAddTodo(e)
+                    }
+                }} style={{ backgroundColor: 'inherit', border: 'none' }} placeholder='List Item' />
+
             </section>
 
         </section>
