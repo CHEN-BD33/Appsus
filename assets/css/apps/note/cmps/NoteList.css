@@ -14,7 +14,8 @@
     grid-auto-rows: max-content;
     padding: 0;
     list-style-type: none;
-    margin: 0 auto;
+    margin: 0;
+    margin-bottom: 50px; 
  }
 
  .pinned-notes-title,
@@ -27,3 +28,4 @@
     text-transform: uppercase;
     margin: 32px 32px 8px;
  } 
+

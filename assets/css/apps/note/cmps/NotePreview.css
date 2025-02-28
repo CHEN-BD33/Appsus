@@ -51,6 +51,9 @@
     height: 14px;
 }
 .pin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     top: 16px;
     right: 16px;
@@ -59,9 +62,6 @@
     cursor: pointer;
     width: 32px;
     height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     opacity: 0.54;
     visibility: hidden;
     z-index: 10;
@@ -76,7 +76,7 @@
 .pin-button:hover {
     opacity: 1;
     background-color: rgba(95, 99, 104, 0.1);
-    color:var(--gray5)
+    color:var(--gray5);
 }
 
 .pin-button:hover .pin-icon {
