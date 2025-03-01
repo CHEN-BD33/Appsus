@@ -76,7 +76,6 @@
     margin-top: auto;
 }
 
-.add-note-actions .save-button,
 .add-note-actions .close-button {
     padding: 8px 12px;
     border-radius: 4px;
@@ -89,7 +88,6 @@
     /* transition: background-color 0.2s; */
 }
 
-.add-note-actions .save-button:hover,
 .add-note-actions .close-button:hover {
     background-color: rgba(95, 99, 104, 0.157);
 }
