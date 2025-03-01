@@ -22,6 +22,7 @@ body {
 .mail-main{
     display: flex;
     flex-direction: column;
+    width: -webkit-fill-available;
 }
 
 .mail-filter{

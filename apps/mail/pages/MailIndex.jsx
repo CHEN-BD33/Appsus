@@ -1,33 +1,33 @@
-const {Link , Outlet, useLocation , useMatch} = ReactRouterDOM 
+const {Link , Outlet} = ReactRouterDOM 
 
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
-import { MailFolderList } from "../cmps/MailFolderList.jsx"
-import { MailFilter } from "../cmps/MailFilter.jsx"
-import { mailService } from "../services/mail.service.js"
-import { MailList } from "../cmps/MailList.jsx"
-import { MailDetails } from "./MailDetails.jsx"
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
+import { MailFolderList } from "../cmps/MailFolderList.jsx";
+import { mailService } from "../services/mail.service.js";
+import { MailList } from "../cmps/MailList.jsx";
+import { MailDetails } from "./MailDetails.jsx";
+import { MailFilter } from "../cmps/MailFilter.jsx";
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
 
 
 export function MailIndex() {
+    
     const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
-    const location = useLocation()
+    const [selectedMailId, setSelectedMailId] = useState(null)
 
-    const isDetailsPage = useMatch("/mail/details/:mailId")
     useEffect(() => {
         loadMails()
-        console.log('Mails:', mails)
         setSearchParams(filterBy)
     }, [filterBy])
 
     function loadMails() {
              mailService.query(filterBy)
             .then((mails) => {
-                console.log('Mails loaded:', mails)
+        console.log('Mails:', mails)
+
                 setMails(mails)
             })
             .catch((err) => {
@@ -77,11 +77,21 @@ export function MailIndex() {
         setFilterBy({ ...filterBy })
     }
 
+    function onSelectMail(mailId) {
+        setSelectedMailId(mailId) // 🔹 Set selected mail ID
+    }
+
+    function onCloseDetails() {
+        setSelectedMailId(null); // 🔹 Close details and show list again
+    }
+    console.log(selectedMailId)
+
     if (!mails) return 'Loading..'
     return (
         <section className="mail-index">
            
             <div className="mail-container">
+               {/* <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} /> */}
 
             <div className="mail-sidebar">
                 <nav className="compose-btn-container">
@@ -93,14 +103,14 @@ export function MailIndex() {
             </div>
 
             <div className="mail-main">
-               <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-               {isDetailsPage ? (
-                    <MailDetails />) 
-                    :(
-                    <MailList mails={mails} onMarkAsRead={onMarkAsRead} />)}
+            {selectedMailId ? (
+                        <MailDetails mailId={selectedMailId} onCloseDetails={onCloseDetails}/>
+                    ) : (
+                        <MailList mails={mails} onRemoveMail={onRemoveMail} onMarkAsRead={onMarkAsRead} onSelectMail={onSelectMail} />
+                    )}
             </div>
             </div>
-            
+    
             <Outlet />
         </section>
     )

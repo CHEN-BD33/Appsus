@@ -1,33 +1,36 @@
 import { mailService } from "../services/mail.service.js"
+const {Link } = ReactRouterDOM 
 
 const { useState, useEffect } = React
 
-const { useParams,useNavigate ,Link} = ReactRouterDOM
-
-export function MailDetails(){
+export function MailDetails({mailId, onCloseDetails}){
     const [mail, setMail] = useState(null)
-    const params = useParams()
+
 
     useEffect(() => {
-        loadMail()
-    }, [params.mailId])
+        if (mailId) {
+            loadMail()
+        }
+    }, [mailId])
 
     function loadMail() {
-        mailService.get(params.mailId)
-            .then(setMail)
+        mailService.get(mailId)
+            .then(mail => {
+                console.log( mail)
+                setMail(mail)})
             .catch((err) => {
                 console.log('err:', err)
             })
     }
 
 
-    if(!mail) return <div>Loading..</div>
+    if(!mail) return 'details...'
 
     return (
         <section className="mail-details">
           <div className="nav-bar-container">
             <div className="action-buttons-container">
-            <button><Link to="/mail">Back to List</Link></button>
+            <button onClick={onCloseDetails}>Back to List</button>
             <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
             </div>
             <div className="navigate-container">
@@ -36,10 +39,10 @@ export function MailDetails(){
             </div>
         </div>
 
-        <div className="mail-container">
+        <div className="mail-details-container">
             <h2 className="mail-subject">{mail.subject}</h2>
-            <div>
-            <div className="sender-info"> {mail.fullName}<span>{mail.from} </span></div>
+            <div className="user-details">
+            <div> <span className="mail-fullName">{mail.fullname} </span><span className="mail-from">{`<${mail.from}>`}</span></div>
             <span className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</span>
             </div>
             <span className="mail-to" >to {mail.to}</span>

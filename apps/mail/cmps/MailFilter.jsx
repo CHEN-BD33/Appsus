@@ -27,7 +27,7 @@ export function MailFilter({ filterBy, onSetFilter}) {
         onSetFilter(filter)
     }
 
-    const { txt, isRead } = filter
+    const {txt} = filter
 
     return (
         <section className="mail-filter">
