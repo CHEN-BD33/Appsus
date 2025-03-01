@@ -1,18 +1,21 @@
-const { useState, useEffect } = React
+import { utilService } from "../../../services/util.service.js"
+
+const { useState, useEffect, useRef } = React
 
 export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = false }) {
     const [infoToEdit, setInfoToEdit] = useState({ ...info })
-
-
-    useEffect(() => {
-        setInfoToEdit(info)
-    }, [info])
-
+    const debouncedChangeInfo = useRef(utilService.debounce((newInfo) => {onChangeInfo(newInfo)}, 1500))
+    
+        useEffect(() => {
+            setInfoToEdit(info)
+        }, [info])
+    
     function handleChange({ target }) {
         const { name, value } = target
         const newInfo = { ...infoToEdit, [name]: value }
         setInfoToEdit(newInfo)
-        onChangeInfo(newInfo)
+        debouncedChangeInfo.current(newInfo)
+        // onChangeInfo(newInfo)
     }
 
     if (isPreview) {
