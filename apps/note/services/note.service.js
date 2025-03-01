@@ -69,7 +69,7 @@ function getDefaultFilter() {
     return { txt: '', type: '' }
 }
 
-function getFilterFromSearchParams() {
+function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
     const type = searchParams.get('type') || ''
 
