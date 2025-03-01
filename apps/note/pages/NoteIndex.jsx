@@ -6,12 +6,14 @@ import { noteService } from '../services/note.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
+const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
+    const [searchParams, setSearchParams] = useSearchParams()
     const [notes, setNotes] = useState([])
-    const [filterBy, setFilterBy] = useState(noteService.getDefaultFilter())
-
+    const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
     useEffect(() => {
+        setSearchParams(filterBy)
         loadNotes()
     }, [filterBy])
 

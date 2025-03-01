@@ -13,7 +13,8 @@ export const noteService = {
     getEmptyNoteTxt,
     getEmptyNoteImgVid,
     getEmptyNoteTodos,
-    duplicate
+    duplicate,
+    getFilterFromSearchParams,
 }
 
 function query(filterBy = {}) {
@@ -42,7 +43,7 @@ function query(filterBy = {}) {
                 if (!a.isPinned && b.isPinned) return 1
                 return b.createdAt - a.createdAt
             })
-            
+
             return notes
         })
 }
@@ -66,6 +67,13 @@ function save(note) {
 }
 function getDefaultFilter() {
     return { txt: '', type: '' }
+}
+
+function getFilterFromSearchParams() {
+    const txt = searchParams.get('txt') || ''
+    const type = searchParams.get('type') || ''
+
+    return { txt, type }
 }
 
 function getEmptyNoteTxt() {
@@ -103,6 +111,10 @@ function duplicate(noteId) {
         })
 }
 
+function getEmailParamsFromNote(note) {
+    let subject = ''
+    let body = ''
+}
 
 function _createNote(type, info, backgroundColor, isPinned = false) {
     return {
