@@ -147,7 +147,9 @@
  .note-text-txt,.note-text-txt::placeholder{
     height: 60px;
     overflow: hidden;
- }
+    width: 100%;
+
+}
 
 .note-img-url input,
 .note-video-url input,
