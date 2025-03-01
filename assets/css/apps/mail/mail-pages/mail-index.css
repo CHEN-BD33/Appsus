@@ -25,7 +25,7 @@ body {
 }
 
 .mail-filter{
-    height: 56px;
+    height: 64px;
     display: flex;
     padding: 8px 0 16px 0;
 }
@@ -35,7 +35,7 @@ body {
     align-items: center;
     gap: 8px;
     background-color: #e9eef6;
-    height: 56px;
+    height: 46px;
     border-radius: 10px;
     padding: 0 0 0 8px;
 }
@@ -61,14 +61,14 @@ outline: none;
 }
 
 .compose-btn-container{
-    height: 56px;
+    height: 64px;
     padding: 8px 0 16px 8px;
     border-bottom: 1.5px solid #808080c2;
 }
 
 .compose-btn{
     color: #001d35;
-    height: 56px;
+    height: 46px;
     padding: 0 24px 0 0;
     border-radius: 16px;
     border: none;

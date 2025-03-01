@@ -14,8 +14,8 @@ export function MailPreview({mail ,onMarkAsRead }){
 
     function handleRowClick() {
         if (!mail.isRead) onMarkAsRead(mail.id)
-        navigate(`/mail/${mail.id}`)
-        mail.isRead =  true
+            navigate(`/mail/details/${mail.id}`)  
+            mail.isRead = true
     }
     
     return (

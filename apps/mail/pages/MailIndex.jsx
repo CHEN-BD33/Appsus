@@ -1,27 +1,33 @@
-const {Link , Outlet} = ReactRouterDOM 
+const {Link , Outlet, useLocation , useMatch} = ReactRouterDOM 
 
 import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
+import { MailDetails } from "./MailDetails.jsx"
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
+
 
 export function MailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
+    const location = useLocation()
 
+    const isDetailsPage = useMatch("/mail/details/:mailId")
     useEffect(() => {
         loadMails()
+        console.log('Mails:', mails)
         setSearchParams(filterBy)
     }, [filterBy])
 
     function loadMails() {
              mailService.query(filterBy)
             .then((mails) => {
+                console.log('Mails loaded:', mails)
                 setMails(mails)
             })
             .catch((err) => {
@@ -88,7 +94,10 @@ export function MailIndex() {
 
             <div className="mail-main">
                <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
-               <MailList mails={mails} onMarkAsRead={onMarkAsRead} />
+               {isDetailsPage ? (
+                    <MailDetails />) 
+                    :(
+                    <MailList mails={mails} onMarkAsRead={onMarkAsRead} />)}
             </div>
             </div>
             

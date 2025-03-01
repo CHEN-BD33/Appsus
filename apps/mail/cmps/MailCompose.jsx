@@ -71,7 +71,6 @@ export function MailCompose(){
                     id='to'
                     placeholder='To'
                     required
-                    value={mailToEdit.to || ''}
                 />
     
                 <input
@@ -81,7 +80,6 @@ export function MailCompose(){
                     id='subject'
                     placeholder='Subject'
                     required
-                    value={mailToEdit.subject || ''}
                 />
     
                 <textarea
@@ -89,7 +87,6 @@ export function MailCompose(){
                     name='body'
                     id='body'
                     required
-                    value={mailToEdit.body || ''}
                 ></textarea>
 
                 <div className="mail-compose-footer">

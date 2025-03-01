@@ -1,6 +1,6 @@
 .mail-compose {
     
-    width: 360px;
+    width: 600px;
     padding: 0;
     background-color: #fff;
     border-radius: 8px;
@@ -80,7 +80,7 @@
 
 .mail-compose-footer{
     display: flex;
-    height: 32px;
+    height: 60px;
     padding: 12px 0 16px;
 }
 

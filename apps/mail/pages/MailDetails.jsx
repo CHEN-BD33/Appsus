@@ -25,17 +25,27 @@ export function MailDetails(){
 
     return (
         <section className="mail-details">
-            <h1 className="mail-subject">{mail.subject}</h1>
-            <h3 className="sender-info">{mail.from} {mail.fullName}</h3>
-            <h3 className="mail-to" >To:{mail.to}</h3>
-            <h3 className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</h3>
-            <p className="mail-body">{mail.body}</p>
-            <div className="action-buttons">
+          <div className="nav-bar-container">
+            <div className="action-buttons-container">
             <button><Link to="/mail">Back to List</Link></button>
-            <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
-            <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
             <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
             </div>
+            <div className="navigate-container">
+            <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
+            <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
+            </div>
+        </div>
+
+        <div className="mail-container">
+            <h2 className="mail-subject">{mail.subject}</h2>
+            <div>
+            <div className="sender-info"> {mail.fullName}<span>{mail.from} </span></div>
+            <span className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</span>
+            </div>
+            <span className="mail-to" >to {mail.to}</span>
+            <p className="mail-body">{mail.body}</p>
+            </div>
+         
             </section>
     )
 

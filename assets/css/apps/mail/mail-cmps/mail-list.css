@@ -25,12 +25,12 @@
 
 .mail-preview td {
     padding: 10px 15px;
-    font-size: 14px ;
+    font-size: 14px;
     color: #333;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: 20px;
+    height: 40px;
 }
 .mail-preview .fullname{
     width: 140px;
