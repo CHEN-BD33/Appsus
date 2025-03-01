@@ -3,7 +3,7 @@
     margin-right: auto;
 }
 
-.color-picker button {
+.color-picker-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +18,7 @@
     height: 18px;
 }
 
-.color-picker button:hover {
+.color-picker-btn:hover {
     opacity: 1;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
