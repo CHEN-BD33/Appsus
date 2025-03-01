@@ -19,7 +19,7 @@ export function AddNote({ handleChange }) {
         function handleClickOutside(event) {
             if (noteRef.current && !noteRef.current.contains(event.target)) {
                 if (isExpanded) {
-                    handleSubmit(null)
+                    handleSubmit(event)
                 }
             }
         }
@@ -27,7 +27,7 @@ export function AddNote({ handleChange }) {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside)
         }
-    }, [isExpanded])
+    }, [isExpanded, note])
 
 
 
@@ -122,7 +122,7 @@ export function AddNote({ handleChange }) {
 
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
-                        <button type="submit" className="save-button">Save</button>
+                        {/* <button type="submit" className="save-button">Save</button> */}
                         <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
                     </section>
 
