@@ -15,6 +15,7 @@ export const noteService = {
     getEmptyNoteTodos,
     duplicate,
     getFilterFromSearchParams,
+    getEmailParamsFromNote
 }
 
 function query(filterBy = {}) {
@@ -69,7 +70,7 @@ function getDefaultFilter() {
     return { txt: '', type: '' }
 }
 
-function getFilterFromSearchParams() {
+function getFilterFromSearchParams(searchParams) {
     const txt = searchParams.get('txt') || ''
     const type = searchParams.get('type') || ''
 
@@ -112,8 +113,22 @@ function duplicate(noteId) {
 }
 
 function getEmailParamsFromNote(note) {
-    let subject = ''
-    let body = ''
+    const { type, info } = note
+    let subject, body
+    if (type === 'NoteTxt') {
+        subject = info.title || ''
+        body = info.txt || ''
+    } else if (type === 'NoteImg' || type === 'NoteVideo') {
+        subject = info.title || ''
+        body = info.url || ''
+    } else if (type === 'NoteTodos') {
+        subject = info.title || ''
+        body = info.todos.map(todo => `${todo.txt} ${todo.doneAt ? '(Done)' : ''}`).join('\n')
+    } else {
+        subject = 'Note from Keep'
+        body = ''
+    }
+    return { subject, body }
 }
 
 function _createNote(type, info, backgroundColor, isPinned = false) {
@@ -207,3 +222,20 @@ function _createNotes() {
 }
 
 
+//mail service//
+
+function getMailFromSearchParams(searchParams) {
+    const subject = searchParams.get('subject') || ''
+    const body = searchParams.get('body') || ''
+    const to = searchParams.get('to') || ''
+    
+    return {
+      to,
+      subject,
+      body,
+      from: 'user@appsus.com',
+      sentAt: null,
+      removedAt: null,
+      isRead: false
+    }
+  }
