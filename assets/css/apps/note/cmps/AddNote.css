@@ -1,12 +1,13 @@
 .add-note-container {
     max-width: 600px;
     width: 100%;
-    margin: auto;
     border: 1px solid #e0e0e0;
     border-radius: 0.5rem;
     background-color: #fff;
     box-shadow: 0 1px 2px 0 var(--gray5);
     text-align: start;
+    margin: auto;
+    margin-top: 32px;
     margin-bottom: 60px;
 }
 

@@ -14,8 +14,9 @@
     grid-auto-rows: max-content;
     padding: 0;
     list-style-type: none;
-    margin: 0;
-    margin-bottom: 50px; 
+    margin-left: 52.800px;
+    margin-right: 52.800px;
+    margin-bottom: 60px;
  }
 
  .pinned-notes-title,
