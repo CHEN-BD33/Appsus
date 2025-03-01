@@ -27,7 +27,7 @@
 
 .note-preview:hover .preview-note-actions {
     visibility: visible;
-    opacity: 1;
+    opacity: 0.87;
 }
 
 .note-preview .preview-note-actions button {
@@ -42,7 +42,7 @@
 }
 
 .note-preview .preview-note-actions button:hover {
-    opacity: 1;
+    opacity: 0.87;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
 }

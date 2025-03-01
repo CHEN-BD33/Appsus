@@ -31,7 +31,7 @@
 }
 
 .todo-item:hover .remove-todo-btn {
-    opacity: 1;
+    opacity: 0.87;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
 }
@@ -41,7 +41,6 @@
     align-items: center;
     flex-grow: 1;
     margin-left: 16px; 
-
 }
 
 .todo-item input[type="checkbox"] {
@@ -62,14 +61,14 @@
 }
 
 .todo-item input[type="checkbox"]:hover {
-    opacity: 1;
+    opacity: 0.87;
     background-color: #fff;
 }
 
 .todo-item input[type="checkbox"]:hover::before {
     content: '';
     position: absolute;
-    opacity: 1;
+    opacity: 0.87;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -86,17 +85,17 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #000;
+    color:var(--gray5);
     font-size: 12px;
     font-weight: bold;
 }
 
 .todo-item input[type="checkbox"]:checked:hover {
-    opacity: 1;
+    opacity: 0.87;
 }
 
   .note-add-new-todo span {
     margin-left: 16px; 
-    color: rgba(0, 0, 0, 0.6);
+    color:var(--gray5);
     font-size: 18px;
   }
