@@ -135,7 +135,7 @@ function _createNotes() {
         notes = [
             {
                 id: 'n101',
-                createdAt: 1112222,
+                createdAt: 1112221,
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
@@ -147,7 +147,7 @@ function _createNotes() {
             },
             {
                 id: 'n102',
-                createdAt: 1112223,
+                createdAt: 1112222,
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
@@ -160,7 +160,7 @@ function _createNotes() {
             },
             {
                 id: 'n103',
-                createdAt: 1112224,
+                createdAt: 1112223,
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
@@ -173,7 +173,7 @@ function _createNotes() {
             },
             {
                 id: 'n104',
-                createdAt: 1112225,
+                createdAt: 1112224,
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
@@ -189,7 +189,7 @@ function _createNotes() {
             },
             {
                 id: 'n105',
-                createdAt: 1112226,
+                createdAt: 1112225,
                 type: 'NoteVideo',
                 isPinned: false,
                 style: {
@@ -198,6 +198,31 @@ function _createNotes() {
                 info: {
                     url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
                     title: 'SnoopDogg'
+                }
+            },
+            {
+                id: 'n106',
+                createdAt: 1112226,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#FAAFA8'
+                },
+                info: {
+                    txt: 'Meeting at friday, at 13:30pm'
+                }
+            },
+            {
+                id: 'n107',
+                createdAt: 1112227,
+                type: 'NoteImg',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#A8C6DF'
+                },
+                info: {
+                    url: 'https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=',
+                    title: 'Funny'
                 }
             },
 
