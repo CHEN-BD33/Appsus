@@ -4,15 +4,17 @@ import { NoteVideo } from "./NoteVideo.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
 
-
 import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ handleChange, onTogglePin }) {
-    const [note, setNote] = useState(noteService.getEmptyNoteTxt())
-    const [noteType, setNoteType] = useState('NoteTxt')
-    const [isExpanded, setIsExpanded] = useState(false)
+export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote = null, isModal = false, onRemove = null, onDuplicate = null }) {
+    const [note, setNote] = useState(initialNote || noteService.getEmptyNoteTxt())
+    const noteTypeState = initialNote && initialNote.type ? initialNote.type : 'NoteTxt'
+    const [noteType, setNoteType] = useState(noteTypeState)
+    const isExpandedInitial = initialNote ? true : false
+    const [isExpanded, setIsExpanded] = useState(isExpandedInitial)
+
     const noteRef = useRef(null)
 
     useEffect(() => {
@@ -38,9 +40,15 @@ export function AddNote({ handleChange, onTogglePin }) {
         }
 
         handleChange(note)
-        resetNote()
-        setNoteType('NoteTxt')
-        setIsExpanded(false)
+
+
+        if (!isModal) {
+            resetNote()
+            setNoteType('NoteTxt')
+            setIsExpanded(false)
+        } else if (onCloseModal) {
+            onCloseModal()
+        }
     }
 
     function handleTypeChange(type) {
@@ -94,15 +102,44 @@ export function AddNote({ handleChange, onTogglePin }) {
     }
 
     function handlePin(e) {
-        e.preventDefault();
-        
-        setNote(prevNote => ({...prevNote, isPinned: !prevNote.isPinned}));
+        e.preventDefault()
+
+        if (note.id) {
+            onTogglePin(note.id)
+        }
+
+        setNote(prevNote => ({ ...prevNote, isPinned: !prevNote.isPinned }))
     }
 
+    function handleClose() {
+        if (isModal && onCloseModal) {
+            // If in modal mode, call the close modal function
+            onCloseModal()
+        } else {
+            // If not in modal mode, just collapse the note
+            setIsExpanded(false)
+        }
+    }
 
+    // Handle remove note
+    function handleRemove() {
+        if (note.id && onRemove) {
+            onRemove(note.id)
+            if (onCloseModal) onCloseModal()
+        }
+    }
+
+    // Handle duplicate note
+    function handleDuplicate() {
+        if (note.id && onDuplicate) {
+            onDuplicate(note.id)
+            if (onCloseModal) onCloseModal()
+        }
+    }
     return (
         <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
-            style={isExpanded ? { backgroundColor: note.style.backgroundColor } : {}}>
+            style={isExpanded ? { backgroundColor: note.style.backgroundColor, width: isModal ? '100%' : 'auto' } : {}}>
+
             {!isExpanded ? (
                 // Collapsed state
                 <div className="add-note-compact" onClick={expandNote}>
@@ -117,7 +154,7 @@ export function AddNote({ handleChange, onTogglePin }) {
                 </div>
             ) : (
                 //Expand state
-                <form onSubmit={handleSubmit} style={{ backgroundColor: note.style.backgroundColor }}>
+                <form onSubmit={handleSubmit}>
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
 
@@ -128,10 +165,23 @@ export function AddNote({ handleChange, onTogglePin }) {
                         {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
                     </section>
 
-
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
-                        <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
+                        {isModal && note.id && (
+                            <section className='preview-note-actions'>
+                                {onDuplicate && (
+                                    <button onClick={handleDuplicate} className='duplicate-btn' title='Copy note'>
+                                        <i className="fa-regular fa-clone"></i>
+                                    </button>
+                                )}
+                                {onRemove && (
+                                    <button onClick={handleRemove} className='close' title='Delete note'>
+                                        <img src='assets/css/imgs/delete.svg' alt="Delete" />
+                                    </button>
+                                )}
+                            </section>
+                        )}
+                        <button type="button" onClick={handleClose} info={note.info} className="close-button">Close</button>
                     </section>
 
                 </form>
