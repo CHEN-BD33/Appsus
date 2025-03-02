@@ -96,7 +96,9 @@ export function MailIndex() {
             <div className="mail-sidebar">
                 <nav className="compose-btn-container">
                     <Link to="/mail/edit">
-                        <button className="compose-btn">Compose</button>
+                        <button className="compose-btn">
+                            <img src="assets/css/imgs/compose.png"/>
+                            Compose</button>
                     </Link>
                 </nav>
                 <MailFolderList onFolderSelect={onFolderSelect} />

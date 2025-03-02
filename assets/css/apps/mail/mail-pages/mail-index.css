@@ -59,23 +59,43 @@ outline: none;
     width: 240px;
     height: calc(100vh - 105px);
     padding: 0 16px 0 0;
+    flex-shrink: 0;
 }
 
 .compose-btn-container{
-    height: 64px;
+    height: 80px;
     padding: 8px 0 16px 8px;
     border-bottom: 1.5px solid #808080c2;
+    display: flex;
+    align-items: center;
+}
+
+.compose-btn-container a{
+    margin: 0;
+}
+
+.compose-btn-container a:hover{
+    box-shadow: 0 1px 3px 0 rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+    background-color: #c2e7ff;
+    border-radius: 16px;
 }
 
 .compose-btn{
     color: #001d35;
-    height: 46px;
-    padding: 0 24px 0 0;
+    height: 56px;
+    padding: 0 24px 0 18px;
     border-radius: 16px;
     border: none;
     background-color: #c2e7ff;
-    width: 96px;
+    width: 143px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+.compose-btn img{
+    width: 20px;
+    height: 20px;
 }
 
 .mailFolder-list{
@@ -83,6 +103,7 @@ outline: none;
     flex-direction: column;
     max-width: 240px;
 }
+
 
 .unread-count{
     font-size: 14px;
@@ -94,19 +115,33 @@ outline: none;
     padding: 0 12px 0 26px;
     border: none;
     align-items: center;
-    background-color: transparent;
     cursor: pointer;
-    justify-content: space-between;
+    gap: 18px;
 }
+.mailFolder-list button:first-child{
+    justify-content: space-between;
 
+}
 .mailFolder-list button:hover{
     background-color: #eee;
     width: 100%;
     border-radius: 0 24px 24px 0;
 }
 
-.active{
-    background-color: #d3e3fd;
+.mailFolder-list button .inbox-text-container{
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.mailFolder-list .active{
+    background-color: #d3e3fd !important;
     width: 100%;
     border-radius: 0 24px 24px 0;
+    font-weight: bold;
+}
+
+.mailFolder-list button img{
+    height: 20px;
+    width: 20px;
 }

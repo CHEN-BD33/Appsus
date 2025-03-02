@@ -30,12 +30,15 @@ export function MailDetails({mailId, onCloseDetails}){
         <section className="mail-details">
           <div className="nav-bar-container">
             <div className="action-buttons-container">
-            <button onClick={onCloseDetails}>Back to List</button>
-            <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
+            <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
+            <button onClick={()=>onRemoveMail(mail.id)}><img src="assets/css/apps/mail/images/delete.png" /></button>
+            <button><img src="assets/css/apps/mail/images/unread.png" /></button>
+
             </div>
             <div className="navigate-container">
-            <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
-            <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
+            <span className="mail-index-count">2 of 234</span>
+            <button> <Link to={`/mail/${mail.prevMailId}`}><img src="assets/css/apps/mail/images/arrowLeft.png" /></Link></button>  
+            <button> <Link to={`/mail/${mail.nextMailId}`}><img src="assets/css/apps/mail/images/arrowRight.png" /></Link></button>  
             </div>
         </div>
 
