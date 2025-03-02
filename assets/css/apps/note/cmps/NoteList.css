@@ -9,13 +9,13 @@
  .note-list ul {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
+    gap: 10px;
     grid-auto-flow: dense;
     grid-auto-rows: max-content;
     padding: 0;
     list-style-type: none;
-    margin-left: 52.800px;
-    margin-right: 52.800px;
+    /* margin-left: 52.800px;
+    margin-right: 52.800px; */
     margin-bottom: 60px;
  }
 
