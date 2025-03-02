@@ -66,7 +66,7 @@ export function AddNote({ handleChange }) {
     }
 
     function onChangeColor(color) {
-        setNote(prevNote => ({ ...prevNote,style: { ...prevNote.style, backgroundColor: color }}));
+        setNote(prevNote => ({ ...prevNote, style: { ...prevNote.style, backgroundColor: color } }));
     }
 
 
@@ -110,8 +110,12 @@ export function AddNote({ handleChange }) {
                 </div>
             ) : (
                 //Expand state
-                <form onSubmit={handleSubmit}
-                    style={{ backgroundColor: note.style.backgroundColor }}>
+                <form onSubmit={handleSubmit} style={{ backgroundColor: note.style.backgroundColor }}>
+                    <button type='button' onClick={(e) => {
+                        e.preventDefault()
+                        setNote(prevNote => ({...prevNote, isPinned: !prevNote.isPinned}))
+                    }} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
+                        <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
 
                     <section className='add-note'>
                         {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={true} />)}
@@ -120,9 +124,9 @@ export function AddNote({ handleChange }) {
                         {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
                     </section>
 
+
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
-                        {/* <button type="submit" className="save-button">Save</button> */}
                         <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
                     </section>
 
