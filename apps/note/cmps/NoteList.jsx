@@ -1,6 +1,6 @@
 import { NotePreview } from "../cmps/NotePreview.jsx"
 
-export function NoteList({ notes, onRemove, handleChange, onDuplicate, onTogglePin }) {
+export function NoteList({ notes, onRemove, handleChange, onDuplicate, onTogglePin, onOpenModal }) {
     const pinnedNotes = notes.filter(note => note.isPinned)
     const unpinnedNotes = notes.filter(note => !note.isPinned)
 
@@ -13,7 +13,7 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
                     <ul className='pinned-notes-list'>
                         {pinnedNotes.map(note => (
                             <li key={note.id}>
-                                <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} />
+                                <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onOpenModal={onOpenModal} />
                             </li>
                         ))}
                     </ul>
@@ -25,7 +25,7 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
                 <ul className='unpinned-notes'>
                     {unpinnedNotes.map(note => (
                         <li key={note.id}>
-                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} />
+                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onOpenModal={onOpenModal}/>
                         </li>
                     ))}
                 </ul>
