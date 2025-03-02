@@ -20,8 +20,9 @@ const filterBy = {
     status: 'inbox/sent/trash/draft',
     txt: 'puki', // no need to support complex text search
     isRead: true, // (optional property, if missing: show all)
-    isStared: true, // (optional property, if missing: show all)
-    lables: ['important', 'romantic'] // has any of the labels
+    lables: ['important', 'romantic'], // has any of the labels
+    isStarred:false,
+    isChecked: false
    }
 
    function query(filterBy = {}) {
@@ -33,7 +34,7 @@ const filterBy = {
         }
         
         if (filterBy.status) {
-            mails = mails.filter(mail => mail.status === filterBy.status)
+            mails = mails.filter(mail => mail.status.includes(filterBy.status))
         }
         
         if (filterBy.txt) {
@@ -45,9 +46,13 @@ const filterBy = {
           mails = mails.filter(mail => mail.isRead === filterBy.isRead)
         }
         
-        if (typeof filterBy.isStared === 'boolean') {
-          mails = mails.filter(mail => mail.isStared === filterBy.isStared)
+        if (typeof filterBy.isStarred === 'boolean') {
+          
+            mails = mails.filter(mail => mail.isStarred === filterBy.isStarred)
         }
+        if (typeof filterBy.isChecked === 'boolean') {
+            mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
+          }
         
         if (filterBy.lables && filterBy.lables.length) {
           mails = mails.filter(mail => {
@@ -55,7 +60,6 @@ const filterBy = {
           })
         }
         
-      
         return mails
       })
   }
@@ -106,7 +110,9 @@ function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
     removedAt : null,
     from: loggedinUser.email,
     to,
-    status:'sent'
+    status:'sent',
+    isStarred:false,
+    isChecked: false
      
     }
 }
@@ -137,8 +143,9 @@ function getFilterFromSearchParams(searchParams) {
     const status = searchParams.get('status') || 'inbox'
     const txt = searchParams.get('txt') || ''
     const isRead = searchParams.get('isRead') || ''
-    const isStared = searchParams.get('isStared') || ''
-    return { status, txt, isRead, isStared };
+    const isStarred = searchParams.get('isStarred') ||''
+
+    return { status, txt, isRead,  isStarred }
   }
 
 
@@ -161,7 +168,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'momo@momo.com',
     to: 'user@appsus.com',
-      status:'inbox'
+    status:['inbox'],
+    isStarred:false,
+    isChecked: false
 },
 {
     id: 'e102',
@@ -174,7 +183,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'bobo@bobo.com',
     to: 'user2@appsus.com',
-    status:'inbox'
+    status:['inbox'],
+    isStarred:false,
+    isChecked: false
 },
 {
     id: 'e103',
@@ -187,7 +198,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'dodo@dodo.com',
     to: 'user3@appsus.com',
-    status:'inbox'
+    status:['inbox'],
+    isStarred:false,
+    isChecked: false
 }
 ]
 

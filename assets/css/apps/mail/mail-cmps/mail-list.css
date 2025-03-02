@@ -38,20 +38,32 @@
     align-items: center;
 }
 
-.mail-preview td .checked{
-background-image: url('assets/css/apps/mail/images/full/checked.png');
+.mail-preview .checked{
+    background-size: 20px;
+    background-repeat: no-repeat;
+background-image: url('/assets/css/apps/mail/images/full/checked.png');
+background-position: center;
 }
 
-.mail-preview td .unChecked{
-    background-image: url('assets/css/apps/mail/images/empty/unChecked.png');
+.mail-preview .unChecked{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-image: url('/assets/css/apps/mail/images/empty/unChecked.png');
+    background-position: center;
 }
 
-.mail-preview td .starred{
-    background-image: url('assets/css/apps/mail/images/full/starred.png');
+.mail-preview .starred{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-image: url('/assets/css/apps/mail/images/full/starred.png');
+    background-position: center;
 }
 
-.mail-preview td .unStarred{
-    background-image: url('assets/css/apps/mail/images/empty/unStarred.png');
+.mail-preview .unStarred{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-image: url('/assets/css/apps/mail/images/empty/unStarred.png');
+    background-position: center;
 }
 
 .mail-preview .fullname{
@@ -65,9 +77,7 @@ background-image: url('assets/css/apps/mail/images/full/checked.png');
     align-items: center;
     gap:6px;
 }
-/* .mail-preview .text .subject{
 
-} */
 
 .mail-preview .text .body{
     color: rgb(172, 170, 170)

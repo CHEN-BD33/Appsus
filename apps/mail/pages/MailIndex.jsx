@@ -23,6 +23,7 @@ export function MailIndex() {
         setSearchParams(filterBy)
     }, [filterBy])
 
+
     function loadMails() {
              mailService.query(filterBy)
             .then((mails) => {
@@ -45,7 +46,33 @@ export function MailIndex() {
             .then(() => {
                 setMails((prevMails) =>
                     prevMails.map((mail) =>
-                        mail.id === mailId ? { ...mail, isRead: true } : mail
+                        mail.id === mailId ? { ...mail, isRead: true, } : mail
+                    )
+                )
+            })
+            .catch((err) => {
+                console.error('err:', err)
+            })
+    }
+
+    function onClickStarred(mailId) {
+        mailService.get(mailId)
+            .then((mail) => {
+               
+                if (mail.status.includes('starred')) {
+                
+                    mail.isStarred = false
+                    mail.status = mail.status.filter(status => status !== 'starred')
+                } else {
+                    mail.isStarred = true
+                    mail.status.push('starred')
+                }
+                return mailService.save(mail)
+            })
+            .then(() => {
+                setMails((prevMails) =>
+                    prevMails.map((mail) =>
+                        mail.id === mailId ? { ...mail, isStarred: mail.isStarred, status: mail.status } : mail
                     )
                 )
             })
@@ -84,7 +111,6 @@ export function MailIndex() {
     function onCloseDetails() {
         setSelectedMailId(null)
     }
-    console.log(selectedMailId)
 
     if (!mails) return 'Loading..'
     return (
@@ -106,7 +132,7 @@ export function MailIndex() {
             {selectedMailId ? (
                         <MailDetails mailId={selectedMailId} onCloseDetails={onCloseDetails}/>
                     ) : (
-                        <MailList mails={mails} onRemoveMail={onRemoveMail} onMarkAsRead={onMarkAsRead} onSelectMail={onSelectMail} />
+                        <MailList mails={mails} onRemoveMail={onRemoveMail} onMarkAsRead={onMarkAsRead} onSelectMail={onSelectMail} onClickStarred={onClickStarred} />
                     )}
             </div>
             </div>

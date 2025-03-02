@@ -4,13 +4,14 @@ const {useState } = React
 
 
 export function MailFolderList({ onFolderSelect }){
-         const [activeFolder, setActiveFolder] = useState(null);
+         const [activeFolder, setActiveFolder] = useState(null)
         const navigate = useNavigate()
 
         function handleFolderClick(folder) {
-            setActiveFolder(folder);
+            setActiveFolder(folder)
             onFolderSelect(folder)
         }
+
         return (
                 <section className="mailFolder-list">
                     <button 
@@ -26,6 +27,7 @@ export function MailFolderList({ onFolderSelect }){
                     </button>
                     <button 
                     className={activeFolder === "starred" ? "active" : ""}
+                    onClick={() => handleFolderClick("starred")}
                     >
                     <img src="assets/css/apps/mail/images/empty/unStarred.png"/>
                         Starred</button>
