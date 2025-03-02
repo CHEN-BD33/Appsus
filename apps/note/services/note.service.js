@@ -61,7 +61,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor)
+        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned)
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }

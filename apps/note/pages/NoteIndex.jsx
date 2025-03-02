@@ -97,7 +97,7 @@ export function NoteIndex() {
         <section className='note-index'>
 
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
-            <AddNote handleChange={handleChange} />
+            <AddNote handleChange={handleChange} onTogglePin={togglePin} />
             <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} />
 
         </section>

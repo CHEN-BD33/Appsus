@@ -9,7 +9,7 @@ import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ handleChange }) {
+export function AddNote({ handleChange, onTogglePin }) {
     const [note, setNote] = useState(noteService.getEmptyNoteTxt())
     const [noteType, setNoteType] = useState('NoteTxt')
     const [isExpanded, setIsExpanded] = useState(false)
@@ -93,6 +93,13 @@ export function AddNote({ handleChange }) {
         setIsExpanded(true)
     }
 
+    function handlePin(e) {
+        e.preventDefault();
+        
+        setNote(prevNote => ({...prevNote, isPinned: !prevNote.isPinned}));
+    }
+
+
     return (
         <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
             style={isExpanded ? { backgroundColor: note.style.backgroundColor } : {}}>
@@ -111,10 +118,7 @@ export function AddNote({ handleChange }) {
             ) : (
                 //Expand state
                 <form onSubmit={handleSubmit} style={{ backgroundColor: note.style.backgroundColor }}>
-                    <button type='button' onClick={(e) => {
-                        e.preventDefault()
-                        setNote(prevNote => ({...prevNote, isPinned: !prevNote.isPinned}))
-                    }} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
+                    <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
 
                     <section className='add-note'>
