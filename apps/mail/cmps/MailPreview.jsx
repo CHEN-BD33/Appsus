@@ -4,7 +4,6 @@ const {Link} = ReactRouterDOM
 
 
 export function MailPreview({mail ,onMarkAsRead ,onSelectMail}){
-
     function onDate(timestamp){
         const date = new Date(timestamp)
         return date.toLocaleDateString(undefined, {  month: 'short', day: 'numeric' })
@@ -22,6 +21,8 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail}){
     
     return (
         <tr className={`mail-preview ${mail.isRead ? 'read' : 'unread'}`} onClick={handleRowClick}>
+            <td className={`${mail.isChecked ? 'checked' : 'unChecked'}`}></td>
+            <td className={`${mail.isStarred ? 'starred' : 'unStarred'}`}></td>
             <td className={`fullname ${mail.isRead ? '' : 'bold'}`}>{mail.fullname}</td>
             
             <td className="text">

@@ -78,11 +78,11 @@ export function MailIndex() {
     }
 
     function onSelectMail(mailId) {
-        setSelectedMailId(mailId) // 🔹 Set selected mail ID
+        setSelectedMailId(mailId) 
     }
 
     function onCloseDetails() {
-        setSelectedMailId(null); // 🔹 Close details and show list again
+        setSelectedMailId(null)
     }
     console.log(selectedMailId)
 
@@ -91,13 +91,11 @@ export function MailIndex() {
         <section className="mail-index">
            
             <div className="mail-container">
-               {/* <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} /> */}
-
             <div className="mail-sidebar">
                 <nav className="compose-btn-container">
                     <Link to="/mail/edit">
                         <button className="compose-btn">
-                            <img src="assets/css/imgs/compose.png"/>
+                            <img src="assets/css/apps/mail/images/empty/compose.png"/>
                             Compose</button>
                     </Link>
                 </nav>

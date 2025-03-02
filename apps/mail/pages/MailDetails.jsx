@@ -31,8 +31,8 @@ export function MailDetails({mailId, onCloseDetails}){
           <div className="nav-bar-container">
             <div className="action-buttons-container">
             <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
-            <button onClick={()=>onRemoveMail(mail.id)}><img src="assets/css/apps/mail/images/delete.png" /></button>
-            <button><img src="assets/css/apps/mail/images/unread.png" /></button>
+            <button onClick={()=>onRemoveMail(mail.id)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
+            <button><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
 
             </div>
             <div className="navigate-container">

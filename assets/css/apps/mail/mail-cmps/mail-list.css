@@ -23,7 +23,9 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
    
 }
-
+.mail-preview td:first-child{
+    padding: 0 10px 0 13px; 
+} 
 .mail-preview td {
     padding: 10px 15px;
     font-size: 14px;
@@ -32,7 +34,26 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 40px;
+    display: flex;
+    align-items: center;
 }
+
+.mail-preview td .checked{
+background-image: url('assets/css/apps/mail/images/full/checked.png');
+}
+
+.mail-preview td .unChecked{
+    background-image: url('assets/css/apps/mail/images/empty/unChecked.png');
+}
+
+.mail-preview td .starred{
+    background-image: url('assets/css/apps/mail/images/full/starred.png');
+}
+
+.mail-preview td .unStarred{
+    background-image: url('assets/css/apps/mail/images/empty/unStarred.png');
+}
+
 .mail-preview .fullname{
     width: 140px;
 }

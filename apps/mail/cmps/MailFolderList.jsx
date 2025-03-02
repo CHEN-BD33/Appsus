@@ -18,7 +18,7 @@ export function MailFolderList({ onFolderSelect }){
                     onClick={() => handleFolderClick("inbox")}
                     >
                         <div className="inbox-text-container">
-                        <img src="assets/css/imgs/inbox.png"/>
+                        <img src="assets/css/apps/mail/images/empty/emptyInbox.png"/>
                         Inbox 
                         </div>
                     
@@ -27,25 +27,25 @@ export function MailFolderList({ onFolderSelect }){
                     <button 
                     className={activeFolder === "starred" ? "active" : ""}
                     >
-                    <img src="assets/css/imgs/starred.png"/>
+                    <img src="assets/css/apps/mail/images/empty/unStarred.png"/>
                         Starred</button>
                         <button 
                         className={activeFolder === "sent" ? "active" : ""}
                         onClick={() => handleFolderClick("sent")}
                         >
-                    <img src="assets/css/imgs/emptySent.png"/>
+                    <img src="assets/css/apps/mail/images/empty/emptySent.png"/>
                         Sent</button>
                         <button 
                          className={activeFolder === "trash" ? "active" : ""}
                          onClick={() => handleFolderClick("trash")}
                         >
-                    <img src="assets/css/imgs/delete.svg"/>
+                    <img src="assets/css/apps/mail/images/empty/emprtTrash.png"/>
                         Trash</button>
                         <button 
                         className={activeFolder === "draft" ? "active" : ""}
                          onClick={() => handleFolderClick("draft")}
                         >
-                    <img src="assets/css/imgs/draft.png"/>
+                    <img src="assets/css/apps/mail/images/empty/emptyDraft.png"/>
                         Draft</button>
                 </section>
             )
