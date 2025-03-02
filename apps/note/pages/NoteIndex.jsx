@@ -5,13 +5,34 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { noteService } from '../services/note.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    const [selectedNote, setSelectedNote] = useState(null)
+    const dialogRef = useRef(null)
+
+    function openNoteModal(note) {
+        setSelectedNote(note)
+        if (dialogRef.current) {
+            dialogRef.current.showModal()
+        }
+    }
+
+    function closeNoteModal() {
+        if (dialogRef.current && dialogRef.current.open) {
+            if (selectedNote) {
+                handleChange(selectedNote)
+            }
+            dialogRef.current.close()
+            setSelectedNote(null)
+        }
+    }
+
+
     useEffect(() => {
         setSearchParams(filterBy)
         loadNotes()
@@ -37,7 +58,7 @@ export function NoteIndex() {
                     return [savedNote, ...prevNotes]
 
                 })
-                // showSuccessMsg('Note saved successfully!')
+                showSuccessMsg('Note saved successfully!')
             })
             .catch(err => {
                 console.error('Failed to save note:', err)
@@ -98,8 +119,37 @@ export function NoteIndex() {
 
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
             <AddNote handleChange={handleChange} onTogglePin={togglePin} />
-            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} />
+            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} onOpenModal={openNoteModal} />
 
+            <dialog
+                ref={dialogRef}
+                onClick={(e) => {
+                    if (e.target === dialogRef.current) {
+                        closeNoteModal()
+                    }
+                }}
+                className="note-modal"
+                style={{
+                    backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: 0,
+                    maxWidth: '600px',
+                    width: '90%'
+                }}
+            >
+                {selectedNote && (
+                    <AddNote
+                        initialNote={selectedNote}
+                        handleChange={handleChange}
+                        onTogglePin={togglePin}
+                        onCloseModal={closeNoteModal}
+                        onRemove={removeNote}
+                        onDuplicate={duplicateNote}
+                        isModal={true}
+                    />
+                )}
+            </dialog>
         </section>
 
     )
