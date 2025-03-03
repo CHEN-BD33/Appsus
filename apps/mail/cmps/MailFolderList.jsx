@@ -3,13 +3,14 @@ const {useNavigate} = ReactRouterDOM
 const {useState } = React
 
 
-export function MailFolderList({ onFolderSelect }){
+export function MailFolderList({ onFolderSelect , onCloseDetails}){
          const [activeFolder, setActiveFolder] = useState(null)
         const navigate = useNavigate()
 
         function handleFolderClick(folder) {
             setActiveFolder(folder)
             onFolderSelect(folder)
+            onCloseDetails()
         }
 
         return (

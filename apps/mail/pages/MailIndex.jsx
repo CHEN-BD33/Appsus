@@ -62,7 +62,7 @@ export function MailIndex() {
         mailService.get(mailId)
         .then((mail) => {
                 mail.isStarred = !mail.isStarred
-                console.log(mail.isStarred)
+
               return  mailService.save(mail)
             })
             .then(() => {
@@ -106,6 +106,7 @@ export function MailIndex() {
     }
 
     function onCloseDetails() {
+        console.log(selectedMailId)
         setSelectedMailId(null)
     }
 
@@ -122,7 +123,7 @@ export function MailIndex() {
                             Compose</button>
                     </Link>
                 </nav>
-                <MailFolderList onFolderSelect={onFolderSelect} />
+                <MailFolderList onFolderSelect={onFolderSelect} onCloseDetails={onCloseDetails} />
             </div>
 
             <div className="mail-main">

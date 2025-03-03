@@ -17,7 +17,7 @@ window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
 const filterBy = {
-    status: 'inbox/sent/trash/draft/starred',
+    status: 'inbox',
     txt: 'puki', // no need to support complex text search
     isRead: true, // (optional property, if missing: show all)
     lables: ['important', 'romantic'], // has any of the labels
@@ -40,9 +40,8 @@ const filterBy = {
             mails = mails.filter(mail => mail.isStarred === true)
             console.log(mails ,'mailsAtQurey ')
           } else if (filterBy.status) {
-            mails = mails.filter(mail => mail.status.includes(filterBy.status));
+            mails = mails.filter(mail => mail.status.includes(filterBy.status))
           }
-        
         if (filterBy.txt) {
           const regExp = new RegExp(filterBy.txt, 'i')
           mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
@@ -144,8 +143,8 @@ function _saveMailsToStorage() {
 function getFilterFromSearchParams(searchParams) {
     const status = searchParams.get('status') || 'inbox'
     const txt = searchParams.get('txt') || ''
-    const isRead = searchParams.get('isRead') || ''
-    const isStarred = searchParams.get('isStarred') ||''
+    const isRead = searchParams.get('isRead')  || ''
+    const isStarred = searchParams.get('isStarred')  || ''
 
     return { status, txt, isRead,  isStarred }
   }
@@ -170,7 +169,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'momo@momo.com',
     to: 'user@appsus.com',
-    status:['inbox'],
+    status:'inbox',
     isStarred:false,
     isChecked: false
 },
@@ -185,7 +184,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'bobo@bobo.com',
     to: 'user2@appsus.com',
-    status:['inbox'],
+    status:'inbox',
     isStarred:false,
     isChecked: false
 },
@@ -200,7 +199,7 @@ const loggedinUser = {
     removedAt : null,
     from: 'dodo@dodo.com',
     to: 'user3@appsus.com',
-    status:['inbox'],
+    status:'inbox',
     isStarred:false,
     isChecked: false
 }
