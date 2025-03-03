@@ -105,6 +105,12 @@ export function AddNote({ handleChange, onTogglePin }) {
         setNote(prevNote => ({ ...prevNote, labels }))
     }
 
+    function handleClose() {
+        setIsExpanded(false)
+        setNoteType('NoteTxt')
+        setNote(noteService.getEmptyNoteTxt())
+    }
+
 
     return (
         <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
@@ -138,7 +144,7 @@ export function AddNote({ handleChange, onTogglePin }) {
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
                         <LabelPicker selectedLabels={note.labels || []} onChangeLablels={onChangeLablels} />
-                        <button type="button" onClick={() => setIsExpanded(false)} info={note.info = ''} className="close-button">Close</button>
+                        <button type="button" onClick={handleClose} className="close-button">Close</button>
                     </section>
 
                 </form>
