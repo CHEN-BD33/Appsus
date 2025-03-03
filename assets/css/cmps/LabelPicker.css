@@ -1,6 +1,5 @@
 .label-picker {
     position: relative;
-    display: inline-block;
 }
 
 .label-picker-btn {
@@ -13,10 +12,15 @@
     opacity: 0.54;
 }
 
+button .fa-tags {
+    font-size: 16px;
+  }
+
 .label-picker-btn:hover {
     opacity: 0.87;
     background-color: rgba(95, 99, 104, 0.1);
 }
+
 
 .label-options {
     position: absolute;
