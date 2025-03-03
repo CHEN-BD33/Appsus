@@ -7,7 +7,7 @@ import { NoteLabels } from "./NoteLabels.jsx"
 import { LabelPicker } from "../../../cmps/LabelPicker.jsx"
 
 
-export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin }) {
+export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin, onSendToMail }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -38,8 +38,9 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate, onToggl
             <section className='preview-note-actions'>
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
                 <LabelPicker selectedLabels={note.labels || []} onChangeLabels={onChangeLabels} />
+                <button onClick={() => onSendToMail(note)} className='send-to-mail-btn' title='Send Note As Mail'><i className="fa-regular fa-envelope"></i></button>
                 <button onClick={() => onDuplicate(note.id)} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>
-                <button onClick={() => onRemove(note.id)} className='close' title='Delete note'><img src='assets\css\imgs\delete.svg'></img></button>
+                <button onClick={() => onRemove(note.id)} className='delete-btn' title='Delete note'><img src='assets\css\imgs\delete.svg'></img></button>
             </section>
         </section>
     )

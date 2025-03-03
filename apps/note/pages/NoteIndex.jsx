@@ -6,12 +6,14 @@ import { noteService } from '../services/note.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
 const { useState, useEffect } = React
-const { useSearchParams } = ReactRouterDOM
+const { useSearchParams, useNavigate } = ReactRouterDOM
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    const navigate = useNavigate()
+
     useEffect(() => {
         setSearchParams(filterBy)
         loadNotes()
@@ -90,6 +92,15 @@ export function NoteIndex() {
         setFilterBy(prevFilter => ({ ...prevFilter, ...newFilter }))
     }
 
+    function sendToEmail(note) {
+        const { subject, body } = noteService.getEmailParamsFromNote(note)
+
+        const queryParams = new URLSearchParams()
+        queryParams.append('subject', subject)
+        queryParams.append('body', body)
+
+        navigate(`/mail/edit?${queryParams.toString()}`)
+    }
 
     if (!notes) return <div>Loading...</div>
 
@@ -98,7 +109,7 @@ export function NoteIndex() {
 
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
             <AddNote handleChange={handleChange} onTogglePin={togglePin} />
-            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} />
+            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} onSendToMail={sendToEmail} />
 
         </section>
 
