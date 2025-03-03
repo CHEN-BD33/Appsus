@@ -3,7 +3,8 @@ import { NoteImg } from "./NoteImg.jsx"
 import { NoteVideo } from "./NoteVideo.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
-
+import { NoteLabels } from "./NoteLabels.jsx"
+import { LabelPicker } from "../../../cmps/LabelPicker.jsx"
 
 import { noteService } from "../services/note.service.js"
 
@@ -94,9 +95,14 @@ export function AddNote({ handleChange, onTogglePin }) {
     }
 
     function handlePin(e) {
-        e.preventDefault();
-        
-        setNote(prevNote => ({...prevNote, isPinned: !prevNote.isPinned}));
+        e.preventDefault()
+
+        setNote(prevNote => ({ ...prevNote, isPinned: !prevNote.isPinned }))
+        onTogglePin()
+    }
+
+    function onChangeLablels(labels) {
+        setNote(prevNote => ({ ...prevNote, labels }))
     }
 
 
@@ -120,6 +126,7 @@ export function AddNote({ handleChange, onTogglePin }) {
                 <form onSubmit={handleSubmit} style={{ backgroundColor: note.style.backgroundColor }}>
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
+                    <NoteLabels labels={note.labels || []} />
 
                     <section className='add-note'>
                         {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={true} />)}
@@ -128,9 +135,9 @@ export function AddNote({ handleChange, onTogglePin }) {
                         {noteType === 'NoteTodos' && (<NoteTodos info={note.info} onChangeInfo={onChangeInfo} />)}
                     </section>
 
-
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
+                        <LabelPicker selectedLabels={note.labels || []} onChangeLablels={onChangeLablels} />
                         <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
                     </section>
 
