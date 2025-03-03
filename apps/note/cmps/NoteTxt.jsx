@@ -1,4 +1,3 @@
-import { LongTxt } from '../LongTxt.jsx'
 import { utilService } from "../../../services/util.service.js"
 
 const { useState, useEffect, useRef } = React
