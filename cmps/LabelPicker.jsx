@@ -1,7 +1,7 @@
 
 const { useState } = React
 
-export function LabelPicker({ selectedLabels = [], onChangeLablels }) {
+export function LabelPicker({ selectedLabels = [], onChangeLabels }) {
     const [isOpen, setIsOpen] = useState(false)
     // const [selectedLabels, setSelectedLabels] = useState([])
 
@@ -11,7 +11,7 @@ export function LabelPicker({ selectedLabels = [], onChangeLablels }) {
         { name: 'Work', picked: '✔', backgroundColor: '#60bd4e' },
         { name: 'Friends', picked: '✔', backgroundColor: '#f3d700' },
         { name: 'Spam', picked: '✔', backgroundColor: '#ff9f1a' },
-        { name: 'Memoreis', picked: '✔', backgroundColor: '#c376e1' },
+        { name: 'Memories', picked: '✔', backgroundColor: '#c376e1' },
         { name: 'Romantic', picked: '✔', backgroundColor: '#0099b7' }]
 
     function toggleLabel(label) {
@@ -22,7 +22,7 @@ export function LabelPicker({ selectedLabels = [], onChangeLablels }) {
             updatedLabels = [...selectedLabels, label]
         }
         // setSelectedLabels(updatedLabels)
-        onChangeLablels(updatedLabels)
+        onChangeLabels(updatedLabels)
     }
 
     return (

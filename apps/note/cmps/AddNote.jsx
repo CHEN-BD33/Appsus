@@ -101,7 +101,7 @@ export function AddNote({ handleChange, onTogglePin }) {
         onTogglePin()
     }
 
-    function onChangeLablels(labels) {
+    function onChangeLabels(labels) {
         setNote(prevNote => ({ ...prevNote, labels }))
     }
 
@@ -143,7 +143,7 @@ export function AddNote({ handleChange, onTogglePin }) {
 
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
-                        <LabelPicker selectedLabels={note.labels || []} onChangeLablels={onChangeLablels} />
+                        <LabelPicker selectedLabels={note.labels || []} onChangeLabels={onChangeLabels} />
                         <button type="button" onClick={handleClose} className="close-button">Close</button>
                     </section>
 
