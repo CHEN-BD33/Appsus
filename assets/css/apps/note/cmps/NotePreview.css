@@ -8,6 +8,8 @@
     position: relative;
     max-height: 600px;
     width: 100%;
+    break-inside: avoid;
+    margin-bottom: 10px;
 }
 
 .note-preview:hover {
