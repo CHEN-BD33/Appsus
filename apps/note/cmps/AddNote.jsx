@@ -138,7 +138,7 @@ export function AddNote({ handleChange, onTogglePin }) {
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
                         <LabelPicker selectedLabels={note.labels || []} onChangeLablels={onChangeLablels} />
-                        <button type="button" onClick={() => setIsExpanded(false)} info={note.info} className="close-button">Close</button>
+                        <button type="button" onClick={() => setIsExpanded(false)} info={note.info = ''} className="close-button">Close</button>
                     </section>
 
                 </form>
