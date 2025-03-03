@@ -26,7 +26,7 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate, onToggl
     }
 
 
-    const backgroundColor = note.style ? note.style.backgroundColor : 'white'
+    const backgroundColor = note.style ? note.style.backgroundColor : '#fff'
 
     return (
         <section className='note-preview' style={{ backgroundColor }}>
