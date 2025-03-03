@@ -1,5 +1,6 @@
 .note-preview {
-    display: flex;
+    position: relative;
+    display: inline-block;
     flex-direction: column;
     border: 1px solid var(--gray2);
     padding: 16px;
@@ -10,6 +11,7 @@
     width: 100%;
     break-inside: avoid;
     margin-bottom: 10px;
+
 }
 
 .note-preview:hover {
