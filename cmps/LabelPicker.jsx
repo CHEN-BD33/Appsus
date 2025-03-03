@@ -9,7 +9,7 @@ export function LabelPicker({ selectedLabels = [], onChangeLablels }) {
         { name: 'Critical', picked: '✔', backgroundColor: '#eb5a46' },
         { name: 'Family', picked: '✔', backgroundColor: '#0078bf' },
         { name: 'Work', picked: '✔', backgroundColor: '#60bd4e' },
-        { name: 'Frinds', picked: '✔', backgroundColor: '#f3d700' },
+        { name: 'Friends', picked: '✔', backgroundColor: '#f3d700' },
         { name: 'Spam', picked: '✔', backgroundColor: '#ff9f1a' },
         { name: 'Memoreis', picked: '✔', backgroundColor: '#c376e1' },
         { name: 'Romantic', picked: '✔', backgroundColor: '#0099b7' }]
