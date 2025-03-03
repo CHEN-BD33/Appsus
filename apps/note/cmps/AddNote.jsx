@@ -129,7 +129,7 @@ export function AddNote({ handleChange, onTogglePin }) {
                 </div>
             ) : (
                 //Expand state
-                <form onSubmit={handleSubmit} style={{ backgroundColor: note.style.backgroundColor }}>
+                <form onSubmit={handleSubmit} >
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
                     <NoteLabels labels={note.labels || []} />
