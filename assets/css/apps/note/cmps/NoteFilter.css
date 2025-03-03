@@ -8,6 +8,7 @@
 .filter-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #fff;
     border: 1px solid #e0e0e0;
     border-radius: 10px;
@@ -25,13 +26,3 @@
     outline: none;
     color: var(--gray5);
 }
-
-.filter-type-buttons {
-    display: flex;
-    align-items: center;
-}
-.filter-container img,
-.filter-container i {
-    font-size: 18px;
-}
-

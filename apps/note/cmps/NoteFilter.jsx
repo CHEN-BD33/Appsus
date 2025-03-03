@@ -45,12 +45,16 @@ export function NoteFilter({ filterBy, onFilterBy }) {
                 <input name="txt" value={filterByToEdit.txt || ''} onChange={handleChange} type="text" id="searchInput" placeholder="Search in notes..." />
                 {(filterByToEdit.txt || filterByToEdit.type) && (
                     <button type="button" className="reset-filter-btn" onClick={reset} title="Clear search"><i className="fa-solid fa-times"></i></button>)}
-                <div className="filter-type-buttons">
-                    <button type="button" className={`filter-type-btn ${filterByToEdit.type === 'NoteTxt' ? 'active' : ''}`} onClick={() => setNoteType('NoteTxt')} title="Text notes"><i className="fa-solid fa-font"></i></button>
-                    <button type="button" className={`filter-type-btn ${filterByToEdit.type === 'NoteTodos' ? 'active' : ''}`} onClick={() => setNoteType('NoteTodos')} title="Todo notes"><img src='assets\css\imgs\notetodos.svg'></img></button>
-                    <button type="button" className={`filter-type-btn ${filterByToEdit.type === 'NoteImg' ? 'active' : ''}`} onClick={() => setNoteType('NoteImg')} title="Image notes"><img src='assets\css\imgs\noteimage.svg'></img></button>
-                    <button type="button" className={`filter-type-btn ${filterByToEdit.type === 'NoteVideo' ? 'active' : ''}`} onClick={() => setNoteType('NoteVideo')} title="Video notes"><i className="fa-brands fa-youtube"></i></button>
-                </div>
+
+                <section className="filter-type-select">
+                    <select name="type" value={filterByToEdit.type || ''} onChange={handleChange} className="note-type-select" title="Search by Type">
+                        <option value="">All Note</option>
+                        <option value="NoteTxt">Text Notes</option>
+                        <option value="NoteTodos">Todos Notes</option>
+                        <option value="NoteImg">Image Notes</option>
+                        <option value="NoteVideo">Video Notes</option>
+                    </select>
+                </section>
             </form>
         </section>
     )
