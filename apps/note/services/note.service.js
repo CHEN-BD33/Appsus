@@ -61,7 +61,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned)
+        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned, note.labels)
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }
@@ -81,7 +81,8 @@ function getEmptyNoteTxt() {
         type: 'NoteTxt',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', txt: '' }
+        info: { title: '', txt: '' },
+        labels: []
     }
 }
 
@@ -90,7 +91,8 @@ function getEmptyNoteImgVid(type = 'NoteImg') {
         type,
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { url: '', title: '' }
+        info: { url: '', title: '' },
+        labels: []
     }
 }
 
@@ -99,7 +101,8 @@ function getEmptyNoteTodos() {
         type: 'NoteTodos',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', todos: [] }
+        info: { title: '', todos: [] },
+        labels: []
     }
 }
 
@@ -116,7 +119,7 @@ function getEmailParamsFromNote(note) {
     let body = ''
 }
 
-function _createNote(type, info, backgroundColor, isPinned = false) {
+function _createNote(type, info, backgroundColor, isPinned = false, labels = []) {
     return {
         id: utilService.makeId(),
         createdAt: Date.now(),
@@ -125,7 +128,8 @@ function _createNote(type, info, backgroundColor, isPinned = false) {
         style: {
             backgroundColor,
         },
-        info
+        info,
+        labels
     }
 }
 
@@ -143,7 +147,8 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                labels: ['Critical', 'Work']
             },
             {
                 id: 'n102',
@@ -156,7 +161,8 @@ function _createNotes() {
                 info: {
                     title: 'SHOP',
                     txt: 'Get Materna'
-                }
+                },
+                labels: ['Family']
             },
             {
                 id: 'n103',
@@ -185,7 +191,8 @@ function _createNotes() {
                         { txt: 'Driving liscence', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                labels: ['Critical']
             },
             {
                 id: 'n105',
@@ -198,7 +205,8 @@ function _createNotes() {
                 info: {
                     url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
                     title: 'SnoopDogg'
-                }
+                },
+                labels: ['Memories']
             },
             {
                 id: 'n106',
