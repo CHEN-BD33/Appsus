@@ -94,12 +94,15 @@
 }
 
 .add-note-actions {
+    display: flex;
+    align-items: center;
     justify-content: start;
     padding-top: 8px;
     margin-top: auto;
 }
 
 .add-note-actions .close-button {
+
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 0.875rem;
@@ -107,7 +110,7 @@
     background: none;
     border: none;
     min-width: 70px;
-    margin-left: 8px;
+    margin-left: auto;
     /* transition: background-color 0.2s; */
 }
 
