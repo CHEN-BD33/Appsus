@@ -1,4 +1,5 @@
 .note-todos-list ul {
+    display: grid;
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -12,7 +13,6 @@
     gap: 4px;
    
 }
-
 
 .note-todos-list.completed-todos .todo-item.first-completed {
     border-top: 1px solid rgba(0,0,0,0.08);
