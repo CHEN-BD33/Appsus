@@ -8,7 +8,7 @@ import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote = null, isModal = false, onRemove = null, onDuplicate = null }) {
+export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote = null, isModal = false, onRemove = null, onDuplicate = null, onNoteChange = null }) {
     const [note, setNote] = useState(initialNote || noteService.getEmptyNoteTxt())
     const noteTypeState = initialNote && initialNote.type ? initialNote.type : 'NoteTxt'
     const [noteType, setNoteType] = useState(noteTypeState)
@@ -31,16 +31,18 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         }
     }, [isExpanded, note])
 
-
+    useEffect(() => {
+        if (isModal && onNoteChange) {
+            onNoteChange(note);
+        }
+    }, [note, isModal, onNoteChange])
 
     function handleSubmit(ev) {
         if (ev) {
             ev.preventDefault()
             ev.stopPropagation()
         }
-
         handleChange(note)
-
 
         if (!isModal) {
             resetNote()
@@ -170,15 +172,9 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                         {isModal && note.id && (
                             <section className='preview-note-actions'>
                                 {onDuplicate && (
-                                    <button onClick={handleDuplicate} className='duplicate-btn' title='Copy note'>
-                                        <i className="fa-regular fa-clone"></i>
-                                    </button>
-                                )}
+                                    <button onClick={handleDuplicate} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>)}
                                 {onRemove && (
-                                    <button onClick={handleRemove} className='close' title='Delete note'>
-                                        <img src='assets/css/imgs/delete.svg' alt="Delete" />
-                                    </button>
-                                )}
+                                    <button onClick={handleRemove} className='close' title='Delete note'><img src='assets/css/imgs/delete.svg' alt="Delete" /></button>)}
                             </section>
                         )}
                         <button type="button" onClick={handleClose} info={note.info} className="close-button">Close</button>
