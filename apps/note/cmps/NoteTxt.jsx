@@ -5,26 +5,19 @@ const { useState, useEffect, useRef } = React
 
 export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = false }) {
     const [infoToEdit, setInfoToEdit] = useState({ ...info })
-    const [isEditing, setIsEditing] = useState(false)
     const debouncedChangeInfo = useRef(utilService.debounce((newInfo) => { onChangeInfo(newInfo) }, 1500))
+
     useEffect(() => {
         setInfoToEdit(info)
     }, [info])
 
-    function handleContentClick() {
-        setIsEditing(true)
-    }
-
-    function handleContentBlur() {
-        setIsEditing(false)
-    }
 
     function handleChange({ target }) {
         const { name, value } = target
         const newInfo = { ...infoToEdit, [name]: value }
         setInfoToEdit(newInfo)
         debouncedChangeInfo.current(newInfo)
-        // onChangeInfo(newInfo)
+        
         if (target.tagName === 'TEXTAREA') {
             target.style.height = 'auto'
             target.style.height = target.scrollHeight + 'px'
@@ -43,10 +36,8 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
             )
         }
         else if (info.txt && !info.title) {
-            return isEditing ? (
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} onBlur={handleContentBlur} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
-            ) : (
-                <LongTxt txt={infoToEdit.txt || ''} length={30} onClick={handleContentClick} />
+            return (
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             )
         }
         else {
@@ -55,11 +46,8 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                     <section>
                         <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                     </section>
-                    {isEditing ? (
-                        <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} onBlur={handleContentBlur} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
-                    ) : (
-                        <LongTxt txt={infoToEdit.txt || ''} length={30} onClick={handleContentClick} />
-                    )}
+                        <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
+                 
                 </section>
             )
         }
