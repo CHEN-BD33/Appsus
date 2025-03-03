@@ -16,11 +16,18 @@ export function MailCompose(){
     }, [mailId])
 
     function loadMail() {
-        mailService.get(mailId)
-            .then(setMailToEdit)
-            .catch(err => console.log('err:', err))
-    }
+        mailService.get(mailId) 
+            .then(mail => {
+                if (mail.status === 'draft') {
+                    setMailToEdit(mail) 
+                } else {
+                    setMailToEdit(mailService.getEmptyMail())
+                }
 
+                console.log(mail, 'mailToEdit')
+            })
+            .catch(err => console.log('Error loading mail:', err))
+    }
     function onSaveMail(ev) {
         ev.preventDefault()
          mailToEdit.status = 'sent'
@@ -28,9 +35,10 @@ export function MailCompose(){
         mailService.save(mailToEdit)
             .then(() => {
                 showSuccessMsg(`New Mail saved successfully!`)
+                navigate('/mail')
             })
             .catch(err => console.log('err:', err))
-            navigate('/mail')
+           
     }
 
 
@@ -47,10 +55,12 @@ export function MailCompose(){
     }
 
     function handleChange({ target }) {
-        const field = target.name
-        var value = target.value
+        const { name, value } = target
 
-        setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
+        setMailToEdit(prevMail => ({
+            ...prevMail, 
+            [name]: value 
+        }))
     }
 
   
@@ -70,6 +80,7 @@ export function MailCompose(){
                     name='to'
                     id='to'
                     placeholder='To'
+                    value={mailToEdit.to || ""}
                     required
                 />
     
@@ -79,6 +90,7 @@ export function MailCompose(){
                     name='subject'
                     id='subject'
                     placeholder='Subject'
+                    value={mailToEdit.subject || ""}
                     required
                 />
     
@@ -86,6 +98,7 @@ export function MailCompose(){
                     onChange={handleChange}
                     name='body'
                     id='body'
+                    value={mailToEdit.body || ""}
                     required
                 ></textarea>
 

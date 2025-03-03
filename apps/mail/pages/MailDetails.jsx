@@ -25,7 +25,6 @@ export function MailDetails({mailId, onCloseDetails}){
 
 
     if(!mail) return 'details...'
-
     return (
         <section className="mail-details">
           <div className="nav-bar-container">

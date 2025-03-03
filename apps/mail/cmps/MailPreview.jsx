@@ -1,9 +1,11 @@
 import { LongTxt } from "../../../cmps/LongTxt.jsx"
-const {Link} = ReactRouterDOM
-const {useState } = React
+const {Link , useNavigate} = ReactRouterDOM
+const {useState} = React
 
 
 export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
+
+    const navigate = useNavigate()
     const [isChecked, setIsChecked] = useState(mail.isChecked)
     const [isStarred, setIsStarred] = useState(mail.isStarred)
     const [isRead, setIsRead] = useState(mail.isRead)
@@ -15,6 +17,9 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     }
 
     function handleRowClick() {
+        if(mail.status ==='draft') {
+            navigate("/mail/edit/")
+        }
         onSelectMail(mail.id)
         if (!mail.isRead) {
             onMarkAsRead(mail.id)
