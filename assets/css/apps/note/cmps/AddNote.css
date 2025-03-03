@@ -125,7 +125,7 @@ input,
     border: none;
     padding: 6px;
     color: var(--gray5);
-    background: #fff;
+    /* background: #fff; */
     font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
 }
 
@@ -167,7 +167,7 @@ input,
     outline: none;
     resize: none;
     color: var(--gray5);
-    background: #fff;
+    /* background: #fff; */
 }
 
 .note-text-txt,
