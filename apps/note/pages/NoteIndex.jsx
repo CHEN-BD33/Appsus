@@ -13,6 +13,7 @@ export function NoteIndex() {
     const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
     const [selectedNote, setSelectedNote] = useState(null)
+    const [editedNote, setEditedNote] = useState(null)
     const dialogRef = useRef(null)
 
     function openNoteModal(note) {
@@ -22,16 +23,15 @@ export function NoteIndex() {
         }
     }
 
-    function closeNoteModal() {
+    function closeNoteModal(updatedNote = null) {
         if (dialogRef.current && dialogRef.current.open) {
-            if (selectedNote) {
-                handleChange(selectedNote)
+            if (updatedNote) {
+                handleChange(updatedNote)
             }
             dialogRef.current.close()
             setSelectedNote(null)
         }
     }
-
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -121,13 +121,11 @@ export function NoteIndex() {
             <AddNote handleChange={handleChange} onTogglePin={togglePin} />
             <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} onOpenModal={openNoteModal} />
 
-            <dialog
-                ref={dialogRef}
-                onClick={(e) => {
-                    if (e.target === dialogRef.current) {
-                        closeNoteModal()
-                    }
-                }}
+            <dialog ref={dialogRef} onClick={(e) => {
+                if (e.target === dialogRef.current) {
+                    closeNoteModal(editedNote || selectedNote)
+                }
+            }}
                 className="note-modal"
                 style={{
                     backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white',
@@ -136,18 +134,9 @@ export function NoteIndex() {
                     padding: 0,
                     maxWidth: '600px',
                     width: '90%'
-                }}
-            >
+                }}>
                 {selectedNote && (
-                    <AddNote
-                        initialNote={selectedNote}
-                        handleChange={handleChange}
-                        onTogglePin={togglePin}
-                        onCloseModal={closeNoteModal}
-                        onRemove={removeNote}
-                        onDuplicate={duplicateNote}
-                        isModal={true}
-                    />
+                    <AddNote initialNote={selectedNote} handleChange={handleChange} onTogglePin={togglePin} onCloseModal={closeNoteModal} onRemove={removeNote} onDuplicate={duplicateNote} onNoteEdit={setEditedNote} isModal={true} />
                 )}
             </dialog>
         </section>
