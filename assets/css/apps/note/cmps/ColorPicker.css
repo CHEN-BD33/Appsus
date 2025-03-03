@@ -25,21 +25,23 @@
 
 .color-options {
     position: absolute;
-    top: 100%;
-    left: 0;
+    align-items: center;
+    justify-content: center;
     display: grid;
     grid-template-columns: repeat(11, 1fr);
+    width: 440px;
+    height: 40px;
     gap: 5px;
     padding: 10px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .color-option {
-    width: 14px;
-    height: 14px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     cursor: pointer;
     border: 1px solid #ddd;
