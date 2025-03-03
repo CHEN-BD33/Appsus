@@ -30,11 +30,11 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     }
 
     function handleStarClick() {
-        mail.isStarred = !mail.isStarred
-        console.log(mail)
         setIsStarred(!isStarred)
         onClickStarred(mail.id)
     }
+
+    
     
     return (
         <tr className={`mail-preview ${isRead ? 'read' : 'unread'}`}>

@@ -17,7 +17,7 @@ window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
 const filterBy = {
-    status: 'inbox/sent/trash/draft',
+    status: 'inbox/sent/trash/draft/starred',
     txt: 'puki', // no need to support complex text search
     isRead: true, // (optional property, if missing: show all)
     lables: ['important', 'romantic'], // has any of the labels
@@ -33,9 +33,15 @@ const filterBy = {
           _saveMailsToStorage()
         }
         
-        if (filterBy.status) {
-            mails = mails.filter(mail => mail.status.includes(filterBy.status))
-        }
+        console.log('service:', filterBy)
+
+
+        if (filterBy.status === 'starred') {
+            mails = mails.filter(mail => mail.isStarred === true)
+            console.log(mails ,'mailsAtQurey ')
+          } else if (filterBy.status) {
+            mails = mails.filter(mail => mail.status.includes(filterBy.status));
+          }
         
         if (filterBy.txt) {
           const regExp = new RegExp(filterBy.txt, 'i')
@@ -45,11 +51,7 @@ const filterBy = {
         if (typeof filterBy.isRead === 'boolean') {
           mails = mails.filter(mail => mail.isRead === filterBy.isRead)
         }
-        
-        if (typeof filterBy.isStarred === 'boolean') {
-          
-            mails = mails.filter(mail => mail.isStarred === filterBy.isStarred)
-        }
+
         if (typeof filterBy.isChecked === 'boolean') {
             mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
           }

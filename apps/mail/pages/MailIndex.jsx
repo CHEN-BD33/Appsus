@@ -25,9 +25,11 @@ export function MailIndex() {
 
 
     function loadMails() {
+        console.log('load:', filterBy.status);
+        
              mailService.query(filterBy)
             .then((mails) => {
-        console.log('Mails:', mails)
+        console.log('Mails from load::', mails)
 
                 setMails(mails)
             })
@@ -56,23 +58,18 @@ export function MailIndex() {
     }
 
     function onClickStarred(mailId) {
+        
         mailService.get(mailId)
-            .then((mail) => {
-               
-                if (mail.status.includes('starred')) {
-                
-                    mail.isStarred = false
-                    mail.status = mail.status.filter(status => status !== 'starred')
-                } else {
-                    mail.isStarred = true
-                    mail.status.push('starred')
-                }
-                return mailService.save(mail)
+        .then((mail) => {
+                mail.isStarred = !mail.isStarred
+                console.log(mail.isStarred)
+              return  mailService.save(mail)
             })
             .then(() => {
                 setMails((prevMails) =>
                     prevMails.map((mail) =>
-                        mail.id === mailId ? { ...mail, isStarred: mail.isStarred, status: mail.status } : mail
+                        mail.id === mailId ? { ...mail, isStarred: mail.isStarred } : mail
+                
                     )
                 )
             })
