@@ -21,6 +21,9 @@
 @import './apps/note/cmps/NoteLabels.css';
 @import './apps/note/cmps/ColorPicker.css';
 
+/* /mq - notes/ */
+@import './apps/note/mq/mq.css';
+
 
 
 /* Mail Components */
