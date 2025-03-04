@@ -229,20 +229,28 @@ function _createNotes() {
             {
                 id: 'n106',
                 createdAt: 1112226,
-                type: 'NoteTxt',
+                type: 'NoteTodos',
                 isPinned: true,
                 style: {
                     backgroundColor: '#FAAFA8'
                 },
                 info: {
-                    txt: 'Meeting at friday, at 13:30pm'
-                }
+                    title: 'Birthday Party at Friday',
+                    todos: [
+                        { txt: 'Buy Cake', doneAt: null },
+                        { txt: 'Buy Snacks', doneAt: 187111111 },
+                        { txt: 'Buy Balloons', doneAt: null },
+                        { txt: 'Buy Gift', doneAt: 187111111 }
+                    ]
+                },
+                labels: ['Friends']
+                
             },
             {
                 id: 'n107',
                 createdAt: 1112227,
                 type: 'NoteImg',
-                isPinned: false,
+                isPinned: true,
                 style: {
                     backgroundColor: '#A8C6DF'
                 },
