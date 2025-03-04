@@ -15,6 +15,7 @@ export function NoteIndex() {
     const [selectedNote, setSelectedNote] = useState(null)
     const [editedNote, setEditedNote] = useState(null)
     const dialogRef = useRef(null)
+    const navigate = useNavigate()
 
     function openNoteModal(note) {
         setSelectedNote(note)
@@ -32,8 +33,6 @@ export function NoteIndex() {
             setSelectedNote(null)
         }
     }
-
-    const navigate = useNavigate()
 
     useEffect(() => {
         setSearchParams(filterBy)
@@ -60,7 +59,7 @@ export function NoteIndex() {
                     return [savedNote, ...prevNotes]
 
                 })
-                showSuccessMsg('Note saved successfully!')
+                // showSuccessMsg('Note saved successfully!')
             })
             .catch(err => {
                 console.error('Failed to save note:', err)
@@ -72,7 +71,7 @@ export function NoteIndex() {
         noteService.remove(noteId)
             .then(() => {
                 setNotes(prevNotes => prevNotes.filter(note => noteId !== note.id))
-                showSuccessMsg('Note has been successfully removed!')
+                // showSuccessMsg('Note has been successfully removed!')
             })
             .catch(() => {
                 console.log('error remove note:', err)
@@ -89,7 +88,7 @@ export function NoteIndex() {
         noteService.save(updatedNote)
             .then(savedNote => {
                 setNotes(prevNotes => prevNotes.map(note => note.id === savedNote.id ? savedNote : note))
-                showSuccessMsg(savedNote.isPinned ? 'Note Pinned!' : 'Note Unpinned')
+                // showSuccessMsg(savedNote.isPinned ? 'Note Pinned!' : 'Note Unpinned')
             })
             .catch(err => {
                 console.error('Faild to update pin status', err)
@@ -101,7 +100,7 @@ export function NoteIndex() {
         noteService.duplicate(noteId)
             .then(duplicateNote => {
                 setNotes(prevNotes => [duplicateNote, ...prevNotes])
-                showSuccessMsg('Note duplicated successfully!')
+                // showSuccessMsg('Note duplicated successfully!')
             })
             .catch(err => {
                 console.error('Failed to duplicate note:', err)
