@@ -100,7 +100,7 @@ function save(mail) {
 }
 
 
-function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
+function getEmptyMail(to = "", subject = "", body = "") {
     return {
     fullname: loggedinUser.fullname,
     createdAt: Date.now(), 

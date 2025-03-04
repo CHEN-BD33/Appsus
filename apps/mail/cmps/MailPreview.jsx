@@ -18,14 +18,17 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
 
     function handleRowClick() {
         if(mail.status ==='draft') {
-            navigate("/mail/edit/")
+            console.log(mail)
+            navigate(`/mail/edit/${mail.id}`)
+        }else{
+
+            onSelectMail(mail.id)
+            if (!mail.isRead) {
+                onMarkAsRead(mail.id)
+                setIsRead(true)
+            }
+            mail.isRead = true
         }
-        onSelectMail(mail.id)
-        if (!mail.isRead) {
-            onMarkAsRead(mail.id)
-            setIsRead(true)
-        }
-        mail.isRead = true
     }
 
     function handleCheckClick(){

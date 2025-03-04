@@ -43,7 +43,7 @@ export function MailCompose(){
 
 
     function onAsSaveDraft() {
-        if (!mailToEdit.to && !mailToEdit.subject && !mailToEdit.body) return 
+        if (mailToEdit.to || mailToEdit.subject || mailToEdit.body){
         mailToEdit.status = 'draft'
 
         mailService.save(mailToEdit)
@@ -51,6 +51,7 @@ export function MailCompose(){
                 console.log('Saved as draft')
             })
             .catch(err => console.log('err:', err))
+        } 
             navigate('/mail')
     }
 
@@ -80,7 +81,7 @@ export function MailCompose(){
                     name='to'
                     id='to'
                     placeholder='To'
-                    value={mailToEdit.to || ""}
+                    value={mailToEdit.to}
                     required
                 />
     
@@ -90,7 +91,7 @@ export function MailCompose(){
                     name='subject'
                     id='subject'
                     placeholder='Subject'
-                    value={mailToEdit.subject || ""}
+                    value={mailToEdit.subject}
                     required
                 />
     
@@ -98,7 +99,7 @@ export function MailCompose(){
                     onChange={handleChange}
                     name='body'
                     id='body'
-                    value={mailToEdit.body || ""}
+                    value={mailToEdit.body}
                     required
                 ></textarea>
 
