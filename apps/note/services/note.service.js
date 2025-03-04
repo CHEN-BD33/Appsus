@@ -1,5 +1,6 @@
 import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../../mail/services/mail.service.js'
 
 const NOTE_KEY = 'noteDB'
 _createNotes()
@@ -134,6 +135,8 @@ function getEmailParamsFromNote(note) {
     return { subject, body }
 }
 
+// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
 function _createNote(type, info, backgroundColor, isPinned = false, labels = []) {
     return {
         id: utilService.makeId(),
@@ -255,20 +258,39 @@ function _createNotes() {
 }
 
 
-//mail service//
+
+
+/////////////////////////////////////////////////////////////
+// mailService
+
+// function getFilterFromSearchParams(searchParams) {
+//     if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { ///Add
+//         return { isFromNotes: true } //Add
+//     }
+//     const status = searchParams.get('status') || 'inbox'
+//     const txt = searchParams.get('txt') || ''
+//     const isRead = searchParams.get('isRead') || ''
+//     const isStared = searchParams.get('isStared') || ''
+//     return { status, txt, isRead, isStared };
+// }
+
 
 // function getMailFromSearchParams(searchParams) {
+//     const to = searchParams.get('to') || ''
 //     const subject = searchParams.get('subject') || ''
 //     const body = searchParams.get('body') || ''
-//     const to = searchParams.get('to') || ''
-    
-//     return {
-//       to,
-//       subject,
-//       body,
-//       from: 'user@appsus.com',
-//       sentAt: null,
-//       removedAt: null,
-//       isRead: false
+
+//     return{
+//         fullname: loggedinUser.fullname,
+//         createdAt: Date.now(),
+//         subject,
+//         body,
+//         isRead: true,
+//         sentAt: 0,
+//         removedAt: null,
+//         from: loggedinUser.email,
+//         to,
+//         status: 'draft'
 //     }
-//   }
+
+// }

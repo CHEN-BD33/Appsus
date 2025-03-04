@@ -95,11 +95,8 @@ export function NoteIndex() {
     function sendToEmail(note) {
         const { subject, body } = noteService.getEmailParamsFromNote(note)
 
-        const queryParams = new URLSearchParams()
-        queryParams.append('subject', subject)
-        queryParams.append('body', body)
+        navigate(`/mail/edit?fromNotes=true&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`)
 
-        navigate(`/mail/edit?${queryParams.toString()}`)
     }
 
     if (!notes) return <div>Loading...</div>
