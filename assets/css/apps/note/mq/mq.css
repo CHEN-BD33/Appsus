@@ -5,7 +5,25 @@
         column-width: auto;
         column-gap: 10px;
     }
+
+    .note-preview-content {
+        pointer-events: none;
+    }
+
+    .preview-note-actions button {
+        pointer-events: auto;
+    }
+
+    .color-options {
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        transform: none;
+        width: 200px;
+        height: auto;
+    }
+
 }
+
 
 
 /* SMALL */
