@@ -11,6 +11,9 @@
     padding: 8px 0;
     position: relative;
     gap: 4px;
+    color: var(--gray5);
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+    font-size: 0.875rem;
 
 }
 
