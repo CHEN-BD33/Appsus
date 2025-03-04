@@ -35,7 +35,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
     useEffect(() => {
         if (isModal && onNoteChange) {
-            onNoteChange(note);
+            onNoteChange(note)
         }
     }, [note, isModal, onNoteChange])
 
@@ -119,6 +119,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
     function handleClose() {
         if (isModal && onCloseModal) {
+           handleChange(note)
             onCloseModal()
 
         } else {
