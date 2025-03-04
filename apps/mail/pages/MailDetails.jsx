@@ -1,41 +1,55 @@
 import { mailService } from "../services/mail.service.js"
+const {Link } = ReactRouterDOM 
 
 const { useState, useEffect } = React
 
-const { useParams,useNavigate ,Link} = ReactRouterDOM
-
-export function MailDetails(){
+export function MailDetails({mailId, onCloseDetails}){
     const [mail, setMail] = useState(null)
-    const params = useParams()
+
 
     useEffect(() => {
-        loadMail()
-    }, [params.mailId])
+        if (mailId) {
+            loadMail()
+        }
+    }, [mailId])
 
     function loadMail() {
-        mailService.get(params.mailId)
-            .then(setMail)
+        mailService.get(mailId)
+            .then(mail => {
+                setMail(mail)})
             .catch((err) => {
                 console.log('err:', err)
             })
     }
 
 
-    if(!mail) return <div>Loading..</div>
-
+    if(!mail) return 'details...'
     return (
         <section className="mail-details">
-            <h1 className="mail-subject">{mail.subject}</h1>
-            <h3 className="sender-info">{mail.from} {mail.fullName}</h3>
-            <h3 className="mail-to" >To:{mail.to}</h3>
-            <h3 className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</h3>
-            <p className="mail-body">{mail.body}</p>
-            <div className="action-buttons">
-            <button><Link to="/mail">Back to List</Link></button>
-            <button> <Link to={`/mail/${mail.nextMailId}`}>Next mail</Link></button>  
-            <button> <Link to={`/mail/${mail.prevMailId}`}>Prev mail</Link></button>  
-            <button onClick={()=>onRemoveMail(mail.id)}>Delete</button>
+          <div className="nav-bar-container">
+            <div className="action-buttons-container">
+            <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
+            <button onClick={()=>onRemoveMail(mail.id)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
+            <button><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
+
             </div>
+            <div className="navigate-container">
+            <span className="mail-index-count">2 of 234</span>
+            <button> <Link to={`/mail/${mail.prevMailId}`}><img src="assets/css/apps/mail/images/arrowLeft.png" /></Link></button>  
+            <button> <Link to={`/mail/${mail.nextMailId}`}><img src="assets/css/apps/mail/images/arrowRight.png" /></Link></button>  
+            </div>
+        </div>
+
+        <div className="mail-details-container">
+            <h2 className="mail-subject">{mail.subject}</h2>
+            <div className="user-details">
+            <div> <span className="mail-fullName">{mail.fullname} </span><span className="mail-from">{`<${mail.from}>`}</span></div>
+            <span className="mail-sentAt">{new Date(mail.sentAt).toLocaleString()}</span>
+            </div>
+            <span className="mail-to" >to {mail.to}</span>
+            <p className="mail-body">{mail.body}</p>
+            </div>
+         
             </section>
     )
 
