@@ -127,6 +127,7 @@
     border-radius: 8px;
     padding: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
 
 .note-modal::backdrop {
@@ -156,4 +157,12 @@
     width: 32px;
     padding: 8px;
     margin-bottom: 15px;
+}
+
+.note-modal .color-options {
+    position: fixed;
+}
+
+.note-modal .label-options {
+    position: absolute;
 }
