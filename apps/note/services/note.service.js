@@ -1,5 +1,6 @@
 import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../../mail/services/mail.service.js'
 
 const NOTE_KEY = 'noteDB'
 _createNotes()
@@ -15,6 +16,7 @@ export const noteService = {
     getEmptyNoteTodos,
     duplicate,
     getFilterFromSearchParams,
+    getEmailParamsFromNote
 }
 
 function query(filterBy = {}) {
@@ -61,7 +63,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned)
+        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned, note.labels)
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }
@@ -81,7 +83,8 @@ function getEmptyNoteTxt() {
         type: 'NoteTxt',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', txt: '' }
+        info: { title: '', txt: '' },
+        labels: []
     }
 }
 
@@ -90,7 +93,8 @@ function getEmptyNoteImgVid(type = 'NoteImg') {
         type,
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { url: '', title: '' }
+        info: { url: '', title: '' },
+        labels: []
     }
 }
 
@@ -99,7 +103,8 @@ function getEmptyNoteTodos() {
         type: 'NoteTodos',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', todos: [] }
+        info: { title: '', todos: [] },
+        labels: []
     }
 }
 
@@ -112,11 +117,27 @@ function duplicate(noteId) {
 }
 
 function getEmailParamsFromNote(note) {
-    let subject = ''
-    let body = ''
+    const { type, info } = note
+    let subject, body
+    if (type === 'NoteTxt') {
+        subject = info.title || ''
+        body = info.txt || ''
+    } else if (type === 'NoteImg' || type === 'NoteVideo') {
+        subject = info.title || ''
+        body = info.url || ''
+    } else if (type === 'NoteTodos') {
+        subject = info.title || ''
+        body = info.todos.map(todo => `${todo.txt} ${todo.doneAt ? '(Done)' : ''}`).join('\n')
+    } else {
+        subject = 'Note from Keep'
+        body = ''
+    }
+    return { subject, body }
 }
 
-function _createNote(type, info, backgroundColor, isPinned = false) {
+// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+function _createNote(type, info, backgroundColor, isPinned = false, labels = []) {
     return {
         id: utilService.makeId(),
         createdAt: Date.now(),
@@ -125,7 +146,8 @@ function _createNote(type, info, backgroundColor, isPinned = false) {
         style: {
             backgroundColor,
         },
-        info
+        info,
+        labels
     }
 }
 
@@ -143,7 +165,8 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                labels: ['Critical', 'Work']
             },
             {
                 id: 'n102',
@@ -156,7 +179,8 @@ function _createNotes() {
                 info: {
                     title: 'SHOP',
                     txt: 'Get Materna'
-                }
+                },
+                labels: ['Family']
             },
             {
                 id: 'n103',
@@ -185,7 +209,8 @@ function _createNotes() {
                         { txt: 'Driving liscence', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                labels: ['Critical']
             },
             {
                 id: 'n105',
@@ -198,7 +223,8 @@ function _createNotes() {
                 info: {
                     url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
                     title: 'SnoopDogg'
-                }
+                },
+                labels: ['Memories']
             },
             {
                 id: 'n106',
@@ -232,3 +258,39 @@ function _createNotes() {
 }
 
 
+
+
+/////////////////////////////////////////////////////////////
+// mailService
+
+// function getFilterFromSearchParams(searchParams) {
+//     if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { ///Add
+//         return { isFromNotes: true } //Add
+//     }
+//     const status = searchParams.get('status') || 'inbox'
+//     const txt = searchParams.get('txt') || ''
+//     const isRead = searchParams.get('isRead') || ''
+//     const isStared = searchParams.get('isStared') || ''
+//     return { status, txt, isRead, isStared };
+// }
+
+
+// function getMailFromSearchParams(searchParams) {
+//     const to = searchParams.get('to') || ''
+//     const subject = searchParams.get('subject') || ''
+//     const body = searchParams.get('body') || ''
+
+//     return{
+//         fullname: loggedinUser.fullname,
+//         createdAt: Date.now(),
+//         subject,
+//         body,
+//         isRead: true,
+//         sentAt: 0,
+//         removedAt: null,
+//         from: loggedinUser.email,
+//         to,
+//         status: 'draft'
+//     }
+
+// }

@@ -18,6 +18,7 @@
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NotePreview.css';
 @import './apps/note/cmps/NoteTodos.css';
+@import './apps/note/cmps/NoteLabels.css';
 @import './apps/note/cmps/ColorPicker.css';
 
 

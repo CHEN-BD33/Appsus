@@ -3,6 +3,8 @@ import { NoteImg } from "./NoteImg.jsx"
 import { NoteVideo } from "./NoteVideo.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
+import { NoteLabels } from "./NoteLabels.jsx"
+import { LabelPicker } from "../../../cmps/LabelPicker.jsx"
 
 import { noteService } from "../services/note.service.js"
 
@@ -79,7 +81,6 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         setNote(prevNote => ({ ...prevNote, style: { ...prevNote.style, backgroundColor: color } }));
     }
 
-
     function resetNote() {
         let emptyNote
         switch (noteType) {
@@ -109,21 +110,24 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         if (note.id) {
             onTogglePin(note.id)
         }
-
         setNote(prevNote => ({ ...prevNote, isPinned: !prevNote.isPinned }))
+    }
+
+    function onChangeLabels(labels) {
+        setNote(prevNote => ({ ...prevNote, labels }))
     }
 
     function handleClose() {
         if (isModal && onCloseModal) {
-            // If in modal mode, call the close modal function
             onCloseModal()
+
         } else {
-            // If not in modal mode, just collapse the note
             setIsExpanded(false)
+            setNoteType('NoteTxt')
+            setNote(noteService.getEmptyNoteTxt())
         }
     }
 
-    // Handle remove note
     function handleRemove() {
         if (note.id && onRemove) {
             onRemove(note.id)
@@ -131,7 +135,6 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         }
     }
 
-    // Handle duplicate note
     function handleDuplicate() {
         if (note.id && onDuplicate) {
             onDuplicate(note.id)
@@ -156,9 +159,10 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                 </div>
             ) : (
                 //Expand state
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
+                    <NoteLabels labels={note.labels || []} />
 
                     <section className='add-note'>
                         {noteType === 'NoteTxt' && (<NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={true} />)}
@@ -169,6 +173,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
                     <section className='add-note-actions'>
                         <ColorPicker onChangeColor={onChangeColor} />
+                        <LabelPicker selectedLabels={note.labels || []} onChangeLabels={onChangeLabels} />
                         {isModal && note.id && (
                             <section className='preview-note-actions'>
                                 {onDuplicate && (
