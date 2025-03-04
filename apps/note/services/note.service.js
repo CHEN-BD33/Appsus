@@ -238,8 +238,8 @@ function _createNotes() {
                     title: 'Birthday Party at Friday',
                     todos: [
                         { txt: 'Buy Cake', doneAt: null },
-                        { txt: 'Buy Snacks', doneAt: 187111111 },
                         { txt: 'Buy Balloons', doneAt: null },
+                        { txt: 'Buy Snacks', doneAt: 187111111 },
                         { txt: 'Buy Gift', doneAt: 187111111 }
                     ]
                 },
