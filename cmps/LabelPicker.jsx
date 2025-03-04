@@ -32,7 +32,7 @@ export function LabelPicker({ selectedLabels = [], onChangeLabels }) {
                 e.stopPropagation()
                 e.preventDefault()
                 setIsOpen(!isOpen)
-            }} className="label-picker-btn"><i className="fa-solid fa-tags"></i></button>
+            }} className="label-picker-btn" title="Choose Label"><i className="fa-solid fa-tags"></i></button>
 
             {isOpen && (
                 <section className="label-options">
