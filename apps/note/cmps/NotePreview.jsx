@@ -7,7 +7,7 @@ import { NoteLabels } from "./NoteLabels.jsx"
 import { LabelPicker } from "../../../cmps/LabelPicker.jsx"
 
 
-export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin, onSendToMail }) {
+export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin, onOpenModal, onSendToMail }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -32,7 +32,12 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate, onToggl
         <section className='note-preview' style={{ backgroundColor }}>
             <button onClick={() => onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                 <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
-            <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
+            <div
+                className="note-preview-content"
+                onClick={() => onOpenModal(note)}
+            >
+                <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
+            </div>
             <NoteLabels labels={note.labels || []} />
 
             <section className='preview-note-actions'>

@@ -9,7 +9,6 @@
 @import './cmps/UserMsg.css';
 @import './cmps/AppHeader.css';
 @import './cmps/LabelPicker.css';
-
 /* Notes */
 
 @import './apps/note/pages/NoteIndex.css';
@@ -20,6 +19,9 @@
 @import './apps/note/cmps/NoteTodos.css';
 @import './apps/note/cmps/NoteLabels.css';
 @import './apps/note/cmps/ColorPicker.css';
+
+/* /mq - notes/ */
+@import './apps/note/mq/mq.css';
 
 
 

@@ -1,6 +1,6 @@
 import { NotePreview } from "../cmps/NotePreview.jsx"
 
-export function NoteList({ notes, onRemove, handleChange, onDuplicate, onTogglePin, onSendToMail }) {
+export function NoteList({ notes, onRemove, handleChange, onDuplicate, onTogglePin, onSendToMail, onOpenModal }) {
     const pinnedNotes = notes.filter(note => note.isPinned)
     const unpinnedNotes = notes.filter(note => !note.isPinned)
 
@@ -13,7 +13,7 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
                     <ul className='pinned-notes-list'>
                         {pinnedNotes.map(note => (
                             <li key={note.id}>
-                                <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} />
+                                <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} onOpenModal={onOpenModal} />
                             </li>
                         ))}
                     </ul>
@@ -22,10 +22,10 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
             {/* //unpinned// */}
             <section className='unpinned-notes'>
                 {pinnedNotes.length > 0 && <h2 className='unpinned-notes-title'>Others</h2>}
-                <ul className='unpinned-notes'>
+                <ul className='unpinned-notes-list'>
                     {unpinnedNotes.map(note => (
                         <li key={note.id}>
-                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} />
+                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} onOpenModal={onOpenModal}/>
                         </li>
                     ))}
                 </ul>

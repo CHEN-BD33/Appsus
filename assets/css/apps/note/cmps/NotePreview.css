@@ -19,7 +19,9 @@
     z-index: 10;
 }
 
-.note-preview .preview-note-actions {
+
+.note-preview .preview-note-actions,
+.note-modal .preview-note-actions {
     display: flex;
     justify-content: start;
     visibility: hidden;
@@ -30,12 +32,20 @@
     gap: 4px;
 }
 
-.note-preview:hover .preview-note-actions {
+.note-modal .preview-note-actions {
+    opacity: 0.54;
+    visibility: visible;
+
+}
+
+.note-preview:hover .preview-note-actions,
+.note-modal:hover .preview-note-actions {
     visibility: visible;
     opacity: 0.87;
 }
 
-.note-preview .preview-note-actions button {
+.note-preview .preview-note-actions button,
+.note-modal .preview-note-actions button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,20 +56,22 @@
     padding: 0;
 }
 
-.note-preview .preview-note-actions button:hover {
+.note-preview .preview-note-actions button:hover,
+.note-modal .preview-note-actions button:hover {
     opacity: 0.87;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
 }
 
-.note-preview .preview-note-actions img {
+.note-preview .preview-note-actions img,
+.note-modal .preview-note-actions img {
     width: 18px;
     height: 18px;
 }
 
 .duplicate-btn i,
 .send-to-mail-btn i {
-   font-size: 16px;
+    font-size: 16px;
 }
 
 .pin-button {
@@ -99,4 +111,55 @@
     width: 24px;
     height: 24px;
     transition: filter 0.2s ease;
+}
+
+.note-preview-content {
+    cursor: pointer;
+}
+
+/* //modal// */
+.note-modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    /* width: 90%; */
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: visible;
+}
+
+.note-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.note-modal .add-note-container {
+    box-shadow: none;
+    border: none;
+    margin: 0;
+}
+
+.note-modal form {
+    padding: 16px;
+}
+
+.note-modal .add-note-container .add-note input,
+.note-modal .add-note-container .add-note textarea {
+    text-decoration: none;
+    border: none;
+}
+
+.note-modal .preview-note-actions .send-to-mail-btn,
+.note-modal .preview-note-actions .duplicate-btn,
+.note-modal .preview-note-actions .delete-btn {
+    height: 32px;
+    width: 32px;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.note-modal .label-options {
+    position: absolute;
 }

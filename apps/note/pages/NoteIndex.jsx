@@ -5,13 +5,34 @@ import { NoteList } from '../cmps/NoteList.jsx'
 import { noteService } from '../services/note.service.js'
 import { showSuccessMsg, showErrorMsg } from '../../../services/event-bus.service.js'
 
-const { useState, useEffect } = React
+const { useState, useEffect, useRef } = React
 const { useSearchParams, useNavigate } = ReactRouterDOM
 
 export function NoteIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [notes, setNotes] = useState([])
     const [filterBy, setFilterBy] = useState(noteService.getFilterFromSearchParams(searchParams))
+    const [selectedNote, setSelectedNote] = useState(null)
+    const [editedNote, setEditedNote] = useState(null)
+    const dialogRef = useRef(null)
+
+    function openNoteModal(note) {
+        setSelectedNote(note)
+        if (dialogRef.current) {
+            dialogRef.current.showModal()
+        }
+    }
+
+    function closeNoteModal(updatedNote = null) {
+        if (dialogRef.current && dialogRef.current.open) {
+            if (updatedNote) {
+                handleChange(updatedNote)
+            }
+            dialogRef.current.close()
+            setSelectedNote(null)
+        }
+    }
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -39,7 +60,7 @@ export function NoteIndex() {
                     return [savedNote, ...prevNotes]
 
                 })
-                // showSuccessMsg('Note saved successfully!')
+                showSuccessMsg('Note saved successfully!')
             })
             .catch(err => {
                 console.error('Failed to save note:', err)
@@ -106,8 +127,20 @@ export function NoteIndex() {
 
             <NoteFilter filterBy={filterBy} onFilterBy={onSetFilterBy} />
             <AddNote handleChange={handleChange} onTogglePin={togglePin} />
-            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} onSendToMail={sendToEmail} />
+            <NoteList notes={notes} onRemove={removeNote} handleChange={handleChange} onDuplicate={duplicateNote} onTogglePin={togglePin} onSendToMail={sendToEmail} onOpenModal={openNoteModal} />
 
+            <dialog ref={dialogRef} onClick={(e) => {
+                if (e.target === dialogRef.current) {
+                    closeNoteModal(editedNote || selectedNote)
+                }
+            }}
+                className="note-modal"
+                style={{
+                    backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white'}}>
+                {selectedNote && (
+                    <AddNote initialNote={selectedNote} handleChange={handleChange} onTogglePin={togglePin} onCloseModal={closeNoteModal} onRemove={removeNote} onDuplicate={duplicateNote} onNoteEdit={setEditedNote} onSendToMail={sendToEmail} isModal={true} />
+                )}
+            </dialog>
         </section>
 
     )

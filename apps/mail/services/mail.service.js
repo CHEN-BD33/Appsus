@@ -17,11 +17,12 @@ window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
 const filterBy = {
-    status: 'inbox/sent/trash/draft',
+    status: 'inbox',
     txt: 'puki', // no need to support complex text search
     isRead: true, // (optional property, if missing: show all)
-    isStared: true, // (optional property, if missing: show all)
-    lables: ['important', 'romantic'] // has any of the labels
+    lables: ['important', 'romantic'], // has any of the labels
+    isStarred:false,
+    isChecked: false
    }
 
    function query(filterBy = {}) {
@@ -32,10 +33,14 @@ const filterBy = {
           _saveMailsToStorage()
         }
         
-        if (filterBy.status) {
-            mails = mails.filter(mail => mail.status === filterBy.status)
-        }
-        
+        console.log('service:', filterBy)
+
+
+        if (filterBy.status === 'starred') {
+            mails = mails.filter(mail => mail.isStarred === true)
+          } else if (filterBy.status) {
+            mails = mails.filter(mail => mail.status.includes(filterBy.status))
+          }
         if (filterBy.txt) {
           const regExp = new RegExp(filterBy.txt, 'i')
           mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
@@ -44,10 +49,10 @@ const filterBy = {
         if (typeof filterBy.isRead === 'boolean') {
           mails = mails.filter(mail => mail.isRead === filterBy.isRead)
         }
-        
-        if (typeof filterBy.isStared === 'boolean') {
-          mails = mails.filter(mail => mail.isStared === filterBy.isStared)
-        }
+
+        if (typeof filterBy.isChecked === 'boolean') {
+            mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
+          }
         
         if (filterBy.lables && filterBy.lables.length) {
           mails = mails.filter(mail => {
@@ -55,7 +60,6 @@ const filterBy = {
           })
         }
         
-      
         return mails
       })
   }
@@ -95,7 +99,7 @@ function save(mail) {
 }
 
 
-function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
+function getEmptyMail(to = "", subject = "", body = "") {
     return {
     fullname: loggedinUser.fullname,
     createdAt: Date.now(), 
@@ -106,7 +110,9 @@ function getEmptyMail(to = ' ', subject = ' ', body = ' ') {
     removedAt : null,
     from: loggedinUser.email,
     to,
-    status:'sent'
+    status:'sent',
+    isStarred:false,
+    isChecked: false
      
     }
 }
@@ -136,9 +142,10 @@ function _saveMailsToStorage() {
 function getFilterFromSearchParams(searchParams) {
     const status = searchParams.get('status') || 'inbox'
     const txt = searchParams.get('txt') || ''
-    const isRead = searchParams.get('isRead') || ''
-    const isStared = searchParams.get('isStared') || ''
-    return { status, txt, isRead, isStared };
+    const isRead = searchParams.get('isRead')  || ''
+    const isStarred = searchParams.get('isStarred')  || ''
+
+    return { status, txt, isRead,  isStarred }
   }
 
 
@@ -161,7 +168,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'momo@momo.com',
     to: 'user@appsus.com',
-      status:'inbox'
+    status:'inbox',
+    isStarred:false,
+    isChecked: false
 },
 {
     id: 'e102',
@@ -174,7 +183,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'bobo@bobo.com',
     to: 'user2@appsus.com',
-    status:'inbox'
+    status:'inbox',
+    isStarred:false,
+    isChecked: false
 },
 {
     id: 'e103',
@@ -187,7 +198,9 @@ const loggedinUser = {
     removedAt : null,
     from: 'dodo@dodo.com',
     to: 'user3@appsus.com',
-    status:'inbox'
+    status:'inbox',
+    isStarred:false,
+    isChecked: false
 }
 ]
 
