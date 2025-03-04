@@ -10,6 +10,7 @@ export const mailService  = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getMailFromSearchParams
 
 }
 
@@ -140,6 +141,9 @@ function _saveMailsToStorage() {
 }
 
 function getFilterFromSearchParams(searchParams) {
+  if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { 
+    return { isFromNotes: true } 
+}
     const status = searchParams.get('status') || 'inbox'
     const txt = searchParams.get('txt') || ''
     const isRead = searchParams.get('isRead')  || ''
@@ -148,7 +152,24 @@ function getFilterFromSearchParams(searchParams) {
     return { status, txt, isRead,  isStarred }
   }
 
+  function getMailFromSearchParams(searchParams) {
+    const to = searchParams.get('to') || ''
+    const subject = searchParams.get('subject') || ''
+    const body = searchParams.get('body') || ''
 
+    return{
+        fullname: loggedinUser.fullname,
+        createdAt: Date.now(),
+        subject,
+        body,
+        isRead: true,
+        sentAt: 0,
+        removedAt: null,
+        from: loggedinUser.email,
+        to,
+        status: 'draft'
+    }
+}
 
     // basic user:
 const loggedinUser = {
