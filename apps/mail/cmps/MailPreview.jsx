@@ -18,7 +18,6 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
 
     function handleRowClick() {
         if(mail.status ==='draft') {
-            console.log(mail)
             navigate(`/mail/edit/${mail.id}`)
         }else{
 
@@ -45,22 +44,36 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     
     
     return (
-        <tr className={`mail-preview ${isRead ? 'read' : 'unread'}`}>
+        <tr className={`mail-preview ${isRead ? "read" : "unread"}`}>
+            <td>
+                <div className="mail-content">
+                    <span onClick={handleCheckClick} className={`${isChecked ? "checked" : "unChecked"}`}></span>
+                    <span onClick={handleStarClick} className={`${isStarred ? "starred" : "unStarred"}`}></span>
 
-            <td onClick={handleCheckClick} className={`${isChecked ? 'checked' : 'unChecked'}`}></td>
-            <td onClick={handleStarClick} className={`${isStarred ? 'starred' : 'unStarred'}`}></td>
+                    <span className={`fullname ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>
+                        {mail.fullname}
+                    </span>
 
-
-            <td className={`fullname ${mail.isRead ? '' : 'bold'}`}  onClick={handleRowClick}>{mail.fullname}</td>
-            
-            <td className="text"  onClick={handleRowClick}>
-                <span className={`subject ${mail.isRead ? '' : 'bold'}`} >{mail.subject}</span>
-                <span> - </span>
-                <span className="body"><LongTxt txt={ mail.body} /></span>
-                
+                    <span className="text" onClick={handleRowClick}>
+                        <span className={`subject ${mail.isRead ? "" : "bold"}`}>{mail.subject}</span>
+                        <span> - </span>
+                        <span className="body">
+                            <LongTxt txt={mail.body} />
+                        </span>
+                    </span>
+                    <span className="unhover-date">
+                    <span className={`date ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>
+                        {onDate(mail.sentAt)}
+                    </span>
+                    </span>
+                    {/* Hover Icons */}
+                    <span className="hover-icons">
+                        <span onClick={()=>onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
+                        <span className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
+                    </span>
+                </div>
             </td>
-            <td className={`date ${mail.isRead ? '' : 'bold'}`}  onClick={handleRowClick}>{onDate(mail.sentAt)}</td>    
-        </tr>     
-    )
+        </tr>
+    );
 
 }

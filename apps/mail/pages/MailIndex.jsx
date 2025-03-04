@@ -25,8 +25,6 @@ export function MailIndex() {
 
 
     function loadMails() {
-        console.log('load:', filterBy.status);
-        
              mailService.query(filterBy)
             .then((mails) => {
         console.log('Mails from load::', mails)
@@ -106,7 +104,6 @@ export function MailIndex() {
     }
 
     function onCloseDetails() {
-        console.log(selectedMailId)
         setSelectedMailId(null)
     }
 

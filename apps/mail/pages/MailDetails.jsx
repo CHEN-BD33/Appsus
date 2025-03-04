@@ -16,7 +16,6 @@ export function MailDetails({mailId, onCloseDetails}){
     function loadMail() {
         mailService.get(mailId)
             .then(mail => {
-                console.log( mail)
                 setMail(mail)})
             .catch((err) => {
                 console.log('err:', err)

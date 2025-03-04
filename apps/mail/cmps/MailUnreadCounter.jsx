@@ -9,7 +9,6 @@ export function MailUnreadCounter(){
         mailService.query()
         .then(mails => {
             const count = mails.filter(mail => !mail.isRead).length
-            console.log(count)
             setUnreadCount(count)
             })
             .catch(err => console.log('err:', err))

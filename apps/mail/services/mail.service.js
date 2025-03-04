@@ -38,7 +38,6 @@ const filterBy = {
 
         if (filterBy.status === 'starred') {
             mails = mails.filter(mail => mail.isStarred === true)
-            console.log(mails ,'mailsAtQurey ')
           } else if (filterBy.status) {
             mails = mails.filter(mail => mail.status.includes(filterBy.status))
           }
