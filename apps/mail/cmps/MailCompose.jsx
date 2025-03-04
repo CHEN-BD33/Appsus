@@ -16,11 +16,17 @@ export function MailCompose(){
     }, [mailId])
 
     function loadMail() {
-        mailService.get(mailId)
-            .then(setMailToEdit)
-            .catch(err => console.log('err:', err))
-    }
+        mailService.get(mailId) 
+            .then(mail => {
+                if (mail.status === 'draft') {
+                    setMailToEdit(mail) 
+                } else {
+                    setMailToEdit(mailService.getEmptyMail())
+                }
 
+            })
+            .catch(err => console.log('Error loading mail:', err))
+    }
     function onSaveMail(ev) {
         ev.preventDefault()
          mailToEdit.status = 'sent'
@@ -28,14 +34,15 @@ export function MailCompose(){
         mailService.save(mailToEdit)
             .then(() => {
                 showSuccessMsg(`New Mail saved successfully!`)
+                navigate('/mail')
             })
             .catch(err => console.log('err:', err))
-            navigate('/mail')
+           
     }
 
 
     function onAsSaveDraft() {
-        if (!mailToEdit.to && !mailToEdit.subject && !mailToEdit.body) return 
+        if (mailToEdit.to || mailToEdit.subject || mailToEdit.body){
         mailToEdit.status = 'draft'
 
         mailService.save(mailToEdit)
@@ -43,14 +50,17 @@ export function MailCompose(){
                 console.log('Saved as draft')
             })
             .catch(err => console.log('err:', err))
+        } 
             navigate('/mail')
     }
 
     function handleChange({ target }) {
-        const field = target.name
-        var value = target.value
+        const { name, value } = target
 
-        setMailToEdit(prevMail => ({ ...prevMail, [field]: value }))
+        setMailToEdit(prevMail => ({
+            ...prevMail, 
+            [name]: value 
+        }))
     }
 
   
@@ -70,8 +80,8 @@ export function MailCompose(){
                     name='to'
                     id='to'
                     placeholder='To'
+                    value={mailToEdit.to}
                     required
-                    value={mailToEdit.to || ''}
                 />
     
                 <input
@@ -80,16 +90,16 @@ export function MailCompose(){
                     name='subject'
                     id='subject'
                     placeholder='Subject'
+                    value={mailToEdit.subject}
                     required
-                    value={mailToEdit.subject || ''}
                 />
     
                 <textarea
                     onChange={handleChange}
                     name='body'
                     id='body'
+                    value={mailToEdit.body}
                     required
-                    value={mailToEdit.body || ''}
                 ></textarea>
 
                 <div className="mail-compose-footer">

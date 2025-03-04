@@ -9,7 +9,8 @@ import { MailIndex } from './apps/mail/pages/MailIndex.jsx'
 import { NoteIndex } from './apps/note/pages/NoteIndex.jsx'
 import { MailDetails } from './apps/mail/pages/MailDetails.jsx'
 import { MailCompose } from './apps/mail/cmps/MailCompose.jsx'
-import { MailFolderList } from './apps/mail/cmps/MailFolderList.jsx'
+import { MailList } from './apps/mail/cmps/MailList.jsx'
+
 
 export function RootCmp() {
     return(
@@ -22,10 +23,14 @@ export function RootCmp() {
                 <Route path="/note" element={<NoteIndex />} />
 
                 <Route path="/mail" element={<MailIndex />}>
-                        <Route path="/mail/edit" element={<MailCompose />} />
+                <Route path="edit/:mailId" element={<MailCompose />} />
+                <Route path="edit" element={<MailCompose />} />
+                <Route path="list" element={<MailList/>}/>
+                <Route path=":mailId" element={<MailDetails />} /> 
+    
                 </Route>
-                <Route path="/mail/:mailId" element={<MailDetails />} />
 
+               
             </Routes>
 
             <UserMsg />
