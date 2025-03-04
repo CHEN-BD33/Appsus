@@ -3,9 +3,11 @@ import { NoteImg } from "./NoteImg.jsx"
 import { NoteVideo } from "./NoteVideo.jsx"
 import { NoteTodos } from "./NoteTodos.jsx"
 import { ColorPicker } from "./ColorPicker.jsx"
+import { NoteLabels } from "./NoteLabels.jsx"
+import { LabelPicker } from "../../../cmps/LabelPicker.jsx"
 
 
-export function NotePreview({ note, onRemove, handleChange }) {
+export function NotePreview({ note, onRemove, handleChange, onDuplicate, onTogglePin, onOpenModal, onSendToMail }) {
 
     function onChangeInfo(updatedInfo) {
         const updatedNote = { ...note, info: updatedInfo }
@@ -17,14 +19,33 @@ export function NotePreview({ note, onRemove, handleChange }) {
         handleChange(updatedNote)
     }
 
-    const backgroundColor = note.style ? note.style.backgroundColor : 'white'
+    function onChangeLabels(labels) {
+        const updatedNote = { ...note, labels }
+        handleChange(updatedNote)
+
+    }
+
+
+    const backgroundColor = note.style ? note.style.backgroundColor : '#fff'
 
     return (
         <section className='note-preview' style={{ backgroundColor }}>
-            <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
-            <section className='note-actions'>
+            <button onClick={() => onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
+                <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
+            <div
+                className="note-preview-content"
+                onClick={() => onOpenModal(note)}
+            >
+                <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
+            </div>
+            <NoteLabels labels={note.labels || []} />
+
+            <section className='preview-note-actions'>
                 <ColorPicker backgroundColor={backgroundColor} onChangeColor={onChangeColor} />
-                <button onClick={() => onRemove(note.id)} className='close'><img src='assets\css\imgs\delete.svg'></img></button>
+                <LabelPicker selectedLabels={note.labels || []} onChangeLabels={onChangeLabels} />
+                <button onClick={() => onSendToMail(note)} className='send-to-mail-btn' title='Send Note As Mail'><i className="fa-regular fa-envelope"></i></button>
+                <button onClick={() => onDuplicate(note.id)} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>
+                <button onClick={() => onRemove(note.id)} className='delete-btn' title='Delete note'><img src='assets\css\imgs\delete.svg'></img></button>
             </section>
         </section>
     )

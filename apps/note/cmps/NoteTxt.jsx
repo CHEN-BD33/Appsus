@@ -1,18 +1,31 @@
-const { useState, useEffect } = React
+import { utilService } from "../../../services/util.service.js"
+
+const { useState, useEffect, useRef } = React
 
 export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = false }) {
     const [infoToEdit, setInfoToEdit] = useState({ ...info })
-
+    const debouncedChangeInfo = useRef(utilService.debounce((newInfo) => { onChangeInfo(newInfo) }, 1500))
 
     useEffect(() => {
         setInfoToEdit(info)
     }, [info])
 
+
     function handleChange({ target }) {
         const { name, value } = target
         const newInfo = { ...infoToEdit, [name]: value }
         setInfoToEdit(newInfo)
-        onChangeInfo(newInfo)
+        debouncedChangeInfo.current(newInfo)
+        
+        if (target.tagName === 'TEXTAREA') {
+            target.style.height = 'auto'
+            target.style.height = target.scrollHeight + 'px'
+        }
+    }
+
+    function handleTextareaFocus({ target }) {
+        target.style.height = 'auto'
+        target.style.height = target.scrollHeight + 'px'
     }
 
     if (isPreview) {
@@ -23,7 +36,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
         }
         else if (info.txt && !info.title) {
             return (
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter your text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             )
         }
         else {
@@ -32,7 +45,8 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                     <section>
                         <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                     </section>
-                    <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                        <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
+                 
                 </section>
             )
         }
@@ -44,7 +58,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                 <section>
                     <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                 </section>
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             </section>
         )
     }
@@ -52,7 +66,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
     else {
         return (
             <section className='note-text'>
-                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter text..." />
+                <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
             </section>
         )
     }

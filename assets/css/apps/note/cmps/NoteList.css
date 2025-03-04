@@ -4,16 +4,32 @@
     padding: 0 16px;
     width: 100%;
     max-width: 1200px;
-   }
-   
-   .note-list ul {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-      grid-auto-flow: dense; 
-      grid-auto-rows: max-content; 
-      padding: 0;
-      list-style-type: none;
-      margin: 0 auto;
  }
- 
+
+ .note-list ul {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); */
+    column-count: 5;
+    column-width: auto;
+    column-gap: 10px;
+    /* gap: 10px; */
+    /* grid-auto-flow: dense;
+    grid-auto-rows: max-content; */
+    padding: 10px;
+    list-style-type: none;
+    /* margin-left: 52.800px;
+    margin-right: 52.800px; */
+    margin-bottom: 60px;
+ }
+
+ .pinned-notes-title,
+ .unpinned-notes-title {
+    color: rgb(95, 99, 104);
+    letter-spacing: .0727272727em;
+    font-family: 'Roboto-Medium', Arial, sans-serif;
+    font-size: .6875rem;
+    line-height: 1rem;
+    text-transform: uppercase;
+    margin: 32px 32px 8px;
+ } 
+

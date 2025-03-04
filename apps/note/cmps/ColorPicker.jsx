@@ -20,12 +20,11 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
 
     return (
         <section className='color-picker'>
-            <section className='color-picker-btn'>
                 <button onClick={(e) => {
                     e.stopPropagation()
                     e.preventDefault()
                     setIsOpen(!isOpen)
-                }} style={{ backgroundColor }}><img src='assets\css\imgs\colorpicker.svg'></img></button>
+                }} className='color-picker-btn' title="Choose Note Color"><img src='assets\css\imgs\colorpicker.svg'></img></button>
 
                 {isOpen && (
                     <div className='color-options'>
@@ -40,7 +39,6 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
                         ))}
                     </div>
                 )}
-            </section>
         </section>
     )
 }

@@ -1,5 +1,6 @@
 import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
+import { mailService } from '../../mail/services/mail.service.js'
 
 const NOTE_KEY = 'noteDB'
 _createNotes()
@@ -12,7 +13,10 @@ export const noteService = {
     getDefaultFilter,
     getEmptyNoteTxt,
     getEmptyNoteImgVid,
-    getEmptyNoteTodos
+    getEmptyNoteTodos,
+    duplicate,
+    getFilterFromSearchParams,
+    getEmailParamsFromNote
 }
 
 function query(filterBy = {}) {
@@ -23,16 +27,29 @@ function query(filterBy = {}) {
                 notes = notes.filter(note => {
                     if (note.type === 'NoteTxt') {
                         return regExp.test(note.info.txt)
+                    } else if (note.type === 'NoteImg' || note.type === 'NoteVideo') {
+                        return regExp.test(note.info.title || '')
+                    } else if (note.type === 'NoteTodos') {
+                        return regExp.test(note.info.title || '') ||
+                            note.info.todos.some(todo => regExp.test(todo.txt))
                     }
                     return false
                 })
             }
+
             if (filterBy.type) {
                 notes = notes.filter(note => note.type === filterBy.type)
             }
+            notes.sort((a, b) => {
+                if (a.isPinned && !b.isPinned) return -1
+                if (!a.isPinned && b.isPinned) return 1
+                return b.createdAt - a.createdAt
+            })
+
             return notes
         })
 }
+
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
@@ -46,7 +63,7 @@ function save(note) {
     if (note.id) {
         return storageService.put(NOTE_KEY, note)
     } else {
-        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor)
+        const noteToSave = _createNote(note.type, note.info, note.style.backgroundColor, note.isPinned, note.labels)
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }
@@ -54,12 +71,20 @@ function getDefaultFilter() {
     return { txt: '', type: '' }
 }
 
+function getFilterFromSearchParams(searchParams) {
+    const txt = searchParams.get('txt') || ''
+    const type = searchParams.get('type') || ''
+
+    return { txt, type }
+}
+
 function getEmptyNoteTxt() {
     return {
         type: 'NoteTxt',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', txt: '' }
+        info: { title: '', txt: '' },
+        labels: []
     }
 }
 
@@ -68,7 +93,8 @@ function getEmptyNoteImgVid(type = 'NoteImg') {
         type,
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { url: '', title: '' }
+        info: { url: '', title: '' },
+        labels: []
     }
 }
 
@@ -77,21 +103,51 @@ function getEmptyNoteTodos() {
         type: 'NoteTodos',
         isPinned: false,
         style: { backgroundColor: '#ffffff' },
-        info: { title: '', todos: [] }
+        info: { title: '', todos: [] },
+        labels: []
     }
 }
 
+function duplicate(noteId) {
+    return get(noteId)
+        .then(note => {
+            const duplicatedNote = { ...note, id: null }
+            return save(duplicatedNote)
+        })
+}
 
-function _createNote(type, info, backgroundColor) {
+function getEmailParamsFromNote(note) {
+    const { type, info } = note
+    let subject, body
+    if (type === 'NoteTxt') {
+        subject = info.title || ''
+        body = info.txt || ''
+    } else if (type === 'NoteImg' || type === 'NoteVideo') {
+        subject = info.title || ''
+        body = info.url || ''
+    } else if (type === 'NoteTodos') {
+        subject = info.title || ''
+        body = info.todos.map(todo => `${todo.txt} ${todo.doneAt ? '(Done)' : ''}`).join('\n')
+    } else {
+        subject = 'Note from Keep'
+        body = ''
+    }
+    return { subject, body }
+}
+
+// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+function _createNote(type, info, backgroundColor, isPinned = false, labels = []) {
     return {
         id: utilService.makeId(),
         createdAt: Date.now(),
         type,
-        isPinned: false,
+        isPinned,
         style: {
             backgroundColor,
         },
-        info
+        info,
+        labels
     }
 }
 
@@ -101,7 +157,7 @@ function _createNotes() {
         notes = [
             {
                 id: 'n101',
-                createdAt: 1112222,
+                createdAt: 1112221,
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
@@ -109,11 +165,12 @@ function _createNotes() {
                 },
                 info: {
                     txt: 'Fullstack Me Baby!'
-                }
+                },
+                labels: ['Critical', 'Work']
             },
             {
                 id: 'n102',
-                createdAt: 1112223,
+                createdAt: 1112222,
                 type: 'NoteTxt',
                 isPinned: true,
                 style: {
@@ -122,11 +179,12 @@ function _createNotes() {
                 info: {
                     title: 'SHOP',
                     txt: 'Get Materna'
-                }
+                },
+                labels: ['Family']
             },
             {
                 id: 'n103',
-                createdAt: 1112224,
+                createdAt: 1112223,
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
@@ -139,7 +197,7 @@ function _createNotes() {
             },
             {
                 id: 'n104',
-                createdAt: 1112225,
+                createdAt: 1112224,
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
@@ -151,11 +209,12 @@ function _createNotes() {
                         { txt: 'Driving liscence', doneAt: null },
                         { txt: 'Coding power', doneAt: 187111111 }
                     ]
-                }
+                },
+                labels: ['Critical']
             },
             {
                 id: 'n105',
-                createdAt: 1112226,
+                createdAt: 1112225,
                 type: 'NoteVideo',
                 isPinned: false,
                 style: {
@@ -164,6 +223,40 @@ function _createNotes() {
                 info: {
                     url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
                     title: 'SnoopDogg'
+                },
+                labels: ['Memories']
+            },
+            {
+                id: 'n106',
+                createdAt: 1112226,
+                type: 'NoteTodos',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#FAAFA8'
+                },
+                info: {
+                    title: 'Birthday Party at Friday',
+                    todos: [
+                        { txt: 'Buy Cake', doneAt: null },
+                        { txt: 'Buy Balloons', doneAt: null },
+                        { txt: 'Buy Snacks', doneAt: 187111111 },
+                        { txt: 'Buy Gift', doneAt: 187111111 }
+                    ]
+                },
+                labels: ['Friends']
+                
+            },
+            {
+                id: 'n107',
+                createdAt: 1112227,
+                type: 'NoteImg',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#A8C6DF'
+                },
+                info: {
+                    url: 'https://media.istockphoto.com/id/1154370446/photo/funny-raccoon-in-green-sunglasses-showing-a-rock-gesture-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=kkZiaB9Q-GbY5gjf6WWURzEpLzNrpjZp_tn09GB21bI=',
+                    title: 'Funny'
                 }
             },
 
@@ -173,3 +266,39 @@ function _createNotes() {
 }
 
 
+
+
+/////////////////////////////////////////////////////////////
+// mailService
+
+// function getFilterFromSearchParams(searchParams) {
+//     if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { ///Add
+//         return { isFromNotes: true } //Add
+//     }
+//     const status = searchParams.get('status') || 'inbox'
+//     const txt = searchParams.get('txt') || ''
+//     const isRead = searchParams.get('isRead') || ''
+//     const isStared = searchParams.get('isStared') || ''
+//     return { status, txt, isRead, isStared };
+// }
+
+
+// function getMailFromSearchParams(searchParams) {
+//     const to = searchParams.get('to') || ''
+//     const subject = searchParams.get('subject') || ''
+//     const body = searchParams.get('body') || ''
+
+//     return{
+//         fullname: loggedinUser.fullname,
+//         createdAt: Date.now(),
+//         subject,
+//         body,
+//         isRead: true,
+//         sentAt: 0,
+//         removedAt: null,
+//         from: loggedinUser.email,
+//         to,
+//         status: 'draft'
+//     }
+
+// }

@@ -1,10 +1,12 @@
 
-
+ 
  .note-index {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    /* display: grid;
+    grid-template-rows: auto 1fr auto; */
     min-height: 100vh;
     padding: 20px;
+    justify-content: center;
+    align-items: center;
 }
  
 

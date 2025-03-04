@@ -1,0 +1,42 @@
+/* MOBILE ONLY */
+@media (max-width: 640px) {
+    .note-list ul {
+        column-count: 1;
+        column-width: auto;
+        column-gap: 10px;
+    }
+
+    .color-options {
+        grid-template-columns: repeat(4, 1fr);
+        left: 0;
+        transform: none;
+        width: 200px;
+        height: auto;
+    }
+
+}
+
+
+
+/* SMALL */
+@media (min-width: 640px) {
+    .note-list ul {
+        column-count: 2;
+    }
+}
+
+
+/* MEDIUM */
+@media (min-width: 880px) {
+    .note-list ul {
+        column-count: 3;
+    }
+}
+
+
+/* LARGE */
+@media (min-width: 1020px) {
+    .note-list ul {
+        column-count: 4;
+    }
+}

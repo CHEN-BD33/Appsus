@@ -1,5 +1,6 @@
 .note-preview {
-    display: flex;
+    position: relative;
+    display: inline-block;
     flex-direction: column;
     border: 1px solid var(--gray2);
     padding: 16px;
@@ -8,46 +9,151 @@
     position: relative;
     max-height: 600px;
     width: 100%;
+    break-inside: avoid;
+    margin-bottom: 10px;
+
 }
 
 .note-preview:hover {
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+    z-index: 10;
 }
 
-.note-preview .note-actions {
+
+.note-preview .preview-note-actions,
+.note-modal .preview-note-actions {
     display: flex;
+    justify-content: start;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s;
     margin-top: auto;
     padding-top: 12px;
-    gap: 8px;
+    gap: 4px;
 }
 
-.note-preview:hover .note-actions {
+.note-modal .preview-note-actions {
+    opacity: 0.54;
     visibility: visible;
-    opacity: 1;
+
 }
 
-.note-preview .note-actions button {
+.note-preview:hover .preview-note-actions,
+.note-modal:hover .preview-note-actions {
+    visibility: visible;
+    opacity: 0.87;
+}
+
+.note-preview .preview-note-actions button,
+.note-modal .preview-note-actions button {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 26px;
     height: 26px;
-    opacity: 0.7;
+    opacity: 0.54;
     transition: opacity 0.2s;
     padding: 0;
 }
 
-.note-preview .note-actions button:hover {
-    opacity: 1;
+.note-preview .preview-note-actions button:hover,
+.note-modal .preview-note-actions button:hover {
+    opacity: 0.87;
     border-radius: 50%;
     background-color: rgba(95, 99, 104, 0.1);
 }
 
-.note-preview .note-actions img {
-    width: 14px;
-    height: 14px;
+.note-preview .preview-note-actions img,
+.note-modal .preview-note-actions img {
+    width: 18px;
+    height: 18px;
 }
 
+.duplicate-btn i,
+.send-to-mail-btn i {
+    font-size: 16px;
+}
+
+.pin-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    visibility: hidden;
+    width: 32px;
+    height: 32px;
+    opacity: 0.54;
+    top: 6px;
+    right: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    border-radius: 50%;
+}
+
+.note-preview:hover .pin-button {
+    visibility: visible;
+}
+
+.pin-button:hover {
+    opacity: 0.87;
+    background-color: rgba(95, 99, 104, 0.1);
+    color: var(--gray5);
+}
+
+.pin-button:hover .pin-icon {
+    filter: brightness(0.8);
+}
+
+.pin-icon {
+    width: 24px;
+    height: 24px;
+    transition: filter 0.2s ease;
+}
+
+.note-preview-content {
+    cursor: pointer;
+}
+
+/* //modal// */
+.note-modal {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    /* width: 90%; */
+    border: none;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.note-modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.note-modal .add-note-container {
+    box-shadow: none;
+    border: none;
+    margin: 0;
+}
+
+.note-modal form {
+    padding: 16px;
+}
+
+.note-modal .add-note-container .add-note input,
+.note-modal .add-note-container .add-note textarea {
+    text-decoration: none;
+    border: none;
+}
+
+.note-modal .preview-note-actions .send-to-mail-btn,
+.note-modal .preview-note-actions .duplicate-btn,
+.note-modal .preview-note-actions .delete-btn {
+    height: 32px;
+    width: 32px;
+    padding: 8px;
+    margin-bottom: 15px;
+}

@@ -16,8 +16,12 @@
 @import './apps/note/cmps/AddNote.css';
 @import './apps/note/cmps/NoteList.css';
 @import './apps/note/cmps/NotePreview.css';
+@import './apps/note/cmps/NoteTodos.css';
+@import './apps/note/cmps/NoteLabels.css';
 @import './apps/note/cmps/ColorPicker.css';
-@import './apps/mail/mail-setup/vars.css';
+
+/* /mq - notes/ */
+@import './apps/note/mq/mq.css';
 
 
 
@@ -35,9 +39,9 @@
 
 /* Mail SETUP */
 @import './apps/mail/mail-setup/typography.css';
+@import './apps/mail/mail-setup/vars.css';
 
 
 
-@import './apps/note/ColorPicker.css';
 
 
