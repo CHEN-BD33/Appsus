@@ -71,7 +71,7 @@
 
 .duplicate-btn i,
 .send-to-mail-btn i {
-   font-size: 16px;
+    font-size: 16px;
 }
 
 .pin-button {
@@ -119,8 +119,10 @@
 
 /* //modal// */
 .note-modal {
+    display: flex;
+    flex-direction: column;
     max-width: 600px;
-    width: 90%;
+    /* width: 90%; */
     border: none;
     border-radius: 8px;
     padding: 0;
@@ -131,14 +133,27 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.note-modal .add-note-container .add-note input,
-.note-modal .add-note-container .add-note textarea {
-  text-decoration: none;
-  border: none;
+.note-modal .add-note-container {
+    box-shadow: none;
+    border: none;
+    margin: 0;
 }
 
-  .note-modal .add-note-container {
-    box-shadow: none;
-    border:none;
-  }
+.note-modal form {
+    padding: 16px;
+}
 
+.note-modal .add-note-container .add-note input,
+.note-modal .add-note-container .add-note textarea {
+    text-decoration: none;
+    border: none;
+}
+
+.note-modal .preview-note-actions .send-to-mail-btn,
+.note-modal .preview-note-actions .duplicate-btn,
+.note-modal .preview-note-actions .delete-btn {
+    height: 32px;
+    width: 32px;
+    padding: 8px;
+    margin-bottom: 10px;
+}

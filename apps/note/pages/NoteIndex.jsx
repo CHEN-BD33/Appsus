@@ -136,15 +136,9 @@ export function NoteIndex() {
             }}
                 className="note-modal"
                 style={{
-                    backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    padding: 0,
-                    maxWidth: '600px',
-                    width: '90%'
-                }}>
+                    backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white'}}>
                 {selectedNote && (
-                    <AddNote initialNote={selectedNote} handleChange={handleChange} onTogglePin={togglePin} onCloseModal={closeNoteModal} onRemove={removeNote} onDuplicate={duplicateNote} onNoteEdit={setEditedNote} isModal={true} />
+                    <AddNote initialNote={selectedNote} handleChange={handleChange} onTogglePin={togglePin} onCloseModal={closeNoteModal} onRemove={removeNote} onDuplicate={duplicateNote} onNoteEdit={setEditedNote} onSendToMail={sendToEmail} isModal={true} />
                 )}
             </dialog>
         </section>
