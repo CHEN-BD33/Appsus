@@ -17,14 +17,14 @@ export const mailService  = {
 window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
-const filterBy = {
-    status: 'inbox',
-    txt: 'puki', 
-    isRead: true, 
-    lables: ['important', 'romantic'],
-    isStarred:false,
-    isChecked: false
-   }
+// const filterBy = {
+//     status: 'inbox',
+//     txt: 'puki', 
+//     isRead: true, 
+//     lables: ['important', 'romantic'],
+//     isStarred:false,
+//     isChecked: false
+//    }
 
    function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
@@ -40,7 +40,7 @@ const filterBy = {
                 mails = mails.filter(mail => mail.status.includes(filterBy.status))
             }
             if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i');
+                const regExp = new RegExp(filterBy.txt, 'i')
                 mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
             }
             if (typeof filterBy.isRead === 'boolean') {
@@ -54,13 +54,17 @@ const filterBy = {
             }
 
             if (filterBy.sortBy) {
-                if (filterBy.sortBy === 'date') {
-                    mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.createdAt - a.createdAt : a.createdAt - b.createdAt)
-                } else if (filterBy.sortBy === 'subject') {
-                    mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.subject.localeCompare(a.subject) : a.subject.localeCompare(b.subject))
-                }
-            }
-
+              if (filterBy.sortBy === 'date') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.createdAt - a.createdAt : a.createdAt - b.createdAt)
+              } else if (filterBy.sortBy === 'subject') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.subject.localeCompare(a.subject) : a.subject.localeCompare(b.subject))
+              } else if (filterBy.sortBy === 'isStarred') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isStarred - a.isStarred : a.isStarred - b.isStarred)
+              } else if (filterBy.sortBy === 'isRead') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isRead - a.isRead : a.isRead - b.isRead)
+              }
+          }
+          
             return mails
         });
 }
@@ -151,8 +155,10 @@ function getFilterFromSearchParams(searchParams) {
   return {
       status,
       txt,
-      isRead: isRead === 'true' ? true : isRead === 'false' ? false : '',
-      isStarred: isStarred === 'true' ? true : isStarred === 'false' ? false : ''
+      isRead,
+      isStarred,
+      sortBy,
+      sortOrder
   }
 }
 

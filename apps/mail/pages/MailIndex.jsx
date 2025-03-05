@@ -27,14 +27,12 @@ export function MailIndex() {
 
 
     useEffect(() => {
-        console.log("Updating searchParams with filterBy:", filterBy)
         if (filterBy.status) {
-          setSearchParams(filterBy);
+          setSearchParams(filterBy)
         } else {
           console.warn("filterBy is missing required fields:", filterBy)
         }
       }, [filterBy, setSearchParams])
-
 
 
 function loadMails() {
@@ -48,12 +46,12 @@ function loadMails() {
         })
 }
 
-function onToggleRead(mailId) {
+    function onToggleRead(mailId) {
     setMails((prevMails) => 
         prevMails.map((mail) => 
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail
         )
-    );
+    )
 
     mailService.get(mailId) 
         .then((mail) => {
@@ -114,9 +112,13 @@ function onToggleRead(mailId) {
     function onFolderSelect(folder) {
         setFilterBy({ ...filterBy, status: folder })
     }
+    function onSetSort(sortBy, sortOrder) {
+      setFilterBy({ ...filterBy, sortBy, sortOrder: sortOrder === 'asc' ? 'asc' : 'desc' })
+    }
 
     function onSetFilter(filterBy) {
         setFilterBy({ ...filterBy })
+        
     }
 
     function onSelectMail(mailId) {
@@ -157,6 +159,7 @@ function onToggleRead(mailId) {
                     ) : (
                         <MailList 
                         mails={mails} 
+                        onSetSort={onSetSort}
                         onRemoveMail={onRemoveMail} 
                         onToggleRead={onToggleRead} 
                         onSelectMail={onSelectMail} 
