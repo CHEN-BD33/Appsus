@@ -22,7 +22,7 @@
 .note-preview .preview-note-actions,
 .note-modal .preview-note-actions {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s;
