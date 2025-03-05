@@ -20,15 +20,22 @@ export function MailIndex() {
 
     useEffect(() => {
         loadMails()
-        setSearchParams(filterBy)
     }, [filterBy])
+
+    useEffect(() => {
+        console.log("Updating searchParams with filterBy:", filterBy)
+        if (filterBy.status) {
+          setSearchParams(filterBy);
+        } else {
+          console.warn("filterBy is missing required fields:", filterBy)
+        }
+      }, [filterBy, setSearchParams])
+
 
 
     function loadMails() {
              mailService.query(filterBy)
             .then((mails) => {
-        console.log('Mails from load::', mails)
-
                 setMails(mails)
             })
             .catch((err) => {
@@ -44,53 +51,54 @@ export function MailIndex() {
                 return mailService.save(mail) 
             })
             .then(() => {
-                setMails((prevMails) =>
-                    prevMails.map((mail) =>
-                        mail.id === mailId ? { ...mail, isRead: true, } : mail
-                    )
-                )
-            })
+                showSuccessMsg("Marked as read")
+                loadMails()
+              })
             .catch((err) => {
                 console.error('err:', err)
             })
     }
 
     function onClickStarred(mailId) {
-        
-        mailService.get(mailId)
-        .then((mail) => {
-                mail.isStarred = !mail.isStarred
+        mailService
+          .get(mailId)
+          .then((mail) => {
+            mail.isStarred = !mail.isStarred;
+            return mailService.save(mail);
+          })
+          .then(() => {
+            showSuccessMsg("Moved to starred")
+            loadMails()
+          })
+          .catch((err) => {
+            console.error("err:", err)
+          });
+      }
 
-              return  mailService.save(mail)
-            })
-            .then(() => {
-                setMails((prevMails) =>
-                    prevMails.map((mail) =>
-                        mail.id === mailId ? { ...mail, isStarred: mail.isStarred } : mail
-                
-                    )
-                )
-            })
-            .catch((err) => {
-                console.error('err:', err)
-            })
-    }
+      function onRemoveMail(mailId) {
+        return  mailService
+          .get(mailId)
+          .then((mail) => {
+            if (mail.status === "trash") {
+              return mailService.remove(mailId).then(() => {
+                showSuccessMsg("Mail deleted")
+              });
+            } else {
+              const updatedMail = { ...mail, status: "trash" }
+              return mailService.save(updatedMail).then(() => {
+                showSuccessMsg("Moved to trash")
+              });
+            }
+          })
+          .then(() => {
+            loadMails();
+          })
+          .catch((err) => {
+            console.error("Error:", err)
+            showErrorMsg("Failed to delete")
+          })
+      }
 
-
-    function onRemoveMail(mailId) {
-        mailService.remove(mailId)
-            .then(() => {
-                setMails((prevMails) =>
-                    prevMails.filter((mail) => mail.id !== mailId)
-                )
-                showSuccessMsg('success')
-            })
-            .catch((err) => {
-                console.error('err:', err)
-                showErrorMsg('failed')
-                
-            })
-    }
     function onFolderSelect(folder) {
         setFilterBy({ ...filterBy, status: folder })
     }
@@ -101,6 +109,7 @@ export function MailIndex() {
 
     function onSelectMail(mailId) {
         setSelectedMailId(mailId) 
+
     }
 
     function onCloseDetails() {
@@ -120,14 +129,27 @@ export function MailIndex() {
                             Compose</button>
                     </Link>
                 </nav>
-                <MailFolderList onFolderSelect={onFolderSelect} onCloseDetails={onCloseDetails} />
+                <MailFolderList 
+                onFolderSelect={onFolderSelect}
+                onCloseDetails={onCloseDetails}  
+                />
             </div>
 
             <div className="mail-main">
             {selectedMailId ? (
-                        <MailDetails mailId={selectedMailId} onCloseDetails={onCloseDetails}/>
+                        <MailDetails 
+                        mailId={selectedMailId} 
+                        onCloseDetails={onCloseDetails} 
+                        onRemoveMail={onRemoveMail}/>
+
                     ) : (
-                        <MailList mails={mails} onRemoveMail={onRemoveMail} onMarkAsRead={onMarkAsRead} onSelectMail={onSelectMail} onClickStarred={onClickStarred} />
+                        <MailList 
+                        mails={mails} 
+                        onRemoveMail={onRemoveMail} 
+                        onMarkAsRead={onMarkAsRead} 
+                        onSelectMail={onSelectMail} 
+                        onClickStarred={onClickStarred} 
+                        />
                     )}
             </div>
             </div>

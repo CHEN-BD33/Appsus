@@ -1,0 +1,67 @@
+.mail-sorted{
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    height: 48px;
+    width: 100%;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 16px 16px 0 0;
+}
+
+.mail-sorted img{
+    width: 20px;
+    height: 20px;
+}
+
+.mail-sorted .checked ,.mail-sorted .unChecked{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}
+
+.mail-sorted .checked{
+    background-image: url('/assets/css/apps/mail/images/full/checked.png');
+}
+
+.mail-sorted .unChecked{
+    background-image: url('/assets/css/apps/mail/images/empty/unChecked.png');
+}
+
+.mail-sorted .nav-container{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mail-sorted .counter{
+    color: #5e5e5e;
+    font-size: 12px;
+}
+.mail-sorted .sorted-filter-container{
+    display: flex;
+}
+
+.mail-sorted .sorted-filter-container select {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size:20px ;
+    background-image: url('/assets/css/apps/mail/images/arrowDown.png');
+    border: none;
+    padding-right: 15px;
+    width: 0;
+    cursor: pointer;
+    color: transparent;
+    text-shadow: 0 0 0 black;
+}
+
+.mail-sorted .sorted-filter-container select:focus {
+    outline: none;
+}
+
+.mail-sorted .sorted-filter-container option {
+    color: black; /* Make options visible when opened */
+}

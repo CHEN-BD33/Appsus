@@ -23,7 +23,7 @@ export function MailCompose(){
                 } else {
                     setMailToEdit(mailService.getEmptyMail())
                 }
-
+                console.log(mail,'mailToEdit')
             })
             .catch(err => console.log('Error loading mail:', err))
     }

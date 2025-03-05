@@ -3,7 +3,7 @@ const {Link , useNavigate} = ReactRouterDOM
 const {useState} = React
 
 
-export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
+export function MailPreview({mail , onMarkAsRead , onSelectMail , onClickStarred ,onRemoveMail}){
 
     const navigate = useNavigate()
     const [isChecked, setIsChecked] = useState(mail.isChecked)
@@ -44,6 +44,7 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     
     
     return (
+       
         <tr className={`mail-preview ${isRead ? "read" : "unread"}`}>
             <td>
                 <div className="mail-content">
@@ -68,7 +69,7 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
                     </span>
                     {/* Hover Icons */}
                     <span className="hover-icons">
-                        <span onClick={()=>onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
+                        <span onClick={()=> onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
                         <span className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
                     </span>
                 </div>

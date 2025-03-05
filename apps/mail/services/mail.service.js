@@ -29,13 +29,10 @@ const filterBy = {
     return storageService.query(MAIL_KEY)
       .then(mails => {
         if (!mails || !mails.length) {
-          mails = gMails;
+          mails = gMails
           _saveMailsToStorage()
         }
         
-        console.log('service:', filterBy)
-
-
         if (filterBy.status === 'starred') {
             mails = mails.filter(mail => mail.isStarred === true)
           } else if (filterBy.status) {
@@ -59,7 +56,7 @@ const filterBy = {
             return mail.lables && mail.lables.some(label => filterBy.lables.includes(label))
           })
         }
-        
+
         return mails
       })
   }
@@ -140,13 +137,17 @@ function _saveMailsToStorage() {
 }
 
 function getFilterFromSearchParams(searchParams) {
-    const status = searchParams.get('status') || 'inbox'
-    const txt = searchParams.get('txt') || ''
-    const isRead = searchParams.get('isRead')  || ''
-    const isStarred = searchParams.get('isStarred')  || ''
-
-    return { status, txt, isRead,  isStarred }
+  const status = searchParams.get('status') || 'inbox'
+  const txt = searchParams.get('txt') || ''
+  const isRead = searchParams.get('isRead')
+  const isStarred = searchParams.get('isStarred')
+  return {
+      status,
+      txt,
+      isRead: isRead === 'true' ? true : isRead === 'false' ? false : '',
+      isStarred: isStarred === 'true' ? true : isStarred === 'false' ? false : ''
   }
+}
 
 
 

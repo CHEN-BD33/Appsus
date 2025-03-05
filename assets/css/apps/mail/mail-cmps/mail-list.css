@@ -1,14 +1,18 @@
  /* mail list */
 
  .mail-list {
-    display: flex;
-    flex-direction: column;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #ffffff;
     height: 100%;
     margin-right: 16px;
+    border-radius: 16px;
+}
+.mail-list tbody{
+    border-radius: 0 0 16px 16px;
+    overflow-y: scroll;
+    max-height: 817px;
+    display: block;
 }
 
 .mail-preview {

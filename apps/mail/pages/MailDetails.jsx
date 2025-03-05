@@ -1,10 +1,13 @@
 import { mailService } from "../services/mail.service.js"
-const {Link } = ReactRouterDOM 
+const {Link ,useNavigate} = ReactRouterDOM 
+
+
 
 const { useState, useEffect } = React
 
-export function MailDetails({mailId, onCloseDetails}){
+export function MailDetails({mailId, onCloseDetails,onRemoveMail }){
     const [mail, setMail] = useState(null)
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -21,6 +24,15 @@ export function MailDetails({mailId, onCloseDetails}){
                 console.log('err:', err)
             })
     }
+    function removeThisMail(mailId) {
+        onRemoveMail(mailId)
+          .then(() => {
+            onCloseDetails();
+          })
+          .catch((err) => {
+            console.error("Error removing mail:", err);
+          });
+      }
 
 
     if(!mail) return 'details...'
@@ -29,7 +41,7 @@ export function MailDetails({mailId, onCloseDetails}){
           <div className="nav-bar-container">
             <div className="action-buttons-container">
             <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
-            <button onClick={()=>onRemoveMail(mail.id)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
+            <button onClick={()=>removeThisMail(mailId)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
             <button><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
 
             </div>
