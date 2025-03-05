@@ -25,17 +25,14 @@ export function NotePreview({ note, onRemove, handleChange, onDuplicate, onToggl
 
     }
 
-
     const backgroundColor = note.style ? note.style.backgroundColor : '#fff'
 
     return (
         <section className='note-preview' style={{ backgroundColor }}>
             <button onClick={() => onTogglePin(note.id)} className={`pin-button ${note.isPinned ? 'pinned' : ''}`} title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                 <img src={note.isPinned ? 'assets/css/apps/note/img/unpin.svg' : 'assets/css/apps/note/img/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
-            <div
-                className="note-preview-content"
-                onClick={() => onOpenModal(note)}
-            >
+
+            <div className="note-preview-content" onClick={() => onOpenModal(note)}>
                 <DynamicCmp type={note.type} info={note.info} onChangeInfo={onChangeInfo} isPreview={true} />
             </div>
             <NoteLabels labels={note.labels || []} />

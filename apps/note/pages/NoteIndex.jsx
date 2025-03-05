@@ -49,7 +49,6 @@ export function NoteIndex() {
         noteService.save(noteToSave)
             .then(savedNote => {
                 setNotes(prevNotes => {
-
                     if (noteToSave.id) {
                         const noteIndex = prevNotes.findIndex(note => note.id === noteToSave.id)
                         const updatedNotes = [...prevNotes]
@@ -57,7 +56,6 @@ export function NoteIndex() {
                         return updatedNotes
                     }
                     return [savedNote, ...prevNotes]
-
                 })
                 // showSuccessMsg('Note saved successfully!')
             })
@@ -134,12 +132,12 @@ export function NoteIndex() {
                 }
             }}
                 className="note-modal"
-                style={{
-                    backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white'}}>
+                style={{ backgroundColor: selectedNote && selectedNote.style ? selectedNote.style.backgroundColor || 'white' : 'white' }}>
                 {selectedNote && (
                     <AddNote initialNote={selectedNote} handleChange={handleChange} onTogglePin={togglePin} onCloseModal={closeNoteModal} onRemove={removeNote} onDuplicate={duplicateNote} onNoteEdit={setEditedNote} onSendToMail={sendToEmail} isModal={true} />
                 )}
             </dialog>
+
         </section>
 
     )

@@ -10,13 +10,12 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
         setInfoToEdit(info)
     }, [info])
 
-
     function handleChange({ target }) {
         const { name, value } = target
         const newInfo = { ...infoToEdit, [name]: value }
         setInfoToEdit(newInfo)
         debouncedChangeInfo.current(newInfo)
-        
+
         if (target.tagName === 'TEXTAREA') {
             target.style.height = 'auto'
             target.style.height = target.scrollHeight + 'px'
@@ -45,8 +44,7 @@ export function NoteTxt({ info, onChangeInfo, isExpanded = false, isPreview = fa
                     <section>
                         <input className="note-text-title" type="text" name="title" value={infoToEdit.title || ''} onChange={handleChange} style={{ backgroundColor: 'inherit' }} placeholder="Enter title..." />
                     </section>
-                        <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
-                 
+                    <textarea className="note-text-txt" type="text" name="txt" value={infoToEdit.txt || ''} onChange={handleChange} onFocus={handleTextareaFocus} style={{ backgroundColor: 'inherit' }} placeholder="Enter Note..." />
                 </section>
             )
         }

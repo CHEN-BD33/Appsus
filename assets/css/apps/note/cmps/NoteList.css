@@ -1,25 +1,22 @@
  /* note list */
 
  .note-list {
-    padding: 0 16px;
-    width: 100%;
     max-width: 1200px;
+    width: 100%;
+    padding: 0 16px;
  }
 
  .note-list ul {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); */
     column-count: 5;
     column-width: auto;
-    column-gap: 10px;
-    /* gap: 10px; */
-    /* grid-auto-flow: dense;
-    grid-auto-rows: max-content; */
+    column-gap: 5px;
     padding: 10px;
     list-style-type: none;
-    /* margin-left: 52.800px;
-    margin-right: 52.800px; */
     margin-bottom: 60px;
+ }
+
+ .note-list li {
+    width: 240px;
  }
 
  .pinned-notes-title,
@@ -31,5 +28,4 @@
     line-height: 1rem;
     text-transform: uppercase;
     margin: 32px 32px 8px;
- } 
-
+ }

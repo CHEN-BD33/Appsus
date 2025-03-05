@@ -1,7 +1,6 @@
-
 const { useState } = React
 
-export function ColorPicker({ backgroundColor, onChangeColor }) {
+export function ColorPicker({ onChangeColor }) {
     const [isOpen, setIsOpen] = useState(false)
 
     const colors = [
@@ -20,25 +19,25 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
 
     return (
         <section className='color-picker'>
-                <button onClick={(e) => {
-                    e.stopPropagation()
-                    e.preventDefault()
-                    setIsOpen(!isOpen)
-                }} className='color-picker-btn' title="Choose Note Color"><img src='assets/css/apps/note/img/colorpicker.svg'></img></button>
+            <button onClick={(e) => {
+                e.stopPropagation()
+                e.preventDefault()
+                setIsOpen(!isOpen)
+            }} className='color-picker-btn' title="Choose Note Color"><img src='assets/css/apps/note/img/colorpicker.svg'></img></button>
 
-                {isOpen && (
-                    <div className='color-options'>
-                        {colors.map(color => (
-                            <div key={color} className='color-option' style={{ backgroundColor: color }} onClick={(e) => {
-                                e.stopPropagation()
-                                e.preventDefault()
-                                onChangeColor(color)
-                                setIsOpen(false)
-                            }}>
-                            </div>
-                        ))}
-                    </div>
-                )}
+            {isOpen && (
+                <div className='color-options'>
+                    {colors.map(color => (
+                        <div key={color} className='color-option' style={{ backgroundColor: color }} onClick={(e) => {
+                            e.stopPropagation()
+                            e.preventDefault()
+                            onChangeColor(color)
+                            setIsOpen(false)
+                        }}>
+                        </div>
+                    ))}
+                </div>
+            )}
         </section>
     )
 }

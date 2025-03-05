@@ -10,13 +10,12 @@ import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote = null, isModal = false, onRemove = null, onDuplicate = null, onSendToMail = null, onNoteChange = null }) {
+export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote, onRemove, onDuplicate, onSendToMail, onNoteChange, isModal = false }) {
     const [note, setNote] = useState(initialNote || noteService.getEmptyNoteTxt())
     const noteTypeState = initialNote && initialNote.type ? initialNote.type : 'NoteTxt'
     const [noteType, setNoteType] = useState(noteTypeState)
     const isExpandedInitial = initialNote ? true : false
     const [isExpanded, setIsExpanded] = useState(isExpandedInitial)
-
     const noteRef = useRef(null)
 
     useEffect(() => {
@@ -119,7 +118,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
     function handleClose() {
         if (isModal && onCloseModal) {
-           handleChange(note)
+            handleChange(note)
             onCloseModal()
 
         } else {
@@ -143,19 +142,19 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         }
     }
 
-
     function handleSendToMail() {
         if (note.id && onSendToMail) {
             onSendToMail(note)
             if (onCloseModal) onCloseModal()
         }
     }
+
     return (
         <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
             style={isExpanded ? { backgroundColor: note.style.backgroundColor, width: isModal ? '100%' : 'auto' } : {}}>
 
             {!isExpanded ? (
-                // Collapsed state
+                // Collapsed state//
                 <div className="add-note-compact" onClick={expandNote}>
                     <div className="add-note-types">
                         <NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={false} />
@@ -167,7 +166,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                     </div>
                 </div>
             ) : (
-                //Expand state
+                //Expanded state//
                 <form onSubmit={handleSubmit} >
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
                         <img src={note.isPinned ? 'assets/css/apps/note/img/unpin.svg' : 'assets/css/apps/note/img/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
