@@ -8,9 +8,10 @@
     transition: box-shadow 0.2s;
     position: relative;
     max-height: 600px;
-    width: 240px;
+    width: 100%;
+    /* width: 240px; */
     break-inside: avoid;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .note-preview:hover {
@@ -21,7 +22,7 @@
 .note-preview .preview-note-actions,
 .note-modal .preview-note-actions {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.2s;

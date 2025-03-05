@@ -3,7 +3,6 @@ const { useState } = React
 
 export function LabelPicker({ selectedLabels = [], onChangeLabels }) {
     const [isOpen, setIsOpen] = useState(false)
-    // const [selectedLabels, setSelectedLabels] = useState([])
 
     const labels = [
         { name: 'Critical', picked: '✔', backgroundColor: '#eb5a46' },
@@ -21,13 +20,11 @@ export function LabelPicker({ selectedLabels = [], onChangeLabels }) {
         } else {
             updatedLabels = [...selectedLabels, label]
         }
-        // setSelectedLabels(updatedLabels)
         onChangeLabels(updatedLabels)
     }
 
     return (
         <section className="label-picker">
-            {/* <h3>Pick Labels:</h3> */}
             <button onClick={(e) => {
                 e.stopPropagation()
                 e.preventDefault()
@@ -52,5 +49,3 @@ export function LabelPicker({ selectedLabels = [], onChangeLabels }) {
     )
 }
 
-//Show the selected labels on the email / note missing (Afthe the app
-//  email and App note)
