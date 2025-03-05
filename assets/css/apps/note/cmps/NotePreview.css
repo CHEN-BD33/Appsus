@@ -8,17 +8,15 @@
     transition: box-shadow 0.2s;
     position: relative;
     max-height: 600px;
-    width: 100%;
+    width: 240px;
     break-inside: avoid;
     margin-bottom: 10px;
-
 }
 
 .note-preview:hover {
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
     z-index: 10;
 }
-
 
 .note-preview .preview-note-actions,
 .note-modal .preview-note-actions {
@@ -127,6 +125,8 @@
     border-radius: 8px;
     padding: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: visible;
 }
 
 .note-modal::backdrop {
@@ -156,4 +156,8 @@
     width: 32px;
     padding: 8px;
     margin-bottom: 15px;
+}
+
+.note-modal .label-options {
+    position: absolute;
 }

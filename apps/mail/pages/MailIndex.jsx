@@ -19,8 +19,12 @@ export function MailIndex() {
     const [selectedMailId, setSelectedMailId] = useState(null)
 
     useEffect(() => {
+        if (!filterBy.isFromNotes) {
+            setSearchParams(filterBy)
+        }
         loadMails()
     }, [filterBy])
+
 
     useEffect(() => {
         console.log("Updating searchParams with filterBy:", filterBy)
@@ -33,16 +37,16 @@ export function MailIndex() {
 
 
 
-    function loadMails() {
-             mailService.query(filterBy)
-            .then((mails) => {
-                setMails(mails)
-            })
-            .catch((err) => {
-                console.error('err:', err)
-                showErrorMsg('Failed to load mails')
-            })
-    }
+function loadMails() {
+    mailService.query(filterBy)
+        .then((mails) => {
+            setMails(mails)
+        })
+        .catch((err) => {
+            console.error('err:', err)
+            showErrorMsg('Failed to load mails')
+        })
+}
 
     function onMarkAsRead(mailId) {
         mailService.get(mailId) 

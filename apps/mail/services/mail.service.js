@@ -10,6 +10,7 @@ export const mailService  = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
+    getMailFromSearchParams
 
 }
 
@@ -149,7 +150,24 @@ function getFilterFromSearchParams(searchParams) {
   }
 }
 
+  function getMailFromSearchParams(searchParams) {
+    const to = searchParams.get('to') || ''
+    const subject = searchParams.get('subject') || ''
+    const body = searchParams.get('body') || ''
 
+    return{
+        fullname: loggedinUser.fullname,
+        createdAt: Date.now(),
+        subject,
+        body,
+        isRead: true,
+        sentAt: 0,
+        removedAt: null,
+        from: loggedinUser.email,
+        to,
+        status: 'draft'
+    }
+}
 
     // basic user:
 const loggedinUser = {

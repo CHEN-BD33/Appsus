@@ -1,17 +1,26 @@
 
+/* Setup */
+@import './basics/typography.css';
 @import './basics/vars.css';
+
+/* Basic */
 @import './basics/base.css';
 @import './basics/helpers.css';
 @import './basics/layout.css';
-@import './basics/typography.css';
 
-@import './cmps/Home.css';
-@import './cmps/UserMsg.css';
+/* Pages */
+@import './pages/Home.css';
+@import './pages/About.css';
+
+/* Cmps */
 @import './cmps/AppHeader.css';
+@import './cmps/UserMsg.css';
 @import './cmps/LabelPicker.css';
-/* Notes */
 
+/* Note pages */
 @import './apps/note/pages/NoteIndex.css';
+
+/* Note Components */
 @import './apps/note/cmps/NoteFilter.css';
 @import './apps/note/cmps/AddNote.css';
 @import './apps/note/cmps/NoteList.css';
@@ -20,9 +29,8 @@
 @import './apps/note/cmps/NoteLabels.css';
 @import './apps/note/cmps/ColorPicker.css';
 
-/* /mq - notes/ */
+/* Note mq */
 @import './apps/note/mq/mq.css';
-
 
 
 /* Mail Components */
@@ -37,8 +45,6 @@
 @import './apps/mail/mail-pages/mail-details.css';
 
 
-
-
 /* Mail SETUP */
 @import './apps/mail/mail-setup/typography.css';
 @import './apps/mail/mail-setup/vars.css';
@@ -46,4 +52,23 @@
 
 
 
+/* Books */
 
+/* Setup */
+@import './apps/books/setup/vars.css';
+/* @import './apps/books/setup/typography.css'; */
+
+/* Base */
+/* @import './apps/books/base/base.csss'; */
+@import './apps/books/base/helpers.css';
+/* @import './apps/books/base/layout.css'; */
+/* @import './apps/books/base/forms.css'; */
+
+/* Components */
+@import './apps/books/cmps/app-header.css';
+/* @import './apps/books/cmps/user-msg.css'; */
+@import './apps/books/cmps/book-details.css';
+@import './apps/books/cmps/book-list.css';
+@import './apps/books/cmps/book-preview.css';
+/* @import './apps/books/cmps/book-filter.css'; */
+@import './apps/books/cmps/chart.css';

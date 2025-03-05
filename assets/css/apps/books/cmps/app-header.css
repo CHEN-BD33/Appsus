@@ -1,0 +1,19 @@
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    /* color: var(--clr1bg); */
+    padding: 1em;
+}
+
+.nav-bar a {
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.2s;    font-size: 2em;
+    gap: 15px;
+}
+
+.nav-bar a:hover {
+    background-color: rgba(255,255,255,0.1);
+}

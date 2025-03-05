@@ -6,7 +6,7 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
 
     return (
         <section className="note-list">
-            {/* //pinned// */}
+            {/* pinned */}
             {pinnedNotes.length > 0 && (
                 <section className='pinned-notes'>
                     <h2 className='pinned-notes-title'>Pinned</h2>
@@ -19,17 +19,18 @@ export function NoteList({ notes, onRemove, handleChange, onDuplicate, onToggleP
                     </ul>
                 </section>
             )}
-            {/* //unpinned// */}
+            {/* unpinned */}
             <section className='unpinned-notes'>
                 {pinnedNotes.length > 0 && <h2 className='unpinned-notes-title'>Others</h2>}
                 <ul className='unpinned-notes-list'>
                     {unpinnedNotes.map(note => (
                         <li key={note.id}>
-                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} onOpenModal={onOpenModal}/>
+                            <NotePreview note={note} handleChange={handleChange} onRemove={onRemove} onDuplicate={onDuplicate} onTogglePin={onTogglePin} onSendToMail={onSendToMail} onOpenModal={onOpenModal} />
                         </li>
                     ))}
                 </ul>
             </section>
+
         </section>
     )
 }

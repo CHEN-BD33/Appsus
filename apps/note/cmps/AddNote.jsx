@@ -10,13 +10,12 @@ import { noteService } from "../services/note.service.js"
 
 const { useState, useEffect, useRef } = React
 
-export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote = null, isModal = false, onRemove = null, onDuplicate = null, onSendToMail = null, onNoteChange = null }) {
+export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote, onRemove, onDuplicate, onSendToMail, onNoteChange, isModal = false }) {
     const [note, setNote] = useState(initialNote || noteService.getEmptyNoteTxt())
     const noteTypeState = initialNote && initialNote.type ? initialNote.type : 'NoteTxt'
     const [noteType, setNoteType] = useState(noteTypeState)
     const isExpandedInitial = initialNote ? true : false
     const [isExpanded, setIsExpanded] = useState(isExpandedInitial)
-
     const noteRef = useRef(null)
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
     useEffect(() => {
         if (isModal && onNoteChange) {
-            onNoteChange(note);
+            onNoteChange(note)
         }
     }, [note, isModal, onNoteChange])
 
@@ -119,6 +118,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
 
     function handleClose() {
         if (isModal && onCloseModal) {
+            handleChange(note)
             onCloseModal()
 
         } else {
@@ -142,34 +142,34 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
         }
     }
 
-
     function handleSendToMail() {
         if (note.id && onSendToMail) {
             onSendToMail(note)
             if (onCloseModal) onCloseModal()
         }
     }
+
     return (
         <div className={`add-note-container ${isExpanded ? 'expanded' : ''}`} ref={noteRef}
             style={isExpanded ? { backgroundColor: note.style.backgroundColor, width: isModal ? '100%' : 'auto' } : {}}>
 
             {!isExpanded ? (
-                // Collapsed state
+                // Collapsed state//
                 <div className="add-note-compact" onClick={expandNote}>
                     <div className="add-note-types">
                         <NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={false} />
                     </div>
                     <div className="note-more-types">
-                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'><img src='assets\css\imgs\notetodos.svg'></img></button>
-                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'><img src='assets\css\imgs\noteimage.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'><img src='assets/css/apps/note/img/notetodos.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'><img src='assets/css/apps/note/img/noteimage.svg'></img></button>
                         <button type='button' onClick={() => handleTypeChange('NoteVideo')} title='Video Note'><i className="fa-brands fa-youtube"></i></button>
                     </div>
                 </div>
             ) : (
-                //Expand state
+                //Expanded state//
                 <form onSubmit={handleSubmit} >
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
-                        <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
+                        <img src={note.isPinned ? 'assets/css/apps/note/img/unpin.svg' : 'assets/css/apps/note/img/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
                     <NoteLabels labels={note.labels || []} />
 
                     <section className='add-note'>
@@ -189,7 +189,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                                 {onDuplicate && (
                                     <button onClick={handleDuplicate} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>)}
                                 {onRemove && (
-                                    <button onClick={handleRemove} className='delete-btn' title='Delete note'><img src='assets/css/imgs/delete.svg' alt="Delete" /></button>)}
+                                    <button onClick={handleRemove} className='delete-btn' title='Delete note'><img src='assets/css/apps/note/img/delete.svg' alt="Delete" /></button>)}
                             </section>
                         )}
                         <button type="button" onClick={handleClose} info={note.info} className="close-button">Close</button>

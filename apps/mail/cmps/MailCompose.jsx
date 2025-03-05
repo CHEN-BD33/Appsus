@@ -2,18 +2,24 @@
 import { mailService } from "../services/mail.service.js"
 import { showSuccessMsg } from "../../../services/event-bus.service.js"
 
-const { useNavigate, useParams } = ReactRouterDOM
+const { useNavigate, useParams, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
 
-export function MailCompose(){
+export function MailCompose() {
+
     const [mailToEdit, setMailToEdit] = useState(mailService.getEmptyMail())
+    const [searchParams] = useSearchParams()
     const { mailId } = useParams()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if(!mailId) return
-         loadMail()
-    }, [mailId])
+        if (mailId) {
+            loadMail()
+        } else if (searchParams.get('fromNotes')) {
+            const mailFromParams = mailService.getMailFromSearchParams(searchParams)
+            setMailToEdit(mailFromParams)
+        }
+    }, [mailId, searchParams])
 
     function loadMail() {
         mailService.get(mailId) 
@@ -29,7 +35,7 @@ export function MailCompose(){
     }
     function onSaveMail(ev) {
         ev.preventDefault()
-         mailToEdit.status = 'sent'
+        mailToEdit.status = 'sent'
 
         mailService.save(mailToEdit)
             .then(() => {
@@ -46,7 +52,7 @@ export function MailCompose(){
         mailToEdit.status = 'draft'
 
         mailService.save(mailToEdit)
-            .then(() =>  {
+            .then(() => {
                 console.log('Saved as draft')
             })
             .catch(err => console.log('err:', err))
@@ -63,17 +69,17 @@ export function MailCompose(){
         }))
     }
 
-  
+
     return (
         <section className='mail-compose'>
 
             <div className="mail-compose-header">
-            <h2>{mailId ? 'Edit Message' : 'New Message'}</h2>
-            <button onClick={onAsSaveDraft} className='close-btn'>X</button>
+                <h2>{mailId ? 'Edit Message' : 'New Message'}</h2>
+                <button onClick={onAsSaveDraft} className='close-btn'>X</button>
             </div>
-            
+
             <form onSubmit={onSaveMail}>
-               
+
                 <input
                     onChange={handleChange}
                     type='email'
@@ -83,7 +89,7 @@ export function MailCompose(){
                     value={mailToEdit.to}
                     required
                 />
-    
+
                 <input
                     onChange={handleChange}
                     type='text'
@@ -93,7 +99,7 @@ export function MailCompose(){
                     value={mailToEdit.subject}
                     required
                 />
-    
+
                 <textarea
                     onChange={handleChange}
                     name='body'

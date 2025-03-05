@@ -1,6 +1,5 @@
 import { storageService } from '../../../services/async-storage.service.js'
 import { utilService } from '../../../services/util.service.js'
-import { mailService } from '../../mail/services/mail.service.js'
 
 const NOTE_KEY = 'noteDB'
 _createNotes()
@@ -36,7 +35,6 @@ function query(filterBy = {}) {
                     return false
                 })
             }
-
             if (filterBy.type) {
                 notes = notes.filter(note => note.type === filterBy.type)
             }
@@ -45,11 +43,9 @@ function query(filterBy = {}) {
                 if (!a.isPinned && b.isPinned) return 1
                 return b.createdAt - a.createdAt
             })
-
             return notes
         })
 }
-
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
@@ -67,6 +63,7 @@ function save(note) {
         return storageService.post(NOTE_KEY, noteToSave)
     }
 }
+
 function getDefaultFilter() {
     return { txt: '', type: '' }
 }
@@ -164,7 +161,7 @@ function _createNotes() {
                     backgroundColor: '#E2DED1'
                 },
                 info: {
-                    txt: 'Fullstack Me Baby!'
+                    txt: 'Full stack Me Baby!'
                 },
                 labels: ['Critical', 'Work']
             },
@@ -177,10 +174,10 @@ function _createNotes() {
                     backgroundColor: '#F6C5A2'
                 },
                 info: {
-                    title: 'SHOP',
-                    txt: 'Get Materna'
+                    title: 'Workout Hours',
+                    txt: 'Monday - 13:00'
                 },
-                labels: ['Family']
+                labels: ['Critical']
             },
             {
                 id: 'n103',
@@ -192,7 +189,7 @@ function _createNotes() {
                 },
                 info: {
                     url: 'https://www.israelhayom.co.il/wp-content/uploads/2024/12/17/17/veo2-960x640.jpg',
-                    title: 'Bobi'
+                    title: 'Swimming Dog'
                 }
             },
             {
@@ -240,11 +237,11 @@ function _createNotes() {
                         { txt: 'Buy Cake', doneAt: null },
                         { txt: 'Buy Balloons', doneAt: null },
                         { txt: 'Buy Snacks', doneAt: 187111111 },
-                        { txt: 'Buy Gift', doneAt: 187111111 }
+                        { txt: 'Buy Gift', doneAt: 187111112 }
                     ]
                 },
                 labels: ['Friends']
-                
+
             },
             {
                 id: 'n107',
@@ -259,46 +256,30 @@ function _createNotes() {
                     title: 'Funny'
                 }
             },
-
+            {
+                id: 'n108',
+                createdAt: 1112228,
+                type: 'NoteTodos',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#A2E0D2'
+                },
+                info: {
+                    title: 'Supermarket',
+                    todos: [
+                        { txt: 'Eggs', doneAt: null },
+                        { txt: 'Bread', doneAt: null },
+                        { txt: 'Materna', doneAt: null },
+                        { txt: 'Bananas X 5', doneAt: null },
+                        { txt: 'Tomatos X 4', doneAt: null },
+                        { txt: 'Oatmeal', doneAt: null },
+                        { txt: 'Pasta', doneAt: 187111113 }
+                    ]
+                },
+                labels: ['Famliy']
+            }
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
     }
 }
 
-
-
-
-/////////////////////////////////////////////////////////////
-// mailService
-
-// function getFilterFromSearchParams(searchParams) {
-//     if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { ///Add
-//         return { isFromNotes: true } //Add
-//     }
-//     const status = searchParams.get('status') || 'inbox'
-//     const txt = searchParams.get('txt') || ''
-//     const isRead = searchParams.get('isRead') || ''
-//     const isStared = searchParams.get('isStared') || ''
-//     return { status, txt, isRead, isStared };
-// }
-
-
-// function getMailFromSearchParams(searchParams) {
-//     const to = searchParams.get('to') || ''
-//     const subject = searchParams.get('subject') || ''
-//     const body = searchParams.get('body') || ''
-
-//     return{
-//         fullname: loggedinUser.fullname,
-//         createdAt: Date.now(),
-//         subject,
-//         body,
-//         isRead: true,
-//         sentAt: 0,
-//         removedAt: null,
-//         from: loggedinUser.email,
-//         to,
-//         status: 'draft'
-//     }
-
-// }

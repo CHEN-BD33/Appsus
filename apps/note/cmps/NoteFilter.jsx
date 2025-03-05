@@ -18,14 +18,6 @@ export function NoteFilter({ filterBy, onFilterBy }) {
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [name]: value }))
     }
 
-    function setNoteType(type) {
-        if (filterByToEdit.type === type) {
-            setFilterByToEdit(prevFilter => ({ ...prevFilter, type: '' }))
-        } else {
-            setFilterByToEdit(prevFilter => ({ ...prevFilter, type }))
-        }
-    }
-
     function reset() {
         setFilterByToEdit(initialFilterBy.current)
     }
@@ -55,7 +47,9 @@ export function NoteFilter({ filterBy, onFilterBy }) {
                         <option value="NoteVideo">Video Notes</option>
                     </select>
                 </section>
+
             </form>
+
         </section>
     )
 
