@@ -212,19 +212,6 @@ function _createNotes() {
             {
                 id: 'n105',
                 createdAt: 1112225,
-                type: 'NoteImg',
-                isPinned: true,
-                style: {
-                    backgroundColor: '#FEF3A0'
-                },
-                info: {
-                    url: 'https://media.istockphoto.com/id/483293702/photo/laughing-donkey.jpg?s=612x612&w=0&k=20&c=dhfnTkQEkOGdg9zquzX8H7_OQ637fRpgNVq46N7-pdA=',
-                    title: 'Donkey'
-                },
-            },
-            {
-                id: 'n106',
-                createdAt: 1112226,
                 type: 'NoteTodos',
                 isPinned: true,
                 style: {
@@ -243,8 +230,8 @@ function _createNotes() {
 
             },
             {
-                id: 'n107',
-                createdAt: 1112227,
+                id: 'n106',
+                createdAt: 1112226,
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
@@ -256,8 +243,8 @@ function _createNotes() {
                 }
             },
             {
-                id: 'n108',
-                createdAt: 1112228,
+                id: 'n107',
+                createdAt: 1112227,
                 type: 'NoteTodos',
                 isPinned: true,
                 style: {
@@ -278,8 +265,8 @@ function _createNotes() {
                 labels: ['Family']
             },
             {
-                id: 'n109',
-                createdAt: 1112229,
+                id: 'n108',
+                createdAt: 1112228,
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
@@ -300,8 +287,8 @@ function _createNotes() {
                 labels: ['Family']
             },
             {
-                id: 'n110',
-                createdAt: 1112230,
+                id: 'n109',
+                createdAt: 1112229,
                 type: 'NoteTodos',
                 isPinned: false,
                 style: {
@@ -318,8 +305,8 @@ function _createNotes() {
                 labels: ['Work']
             },
             {
-                id: 'n111',
-                createdAt: 1112231,
+                id: 'n110',
+                createdAt: 1112230,
                 type: 'NoteVideo',
                 isPinned: true,
                 style: {
@@ -332,8 +319,8 @@ function _createNotes() {
                 labels: ['Spam']
             },
             {
-                id: 'n112',
-                createdAt: 1112232,
+                id: 'n111',
+                createdAt: 1112231,
                 type: 'NoteImg',
                 isPinned: false,
                 style: {
