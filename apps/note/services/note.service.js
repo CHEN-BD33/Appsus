@@ -227,7 +227,6 @@ function _createNotes() {
                     ]
                 },
                 labels: ['Friends']
-
             },
             {
                 id: 'n106',
