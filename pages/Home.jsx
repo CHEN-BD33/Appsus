@@ -1,18 +1,14 @@
-import { showSuccessMsg } from '../services/event-bus.service.js'
-import { LabelPicker } from '../cmps/LabelPicker.jsx'
+// import { showSuccessMsg } from '../services/event-bus.service.js'
+const { Link } = ReactRouterDOM
 
 export function Home() {
 
-    function onChange(updatedLabels){
-        console.log('Updated Labels' , updatedLabels)
-    }
-    return <section className="container home">
-        <h1>Welcome home</h1>
-        <button onClick={() => showSuccessMsg('Yep, that works')}>Show Msg</button>
-        <LabelPicker onChange={onChange} />
-        <div className="box-container">
+    return <section className="home-container">
+        <h1 className="home-title"><img src="assets\png\AppUs LOGO.png" alt=""></img>AppsUs</h1>
+        <h2 className="home-text">All YOU NEED IN ONE</h2>
+        {/* <div className="box-container">
             <div className="box1"></div>
             <div className="box2"></div>
-        </div>
+        </div> */}
     </section>
 }
