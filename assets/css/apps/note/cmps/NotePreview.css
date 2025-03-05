@@ -8,8 +8,8 @@
     transition: box-shadow 0.2s;
     position: relative;
     max-height: 600px;
-    /* width: 100%; */
-    width: 240px;
+    width: 100%;
+    /* width: 240px; */
     break-inside: avoid;
     margin-bottom: 15px;
 }

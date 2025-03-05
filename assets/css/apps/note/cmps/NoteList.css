@@ -2,7 +2,7 @@
 
  .note-list {
     max-width: 1200px;
-    width: 67%;
+    width: 100%;
     padding: 0 16px;
  }
 
@@ -15,9 +15,9 @@
     margin-bottom: 60px;
  }
 
- .note-list li {
+ /* .note-list li {
     width: 240px;
- }
+ } */
 
  .pinned-notes-title,
  .unpinned-notes-title {
