@@ -5,6 +5,11 @@
     background: var(--bg1);
 }
 
+.app-header img{
+   height: 60px;
+   width: 60px;
+}
+
 nav a {
     margin: .5em;
 }

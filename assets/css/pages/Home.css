@@ -7,12 +7,10 @@
     padding: 16px;
 }
 
-.home-title img{
+.home-title {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     font-size: 3rem;
-    height: 50px;
-    width: 50px;
 }
 
 .home-text{
