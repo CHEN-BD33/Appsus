@@ -323,7 +323,7 @@ function _createNotes() {
                 type: 'NoteVideo',
                 isPinned: true,
                 style: {
-                    backgroundColor: '#F4B5AE'
+                    backgroundColor: '#C9E4C5'
                 },
                 info: {
                     title: 'LOLI',
@@ -343,7 +343,6 @@ function _createNotes() {
                     title: 'View',
                     url: 'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?cs=srgb&dl=pexels-jaime-reimer-1376930-2662116.jpg&fm=jpg'
                 },
-                labels: ['Romantic, Memories']
             },
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
