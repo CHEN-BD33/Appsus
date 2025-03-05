@@ -161,8 +161,8 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                         <NoteTxt info={note.info} onChangeInfo={onChangeInfo} isExpanded={false} />
                     </div>
                     <div className="note-more-types">
-                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'><img src='assets\css\imgs\notetodos.svg'></img></button>
-                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'><img src='assets\css\imgs\noteimage.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteTodos')} title='Todos Note'><img src='assets/css/apps/note/img/notetodos.svg'></img></button>
+                        <button type='button' onClick={() => handleTypeChange('NoteImg')} title='Image Note'><img src='assets/css/apps/note/img/noteimage.svg'></img></button>
                         <button type='button' onClick={() => handleTypeChange('NoteVideo')} title='Video Note'><i className="fa-brands fa-youtube"></i></button>
                     </div>
                 </div>
@@ -170,7 +170,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                 //Expand state
                 <form onSubmit={handleSubmit} >
                     <button type='button' onClick={handlePin} className='pin-button-add-note' title={note.isPinned ? 'Unpin' : 'Pin to top'}>
-                        <img src={note.isPinned ? 'assets/css/imgs/unpin.svg' : 'assets/css/imgs/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
+                        <img src={note.isPinned ? 'assets/css/apps/note/img/unpin.svg' : 'assets/css/apps/note/img/pin.svg'} alt={note.isPinned ? 'Unpin' : 'Pin Note'} className='pin-icon'></img></button>
                     <NoteLabels labels={note.labels || []} />
 
                     <section className='add-note'>
@@ -190,7 +190,7 @@ export function AddNote({ handleChange, onTogglePin, onCloseModal, initialNote =
                                 {onDuplicate && (
                                     <button onClick={handleDuplicate} className='duplicate-btn' title='Copy note'><i className="fa-regular fa-clone"></i></button>)}
                                 {onRemove && (
-                                    <button onClick={handleRemove} className='delete-btn' title='Delete note'><img src='assets/css/imgs/delete.svg' alt="Delete" /></button>)}
+                                    <button onClick={handleRemove} className='delete-btn' title='Delete note'><img src='assets/css/apps/note/img/delete.svg' alt="Delete" /></button>)}
                             </section>
                         )}
                         <button type="button" onClick={handleClose} info={note.info} className="close-button">Close</button>

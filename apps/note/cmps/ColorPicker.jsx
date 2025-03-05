@@ -24,7 +24,7 @@ export function ColorPicker({ backgroundColor, onChangeColor }) {
                     e.stopPropagation()
                     e.preventDefault()
                     setIsOpen(!isOpen)
-                }} className='color-picker-btn' title="Choose Note Color"><img src='assets\css\imgs\colorpicker.svg'></img></button>
+                }} className='color-picker-btn' title="Choose Note Color"><img src='assets/css/apps/note/img/colorpicker.svg'></img></button>
 
                 {isOpen && (
                     <div className='color-options'>
