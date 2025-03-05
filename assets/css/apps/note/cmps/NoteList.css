@@ -2,22 +2,22 @@
 
  .note-list {
     max-width: 1200px;
-    width: 100%;
+    width: 67%;
     padding: 0 16px;
  }
 
  .note-list ul {
-    column-count: 5;
+    column-count: 4;
     column-width: auto;
-    column-gap: 10px;
+    column-gap: 15px;
     padding: 10px;
     list-style-type: none;
     margin-bottom: 60px;
  }
-/* 
+
  .note-list li {
     width: 240px;
- } */
+ }
 
  .pinned-notes-title,
  .unpinned-notes-title {
