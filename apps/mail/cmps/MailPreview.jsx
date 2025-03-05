@@ -69,6 +69,6 @@ export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred
                 </div>
             </td>
         </tr>
-    );
+    )
 
 }

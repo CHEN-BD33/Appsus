@@ -1,11 +1,12 @@
 
 export function MailSorted() {
-    
+
+
     return (<tr>
                 <td >
                     <div className="mail-sorted">
                         <div className="sorted-filter-container">
-                       <span className = "unChecked">  </span>
+                       <span className = "unChecked"></span>
                        <select>
                        <option>Read</option>
                        <option>UnRead</option>

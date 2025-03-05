@@ -8,7 +8,7 @@ export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,
     return (
     <table className="mail-list">
         <thead>
-        <MailSorted />
+        <MailSorted mails={mails} />
         </thead>
             <tbody>
                 {mails.map((mail) => (

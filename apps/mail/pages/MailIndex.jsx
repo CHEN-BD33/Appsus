@@ -1,10 +1,10 @@
 const {Link , Outlet} = ReactRouterDOM 
 
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js";
-import { MailFolderList } from "../cmps/MailFolderList.jsx";
-import { mailService } from "../services/mail.service.js";
-import { MailList } from "../cmps/MailList.jsx";
-import { MailDetails } from "./MailDetails.jsx";
+import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
+import { MailFolderList } from "../cmps/MailFolderList.jsx"
+import { mailService } from "../services/mail.service.js"
+import { MailList } from "../cmps/MailList.jsx"
+import { MailDetails } from "./MailDetails.jsx"
 
 
 const {useState , useEffect} = React
@@ -65,15 +65,16 @@ function onToggleRead(mailId) {
         })
         .catch((err) => {
             console.error('Error:', err)
-        });
+        })
 }
 
     function onClickStarred(mailId) {
         mailService
           .get(mailId)
           .then((mail) => {
-            mail.isStarred = !mail.isStarred;
-            return mailService.save(mail);
+            mail.isStarred = !mail.isStarred
+          console.log(mail.status,'mail.status')
+            return mailService.save(mail)
           })
           .then(() => {
             showSuccessMsg("Moved to starred")
@@ -91,16 +92,18 @@ function onToggleRead(mailId) {
             if (mail.status === "trash") {
               return mailService.remove(mailId).then(() => {
                 showSuccessMsg("Mail deleted")
-              });
+              })
             } else {
+                if (mail.isStarred) mail.isStarred = false
               const updatedMail = { ...mail, status: "trash" }
               return mailService.save(updatedMail).then(() => {
+                console.log(mail.status,'mail.status')
                 showSuccessMsg("Moved to trash")
-              });
+              })
             }
           })
           .then(() => {
-            loadMails();
+            loadMails()
           })
           .catch((err) => {
             console.error("Error:", err)
