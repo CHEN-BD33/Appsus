@@ -9,15 +9,15 @@
  .note-list ul {
     column-count: 5;
     column-width: auto;
-    column-gap: 5px;
+    column-gap: 10px;
     padding: 10px;
     list-style-type: none;
     margin-bottom: 60px;
  }
-
+/* 
  .note-list li {
     width: 240px;
- }
+ } */
 
  .pinned-notes-title,
  .unpinned-notes-title {
