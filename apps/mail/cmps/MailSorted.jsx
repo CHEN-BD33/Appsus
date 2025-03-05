@@ -1,6 +1,6 @@
 
 export function MailSorted() {
-
+    
     return (<tr>
                 <td >
                     <div className="mail-sorted">

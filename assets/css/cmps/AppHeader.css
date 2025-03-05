@@ -19,3 +19,19 @@ nav a.active {
     font-weight: bold;
     text-decoration: overline;
 }
+
+/* mail-header */
+.app-header-mail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    padding: 8px;
+    background-color: #f8fafd;
+}
+
+.app-header-mail-container{
+    display: flex;
+    align-items: center;
+    gap: 124px;
+}

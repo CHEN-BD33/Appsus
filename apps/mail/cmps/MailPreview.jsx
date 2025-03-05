@@ -3,12 +3,11 @@ const {Link , useNavigate} = ReactRouterDOM
 const {useState} = React
 
 
-export function MailPreview({mail , onMarkAsRead , onSelectMail , onClickStarred ,onRemoveMail}){
+export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail}){
 
     const navigate = useNavigate()
     const [isChecked, setIsChecked] = useState(mail.isChecked)
     const [isStarred, setIsStarred] = useState(mail.isStarred)
-    const [isRead, setIsRead] = useState(mail.isRead)
 
     function onDate(timestamp){
         const date = new Date(timestamp)
@@ -17,19 +16,15 @@ export function MailPreview({mail , onMarkAsRead , onSelectMail , onClickStarred
     }
 
     function handleRowClick() {
-        if(mail.status ==='draft') {
+        if(mail.status === 'draft') {
             navigate(`/mail/edit/${mail.id}`)
-        }else{
-
+        } else {
             onSelectMail(mail.id)
             if (!mail.isRead) {
-                onMarkAsRead(mail.id)
-                setIsRead(true)
+                onToggleRead(mail.id)
             }
-            mail.isRead = true
         }
     }
-
     function handleCheckClick(){
         mail.isChecked = !mail.isChecked
         setIsChecked(!isChecked)
@@ -42,10 +37,9 @@ export function MailPreview({mail , onMarkAsRead , onSelectMail , onClickStarred
     }
 
     
-    
     return (
        
-        <tr className={`mail-preview ${isRead ? "read" : "unread"}`}>
+        <tr className={`mail-preview ${mail.isRead ? "read" : "unread"}`}>
             <td>
                 <div className="mail-content">
                     <span onClick={handleCheckClick} className={`${isChecked ? "checked" : "unChecked"}`}></span>
@@ -66,11 +60,11 @@ export function MailPreview({mail , onMarkAsRead , onSelectMail , onClickStarred
                     <span className={`date ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>
                         {onDate(mail.sentAt)}
                     </span>
+                    
                     </span>
-                    {/* Hover Icons */}
                     <span className="hover-icons">
                         <span onClick={()=> onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
-                        <span className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
+                        <span onClick={()=> onToggleRead(mail.id)}className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
                     </span>
                 </div>
             </td>

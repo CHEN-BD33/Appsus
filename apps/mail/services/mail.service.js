@@ -19,49 +19,51 @@ const MAIL_KEY = 'mailDB'
 
 const filterBy = {
     status: 'inbox',
-    txt: 'puki', // no need to support complex text search
-    isRead: true, // (optional property, if missing: show all)
-    lables: ['important', 'romantic'], // has any of the labels
+    txt: 'puki', 
+    isRead: true, 
+    lables: ['important', 'romantic'],
     isStarred:false,
     isChecked: false
    }
 
    function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-      .then(mails => {
-        if (!mails || !mails.length) {
-          mails = gMails
-          _saveMailsToStorage()
-        }
-        
-        if (filterBy.status === 'starred') {
-            mails = mails.filter(mail => mail.isStarred === true)
-          } else if (filterBy.status) {
-            mails = mails.filter(mail => mail.status.includes(filterBy.status))
-          }
-        if (filterBy.txt) {
-          const regExp = new RegExp(filterBy.txt, 'i')
-          mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
-        }
-    
-        if (typeof filterBy.isRead === 'boolean') {
-          mails = mails.filter(mail => mail.isRead === filterBy.isRead)
-        }
+        .then(mails => {
+            if (!mails || !mails.length) {
+                mails = gMails
+                _saveMailsToStorage()
+            }
 
-        if (typeof filterBy.isChecked === 'boolean') {
-            mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
-          }
-        
-        if (filterBy.lables && filterBy.lables.length) {
-          mails = mails.filter(mail => {
-            return mail.lables && mail.lables.some(label => filterBy.lables.includes(label))
-          })
-        }
+            if (filterBy.status === 'starred') {
+                mails = mails.filter(mail => mail.isStarred === true)
+            } else if (filterBy.status) {
+                mails = mails.filter(mail => mail.status.includes(filterBy.status))
+            }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i');
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+            }
+            if (typeof filterBy.isRead === 'boolean') {
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            }
+            if (typeof filterBy.isChecked === 'boolean') {
+                mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
+            }
+            if (filterBy.lables && filterBy.lables.length) {
+                mails = mails.filter(mail => mail.lables && mail.lables.some(label => filterBy.lables.includes(label)))
+            }
 
-        return mails
-      })
-  }
+            if (filterBy.sortBy) {
+                if (filterBy.sortBy === 'date') {
+                    mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.createdAt - a.createdAt : a.createdAt - b.createdAt)
+                } else if (filterBy.sortBy === 'subject') {
+                    mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.subject.localeCompare(a.subject) : a.subject.localeCompare(b.subject))
+                }
+            }
 
+            return mails
+        });
+}
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
@@ -142,6 +144,10 @@ function getFilterFromSearchParams(searchParams) {
   const txt = searchParams.get('txt') || ''
   const isRead = searchParams.get('isRead')
   const isStarred = searchParams.get('isStarred')
+  const sortBy = searchParams.get('sortBy') || 'date'
+  const sortOrder = searchParams.get('sortOrder') || 'desc'
+
+
   return {
       status,
       txt,

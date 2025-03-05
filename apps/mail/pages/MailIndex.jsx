@@ -5,7 +5,7 @@ import { MailFolderList } from "../cmps/MailFolderList.jsx";
 import { mailService } from "../services/mail.service.js";
 import { MailList } from "../cmps/MailList.jsx";
 import { MailDetails } from "./MailDetails.jsx";
-import { MailFilter } from "../cmps/MailFilter.jsx";
+
 
 const {useState , useEffect} = React
 const { useSearchParams } = ReactRouterDOM
@@ -48,20 +48,25 @@ function loadMails() {
         })
 }
 
-    function onMarkAsRead(mailId) {
-        mailService.get(mailId) 
-            .then((mail) => {
-                mail.isRead = true 
-                return mailService.save(mail) 
-            })
-            .then(() => {
-                showSuccessMsg("Marked as read")
-                loadMails()
-              })
-            .catch((err) => {
-                console.error('err:', err)
-            })
-    }
+function onToggleRead(mailId) {
+    setMails((prevMails) => 
+        prevMails.map((mail) => 
+            mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail
+        )
+    );
+
+    mailService.get(mailId) 
+        .then((mail) => {
+            mail.isRead = !mail.isRead; 
+            return mailService.save(mail).then(() => mail); 
+        })
+        .then((updatedMail) => {
+            showSuccessMsg(updatedMail.isRead ? "Marked as read" : "Marked as unread")
+        })
+        .catch((err) => {
+            console.error('Error:', err)
+        });
+}
 
     function onClickStarred(mailId) {
         mailService
@@ -150,7 +155,7 @@ function loadMails() {
                         <MailList 
                         mails={mails} 
                         onRemoveMail={onRemoveMail} 
-                        onMarkAsRead={onMarkAsRead} 
+                        onToggleRead={onToggleRead} 
                         onSelectMail={onSelectMail} 
                         onClickStarred={onClickStarred} 
                         />
