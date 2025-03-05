@@ -156,7 +156,7 @@ function _createNotes() {
                 id: 'n101',
                 createdAt: 1112221,
                 type: 'NoteTxt',
-                isPinned: true,
+                isPinned: false,
                 style: {
                     backgroundColor: '#E2DED1'
                 },
@@ -169,7 +169,7 @@ function _createNotes() {
                 id: 'n102',
                 createdAt: 1112222,
                 type: 'NoteTxt',
-                isPinned: true,
+                isPinned: false,
                 style: {
                     backgroundColor: '#F6C5A2'
                 },
@@ -212,16 +212,15 @@ function _createNotes() {
             {
                 id: 'n105',
                 createdAt: 1112225,
-                type: 'NoteVideo',
-                isPinned: false,
+                type: 'NoteImg',
+                isPinned: true,
                 style: {
                     backgroundColor: '#FEF3A0'
                 },
                 info: {
-                    url: 'https://www.youtube.com/watch?v=Ksun-Vas0Yo',
-                    title: 'SnoopDogg'
+                    url: 'https://media.istockphoto.com/id/483293702/photo/laughing-donkey.jpg?s=612x612&w=0&k=20&c=dhfnTkQEkOGdg9zquzX8H7_OQ637fRpgNVq46N7-pdA=',
+                    title: 'Donkey'
                 },
-                labels: ['Memories']
             },
             {
                 id: 'n106',
@@ -247,7 +246,7 @@ function _createNotes() {
                 id: 'n107',
                 createdAt: 1112227,
                 type: 'NoteImg',
-                isPinned: true,
+                isPinned: false,
                 style: {
                     backgroundColor: '#A8C6DF'
                 },
@@ -276,8 +275,76 @@ function _createNotes() {
                         { txt: 'Pasta', doneAt: 187111113 }
                     ]
                 },
-                labels: ['Famliy']
-            }
+                labels: ['Family']
+            },
+            {
+                id: 'n109',
+                createdAt: 1112229,
+                type: 'NoteTodos',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#A2E0D2'
+                },
+                info: {
+                    title: 'SuperPharm',
+                    todos: [
+                        { txt: 'Diapers', doneAt: null },
+                        { txt: 'Acamol', doneAt: null },
+                        { txt: 'Wipes', doneAt: null },
+                        { txt: 'Hair shampoo', doneAt: null },
+                        { txt: 'Soap', doneAt: null },
+                        { txt: 'Body cream', doneAt: null },
+                        { txt: 'Tissues', doneAt: null }
+                    ]
+                },
+                labels: ['Family']
+            },
+            {
+                id: 'n110',
+                createdAt: 1112230,
+                type: 'NoteTodos',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#F6C5A2'
+                },
+                info: {
+                    title: 'IKEA',
+                    todos: [
+                        { txt: 'Zip locks', doneAt: null },
+                        { txt: 'Bathroom carpet', doneAt: null },
+                        { txt: 'Box', doneAt: null },
+                    ]
+                },
+                labels: ['Work']
+            },
+            {
+                id: 'n111',
+                createdAt: 1112231,
+                type: 'NoteVideo',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#F4B5AE'
+                },
+                info: {
+                    title: 'LOLI',
+                    url: 'https://www.youtube.com/watch?v=fFwPEtIwRbs'
+                },
+                labels: ['Spam']
+            },
+            {
+                id: 'n112',
+                createdAt: 1112232,
+                type: 'NoteImg',
+                isPinned: false,
+                style: {
+                    backgroundColor: '#E8EAED'
+                },
+                info: {
+                    title: 'View',
+                    url: 'https://images.pexels.com/photos/2662116/pexels-photo-2662116.jpeg?cs=srgb&dl=pexels-jaime-reimer-1376930-2662116.jpg&fm=jpg'
+                },
+                labels: ['Romantic, Memories']
+            },
         ]
         utilService.saveToStorage(NOTE_KEY, notes)
     }
