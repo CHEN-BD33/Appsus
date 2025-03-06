@@ -3,7 +3,7 @@ import { MailPreview } from "./MailPreview.jsx"
 import { MailSorted } from "./MailSorted.jsx"
 const {useState} = React
 
-export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail, onSetSort}){
+export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail, onSetSort,onMarkAllAsRead}){
     const [selectedMails, setSelectedMails] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const mailsPerPage = 50;
@@ -43,6 +43,7 @@ export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,
             currentPage={currentPage}
             totalPages={Math.ceil(mails.length / mailsPerPage)}
             onPageChange={handlePageChange}
+            onMarkAllAsRead={onMarkAllAsRead}
             />
         </thead>
             <tbody>

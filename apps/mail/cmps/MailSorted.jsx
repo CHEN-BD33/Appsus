@@ -1,6 +1,6 @@
 const {useState} = React
 
-export function MailSorted({mails, onSetSort, selectedOption, onToggleAll, currentPage, totalPages, onPageChange  }) {
+export function MailSorted({mails, onSetSort, selectedOption, onToggleAll, currentPage, totalPages, onPageChange,  onMarkAllAsRead, onDeleteAll}) {
     const [isChecked, setIsChecked] = useState(false);
 
 
@@ -48,6 +48,13 @@ export function MailSorted({mails, onSetSort, selectedOption, onToggleAll, curre
                             <option value="Starred">Starred</option>
                             <option value="UnStarred">UnStarred</option>
                         </select>
+
+                     
+                        <div style={{ display: isChecked ? 'block' : 'none' }}>
+                            <button onClick={onMarkAllAsRead}><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
+                        </div>
+                       
+
                     </div>
 
                     <div className="nav-container">

@@ -18,7 +18,6 @@ export function MailPreview({mail ,isChecked, onToggleCheck, onToggleRead , onSe
         if(mail.status === 'draft') {
             navigate(`/mail/edit/${mail.id}`)
         } else {
-            console.log(mail)
             onSelectMail(mail.id)
             if (!mail.isRead) {
                 onToggleRead(mail.id)
@@ -63,7 +62,7 @@ export function MailPreview({mail ,isChecked, onToggleCheck, onToggleRead , onSe
                     </span>
                     <span className="hover-icons">
                         <span onClick={()=> onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
-                        <span onClick={()=> onToggleRead(mail.id)}className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
+                        <span onClick={()=> onToggleRead(mail.id)}className = {`${mail.isRead ? "read-icon" : "unread-icon"}`}></span>
                     </span>
                 </div>
             </td>

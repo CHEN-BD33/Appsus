@@ -5,12 +5,11 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .mail-index {
     display: flex;
-    height: calc(100vh - 57px);
+    height: calc(100vh - 64px);
     background-color: #f1f6f9;
     flex-direction: column;
 }
@@ -24,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     width: -webkit-fill-available;
+    margin-top: 8px;
 }
 
 .mail-filter{

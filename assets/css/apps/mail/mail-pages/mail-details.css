@@ -69,3 +69,23 @@ font-weight: bold;
     font-size: 16px;
     color: #222222;
 }
+.action-buttons-container{
+    display: flex;
+}
+
+.action-buttons-container .read-icon,.action-buttons-container .unread-icon{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+}
+.action-buttons-container .read-icon{
+    background-image: url('/assets/css/apps/mail/images/full/read.png');
+
+}
+
+.action-buttons-container .unread-icon{
+    background-image: url('/assets/css/apps/mail/images/empty/unread.png');
+
+}

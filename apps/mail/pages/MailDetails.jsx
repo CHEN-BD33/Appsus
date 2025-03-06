@@ -5,22 +5,22 @@ const { useState, useEffect} = React
 export function MailDetails({mailId, onCloseDetails,onRemoveMail, onToggleRead, mails }){
     const [mail, setMail] = useState(null)
     const navigate = useNavigate()
-    const [nextMailId, setNextMailId] = useState(null)
-    const [prevMailId, setPrevMailId] = useState(null)
+
     
 
 
     useEffect(() => {
         if (mailId) {
-
             loadMail()
+            
         }
     }, [mailId])
 
+
+    
     function loadMail() {
         mailService.get(mailId)
             .then(mail => {
-              console.log(mail);
                 setMail(mail)})
             .catch((err) => {
                 console.log('err:', err)
@@ -34,6 +34,12 @@ export function MailDetails({mailId, onCloseDetails,onRemoveMail, onToggleRead, 
           .catch((err) => {
             console.error("Error removing mail:", err)
           })
+      }
+
+      function handleToggleRead() {
+        onToggleRead(mailId)
+          .then(() => loadMail())
+          .catch(err => console.error("Error toggling read:", err))
       }
       
       const navigateToMail = (mailId) => {
@@ -49,15 +55,15 @@ export function MailDetails({mailId, onCloseDetails,onRemoveMail, onToggleRead, 
             <div className="action-buttons-container">
             <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
             <button onClick={()=>removeThisMail(mailId)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
-            <button onClick={()=>onToggleRead(mailId)}><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
+            <span onClick={handleToggleRead} className = {`${mail.isRead ? "read-icon" : "unread-icon"}`}></span>
 
             </div>
             <div className="navigate-container">
           <span className="mail-index-count">{`${mails.findIndex(m => m.id === mailId) + 1} of ${mails.length}`}</span>
-          <button disabled={!prevMailId} onClick={() => navigateToMail(prevMailId)}>
+          <button>
             <img src="assets/css/apps/mail/images/arrowLeft.png" alt="Previous" />
           </button>
-          <button disabled={!nextMailId} onClick={() => navigateToMail(nextMailId)}>
+          <button >
             <img src="assets/css/apps/mail/images/arrowRight.png" alt="Next" />
           </button>
         </div>

@@ -1,6 +1,5 @@
 const {Link , Outlet} = ReactRouterDOM 
 
-import { showErrorMsg, showSuccessMsg } from "../../../services/event-bus.service.js"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/MailList.jsx"
@@ -44,8 +43,26 @@ function loadMails() {
         })
         .catch((err) => {
             console.error('err:', err)
-            showErrorMsg('Failed to load mails')
         })
+}
+
+function onRead(mailId) {
+  setMails((prevMails) => 
+      prevMails.map((mail) => 
+          mail.id === mailId ? { ...mail, isRead: true } : mail
+      )
+    )
+
+  mailService.get(mailId) 
+  .then((mail) => {
+      mail.isRead = true; 
+      return mailService.save(mail)
+    })
+    .then((mail) => {
+  })
+  .catch((err) => {
+      console.error('Error:', err)
+  })
 }
 
     function onToggleRead(mailId) {
@@ -54,13 +71,14 @@ function loadMails() {
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail
         )
     )
+
+  
     mailService.get(mailId) 
         .then((mail) => {
             mail.isRead = !mail.isRead; 
             return mailService.save(mail).then(() => mail)
         })
         .then((updatedMail) => {
-            showSuccessMsg(updatedMail.isRead ? "Marked as read" : "Marked as unread")
         })
         .catch((err) => {
             console.error('Error:', err)
@@ -72,11 +90,9 @@ function loadMails() {
           .get(mailId)
           .then((mail) => {
             mail.isStarred = !mail.isStarred
-          console.log(mail.status,'mail.status')
             return mailService.save(mail)
           })
           .then(() => {
-            showSuccessMsg("Moved to starred")
             loadMails()
           })
           .catch((err) => {
@@ -86,19 +102,16 @@ function loadMails() {
 
 
       function onRemoveMail(mailId) {
-        return  mailService
+       mailService
           .get(mailId)
           .then((mail) => {
             if (mail.status === "trash") {
               return mailService.remove(mailId).then(() => {
-                showSuccessMsg("Mail deleted")
               })
             } else {
                 if (mail.isStarred) mail.isStarred = false
               const updatedMail = { ...mail, status: "trash" }
               return mailService.save(updatedMail).then(() => {
-                console.log(mail.status,'mail.status')
-                showSuccessMsg("Moved to trash")
               })
             }
           })
@@ -107,7 +120,6 @@ function loadMails() {
           })
           .catch((err) => {
             console.error("Error:", err)
-            showErrorMsg("Failed to delete")
           })
       }
 
@@ -131,23 +143,12 @@ function loadMails() {
         setSelectedMailId(null)
     }
 
-    // function handleChecked(mailId) {
-    //  return mailService.get(mailId)
-    //  .then((mail) => {
-    //    mail.isChecked = !mail.isChecked
-    //  console.log(mail.isChecked,'isChecked===')
-    //    return mailService.save(mail)
-    //  })
-    //  .then(() => {
-    //    showSuccessMsg("Moved to isChecked")
-    //    loadMails()
-    //  })
-    //  .catch((err) => {
-    //    console.error("err:", err)
-    //  })
-    // }
-
-    const unreadCount = mails ? mails.filter(mail => !mail.isRead).length : 0;
+  function onMarkAllAsRead() {
+ mails.map(mail => {
+  onRead(mail.id) 
+    });
+  }
+    
 
     if (!mails) return  <img src="assets/css/apps/mail/images/empty/loding.gif"/>
     return (
@@ -165,7 +166,7 @@ function loadMails() {
                 <MailFolderList 
                 onFolderSelect={onFolderSelect}
                 onCloseDetails={onCloseDetails}  
-                unreadCount={unreadCount}
+                mails={mails}  
                 />
             </div>
 
@@ -187,7 +188,7 @@ function loadMails() {
                         onToggleRead={onToggleRead} 
                         onSelectMail={onSelectMail} 
                         onClickStarred={onClickStarred} 
-                        // handleChecked={handleChecked}
+                        onMarkAllAsRead={onMarkAllAsRead}
                         />
                     )}
             </div>

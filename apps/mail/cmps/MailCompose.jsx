@@ -1,6 +1,5 @@
 
 import { mailService } from "../services/mail.service.js"
-import { showSuccessMsg } from "../../../services/event-bus.service.js"
 
 const { useNavigate, useParams, useSearchParams } = ReactRouterDOM
 const { useState, useEffect } = React
@@ -29,7 +28,6 @@ export function MailCompose() {
                 } else {
                     setMailToEdit(mailService.getEmptyMail())
                 }
-                console.log(mail,'mailToEdit')
             })
             .catch(err => console.log('Error loading mail:', err))
     }
@@ -39,7 +37,6 @@ export function MailCompose() {
 
         mailService.save(mailToEdit)
             .then(() => {
-                showSuccessMsg(`New Mail saved successfully!`)
                 navigate('/mail')
             })
             .catch(err => console.log('err:', err))

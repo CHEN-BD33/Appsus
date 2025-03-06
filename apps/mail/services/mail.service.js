@@ -187,10 +187,22 @@ function getMailId(){
     //• Model - start with a basic model of mails: 
     const gMails = Array.from({ length: 100 }, (_, idx) => {
         const id = `e${101 + idx}`;
-        const names = ['momo', 'bobo', 'dodo', 'lolo', 'koko', 'toto', 'nono', 'pipo', 'roro', 'soso'];
-        const fullname = `${names[idx % names.length]} ${names[idx % names.length]}`;
-        const subjects = ['Hello!', 'Meeting Reminder', 'Miss you!', 'Project Update', 'Check this out!', 'Urgent!', 'Invitation', 'Follow-up', 'Weekend Plans', 'Greetings'];
-        const fromDomain = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'mail.com'];
+        const names = ['AliExpress', 'Temo', 'Apple', 'Dropbox', 'Yuval Levi', 'Zila Mor', 'Reef Mor', 'Amit Cohen', 'Hen', 'Google', 'Facebook', 'LinkedIn'];
+        const fullname = `${names[idx % names.length]}`
+        const subjects = [
+            'Last week\'s updates in your shared folders', 
+            'Project Deadline Reminder', 
+            'You have a new message', 
+            'Check out this opportunity', 
+            'Your subscription is ending soon', 
+            
+            'Upcoming meeting reminder', 
+            'New product launch', 
+            'Security alert for your account', 
+            'Action required for your account',
+            'Important update from your team'
+        ];
+        const fromDomain = ['aliexpress.com', 'temo.com', 'apple.com', 'dropbox.com', 'gmail.com', 'yahoo.com', 'linkedin.com', 'facebook.com'];
         const toUser = `user${(idx % 10) + 1}@appsus.com`;
         const createdAt = Date.now() - Math.floor(Math.random() * 10000000000);
         const sentAt = createdAt + Math.floor(Math.random() * 10000);
@@ -204,10 +216,10 @@ function getMailId(){
             isRead: Math.random() < 0.5,
             sentAt,
             removedAt: null,
-            from: `${fullname.split(' ')[0].toLowerCase()}@${fromDomain[idx % fromDomain.length]}`,
+            from: `${fullname.toLowerCase()}@${fromDomain[idx % fromDomain.length]}`, 
             to: toUser,
             status: 'inbox',
             isStarred: Math.random() < 0.2,
             isChecked: false
-        };
-    });
+        }
+    })

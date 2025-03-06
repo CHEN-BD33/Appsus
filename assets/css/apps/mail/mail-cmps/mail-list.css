@@ -127,8 +127,7 @@
 
 
 .mail-preview .text .body{
-    color: rgb(172, 170, 170)
-
+    color: rgb(172, 170, 170);
 }
 
 .mail-preview .date{
@@ -143,10 +142,6 @@
     visibility: hidden;
 }
 .mail-list .unread{
-    background-color: #f2f6fc;
-
-}
-.mail-list .unread{
     background-color: #ffffff;
 }
 
@@ -156,4 +151,20 @@
 
 .background-checkd{
 background-color: #c2dbff;
+}
+.mail-preview .read-icon,.mail-preview .unread-icon{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}
+.mail-preview .read-icon{
+    background-image: url('/assets/css/apps/mail/images/full/read.png');
+
+}
+
+.mail-preview .unread-icon{
+    background-image: url('/assets/css/apps/mail/images/empty/unread.png');
+
 }
