@@ -79,7 +79,7 @@ function debounce(callback, wait) {
     return (...args) => {
         window.clearTimeout(timeoutId);
         timeoutId = window.setTimeout(() => {
-            callback(...args);
+            callback(...args)
         }, wait);
     };
 }

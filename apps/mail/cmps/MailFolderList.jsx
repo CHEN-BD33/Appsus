@@ -3,9 +3,8 @@ const {useNavigate} = ReactRouterDOM
 const {useState } = React
 
 
-export function MailFolderList({ onFolderSelect , onCloseDetails}){
-         const [activeFolder, setActiveFolder] = useState(null)
-        const navigate = useNavigate()
+export function MailFolderList({mails, onFolderSelect , onCloseDetails }){
+         const [activeFolder, setActiveFolder] = useState("inbox")
 
         function handleFolderClick(folder) {
             setActiveFolder(folder)
@@ -23,8 +22,7 @@ export function MailFolderList({ onFolderSelect , onCloseDetails}){
                         <img src="assets/css/apps/mail/images/empty/emptyInbox.png"/>
                         Inbox 
                         </div>
-                    
-                        <MailUnreadCounter />
+                    <MailUnreadCounter mails={mails} activeFolder={activeFolder}/>
                     </button>
                     <button 
                     className={activeFolder === "starred" ? "active" : ""}

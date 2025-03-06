@@ -9,7 +9,7 @@ body {
 
 .mail-index {
     display: flex;
-    height: calc(100vh - 57px);
+    height: calc(100vh - 64px);
     background-color: #f1f6f9;
     flex-direction: column;
 }
@@ -23,6 +23,7 @@ body {
     display: flex;
     flex-direction: column;
     width: -webkit-fill-available;
+    margin-top: 8px;
 }
 
 .mail-filter{
@@ -37,8 +38,9 @@ body {
     gap: 8px;
     background-color: #e9eef6;
     height: 46px;
-    border-radius: 10px;
+    border-radius: 24px;
     padding: 0 0 0 8px;
+    width: 720px;
 }
 
 .search-container img{
@@ -105,8 +107,11 @@ outline: none;
 }
 
 
-.unread-count{
+.inbox-text-container span.unread-count{
     font-size: 14px;
+    font-weight: bold;
+
+
 }
 
 .mailFolder-list button{

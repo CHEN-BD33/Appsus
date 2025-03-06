@@ -1,14 +1,18 @@
  /* mail list */
 
  .mail-list {
-    display: flex;
-    flex-direction: column;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-    border-collapse: collapse;
     font-family: Arial, sans-serif;
     background-color: #ffffff;
     height: 100%;
     margin-right: 16px;
+    border-radius: 16px;
+}
+.mail-list tbody{
+    border-radius: 0 0 16px 16px;
+    overflow-y: scroll;
+    max-height: 817px;
+    display: block;
 }
 
 .mail-preview {
@@ -90,6 +94,7 @@
     background-position: center;
     width: 20px;
     height: 20px;
+    appearance: none;
 }
 
  .mail-content .checked{
@@ -122,8 +127,7 @@
 
 
 .mail-preview .text .body{
-    color: rgb(172, 170, 170)
-
+    color: rgb(172, 170, 170);
 }
 
 .mail-preview .date{
@@ -138,13 +142,29 @@
     visibility: hidden;
 }
 .mail-list .unread{
-    background-color: #f2f6fc;
-
-}
-.mail-list .unread{
     background-color: #ffffff;
 }
 
 .mail-preview .bold{
     font-weight: bold;
+}
+
+.background-checkd{
+background-color: #c2dbff;
+}
+.mail-preview .read-icon,.mail-preview .unread-icon{
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+}
+.mail-preview .read-icon{
+    background-image: url('/assets/css/apps/mail/images/full/read.png');
+
+}
+
+.mail-preview .unread-icon{
+    background-image: url('/assets/css/apps/mail/images/empty/unread.png');
+
 }

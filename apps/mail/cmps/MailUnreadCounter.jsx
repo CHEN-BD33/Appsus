@@ -1,23 +1,18 @@
 
-import { mailService } from "../services/mail.service.js"
-const {useState , useEffect} = React
+const { useState, useEffect } = React;
 
-export function MailUnreadCounter(){
-    
+export function MailUnreadCounter({ mails , activeFolder}) {
     const [unreadCount, setUnreadCount] = useState(null)
+
     useEffect(() => {
-        mailService.query()
-        .then(mails => {
-            const count = mails.filter(mail => !mail.isRead).length
-            setUnreadCount(count)
-            })
-            .catch(err => console.log('err:', err))
-    }, [unreadCount])
+        if (activeFolder === 'inbox') {
+            const count = mails ? mails.filter(mail => !mail.isRead).length : 0;
+            setUnreadCount(count);
+        }
+    }, [mails, activeFolder]); 
 
-    return <span className="unread-count">{unreadCount}</span>
-       
-    
-
-
-
+    return (
+            <span>{unreadCount}</span>
+        
+    )
 }

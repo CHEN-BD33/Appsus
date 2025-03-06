@@ -36,6 +36,8 @@
 /* Mail Components */
 @import './apps/mail/mail-cmps/mail-list.css';
 @import './apps/mail/mail-cmps/mail-compose.css';
+@import './apps/mail/mail-cmps/mail-sorted.css';
+
 
 
 /* Mail pages */

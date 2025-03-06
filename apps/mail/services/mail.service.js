@@ -10,61 +10,55 @@ export const mailService  = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
-    getMailFromSearchParams
+    getMailFromSearchParams,
+    getMailId
 
 }
 
 window.bs = mailService
 const MAIL_KEY = 'mailDB'
 
-const filterBy = {
-    status: 'inbox',
-    txt: 'puki', // no need to support complex text search
-    isRead: true, // (optional property, if missing: show all)
-    lables: ['important', 'romantic'], // has any of the labels
-    isStarred:false,
-    isChecked: false
-   }
-
    function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
-      .then(mails => {
-        if (!mails || !mails.length) {
-          mails = gMails;
-          _saveMailsToStorage()
-        }
-        
-        console.log('service:', filterBy)
+        .then(mails => {
+            if (!mails || !mails.length) {
+                mails = gMails
+                _saveMailsToStorage()
+            }
+            if (filterBy.status === 'starred') {
+                mails = mails.filter(mail => mail.isStarred === true)
+            } else if (filterBy.status) {
+                mails = mails.filter(mail => mail.status.includes(filterBy.status))
+            }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
+            }
+            if (typeof filterBy.isRead === 'boolean') {
+                mails = mails.filter(mail => mail.isRead === filterBy.isRead)
+            }
+            if (typeof filterBy.isChecked === 'boolean') {
+                mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
+            }
+            if (filterBy.lables && filterBy.lables.length) {
+                mails = mails.filter(mail => mail.lables && mail.lables.some(label => filterBy.lables.includes(label)))
+            }
 
-
-        if (filterBy.status === 'starred') {
-            mails = mails.filter(mail => mail.isStarred === true)
-          } else if (filterBy.status) {
-            mails = mails.filter(mail => mail.status.includes(filterBy.status))
+            if (filterBy.sortBy) {
+              if (filterBy.sortBy === 'date') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.createdAt - a.createdAt : a.createdAt - b.createdAt)
+              } else if (filterBy.sortBy === 'subject') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.subject.localeCompare(a.subject) : a.subject.localeCompare(b.subject))
+              } else if (filterBy.sortBy === 'isStarred') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isStarred - a.isStarred : a.isStarred - b.isStarred)
+              } else if (filterBy.sortBy === 'isRead') {
+                  mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isRead - a.isRead : a.isRead - b.isRead)
+                } 
           }
-        if (filterBy.txt) {
-          const regExp = new RegExp(filterBy.txt, 'i')
-          mails = mails.filter(mail => regExp.test(mail.subject) || regExp.test(mail.body))
-        }
-    
-        if (typeof filterBy.isRead === 'boolean') {
-          mails = mails.filter(mail => mail.isRead === filterBy.isRead)
-        }
-
-        if (typeof filterBy.isChecked === 'boolean') {
-            mails = mails.filter(mail => mail.isChecked === filterBy.isChecked)
-          }
-        
-        if (filterBy.lables && filterBy.lables.length) {
-          mails = mails.filter(mail => {
-            return mail.lables && mail.lables.some(label => filterBy.lables.includes(label))
-          })
-        }
-        
-        return mails
-      })
-  }
-
+          
+            return mails
+        })
+}
 
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
@@ -141,16 +135,23 @@ function _saveMailsToStorage() {
 }
 
 function getFilterFromSearchParams(searchParams) {
-  if (searchParams.get('to') || searchParams.get('subject') || searchParams.get('body')) { 
-    return { isFromNotes: true } 
-}
-    const status = searchParams.get('status') || 'inbox'
-    const txt = searchParams.get('txt') || ''
-    const isRead = searchParams.get('isRead')  || ''
-    const isStarred = searchParams.get('isStarred')  || ''
+  const status = searchParams.get('status') || 'inbox'
+  const txt = searchParams.get('txt') || ''
+  const isRead = searchParams.get('isRead')
+  const isStarred = searchParams.get('isStarred')
+  const sortBy = searchParams.get('sortBy') || 'date'
+  const sortOrder = searchParams.get('sortOrder') || 'desc'
 
-    return { status, txt, isRead,  isStarred }
+
+  return {
+      status,
+      txt,
+      isRead,
+      isStarred,
+      sortBy,
+      sortOrder
   }
+}
 
   function getMailFromSearchParams(searchParams) {
     const to = searchParams.get('to') || ''
@@ -177,51 +178,48 @@ const loggedinUser = {
     fullname: 'Mahatma Appsus'
 }
 
-    //• Model - start with a basic model of mails: 
-    var gMails = [{
-    id: 'e101',
-    fullname: 'momo momo',
-    createdAt : 1551133930500, 
-    subject: 'Miss you!',
-    body: 'Would love to catch up sometimes',
-    isRead: false,
-    sentAt : 1551133930594, 
-    removedAt : null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
-},
-{
-    id: 'e102',
-    fullname :'bobo bobo',
-    createdAt : 1551191930500,
-    subject: 'Love you!',
-    body: utilService.makeLorem(150),
-    isRead: false,
-    sentAt : 1551192990512, 
-    removedAt : null,
-    from: 'bobo@bobo.com',
-    to: 'user2@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
-},
-{
-    id: 'e103',
-    fullname: 'dodo dodo' ,
-    createdAt : 1561192990512, 
-    subject: 'H1!',
-    body: utilService.makeLorem(300),
-    isRead: true,
-    sentAt : 1561203990512, 
-    removedAt : null,
-    from: 'dodo@dodo.com',
-    to: 'user3@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
+function getMailId(){
+  gMails.forEach(mail => {
+    return mail.id
+  });
 }
-]
 
+    //• Model - start with a basic model of mails: 
+    const gMails = Array.from({ length: 100 }, (_, idx) => {
+        const id = `e${101 + idx}`;
+        const names = ['AliExpress', 'Temo', 'Apple', 'Dropbox', 'Yuval Levi', 'Zila Mor', 'Reef Mor', 'Amit Cohen', 'Hen', 'Google', 'Facebook', 'LinkedIn'];
+        const fullname = `${names[idx % names.length]}`
+        const subjects = [
+            'Last week\'s updates in your shared folders', 
+            'Project Deadline Reminder', 
+            'You have a new message', 
+            'Check out this opportunity', 
+            'Your subscription is ending soon', 
+            
+            'Upcoming meeting reminder', 
+            'New product launch', 
+            'Security alert for your account', 
+            'Action required for your account',
+            'Important update from your team'
+        ];
+        const fromDomain = ['aliexpress.com', 'temo.com', 'apple.com', 'dropbox.com', 'gmail.com', 'yahoo.com', 'linkedin.com', 'facebook.com'];
+        const toUser = `user${(idx % 10) + 1}@appsus.com`;
+        const createdAt = Date.now() - Math.floor(Math.random() * 10000000000);
+        const sentAt = createdAt + Math.floor(Math.random() * 10000);
+        
+        return {
+            id,
+            fullname,
+            createdAt,
+            subject: subjects[idx % subjects.length],
+            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(Math.floor(Math.random() * 5) + 1),
+            isRead: Math.random() < 0.5,
+            sentAt,
+            removedAt: null,
+            from: `${fullname.toLowerCase()}@${fromDomain[idx % fromDomain.length]}`, 
+            to: toUser,
+            status: 'inbox',
+            isStarred: Math.random() < 0.2,
+            isChecked: false
+        }
+    })

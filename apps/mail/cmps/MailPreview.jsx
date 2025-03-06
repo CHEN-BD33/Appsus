@@ -3,12 +3,10 @@ const {Link , useNavigate} = ReactRouterDOM
 const {useState} = React
 
 
-export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
+export function MailPreview({mail ,isChecked, onToggleCheck, onToggleRead , onSelectMail , onClickStarred ,onRemoveMail}){
 
     const navigate = useNavigate()
-    const [isChecked, setIsChecked] = useState(mail.isChecked)
     const [isStarred, setIsStarred] = useState(mail.isStarred)
-    const [isRead, setIsRead] = useState(mail.isRead)
 
     function onDate(timestamp){
         const date = new Date(timestamp)
@@ -17,23 +15,18 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     }
 
     function handleRowClick() {
-        if(mail.status ==='draft') {
+        if(mail.status === 'draft') {
             navigate(`/mail/edit/${mail.id}`)
-        }else{
-
+        } else {
             onSelectMail(mail.id)
             if (!mail.isRead) {
-                onMarkAsRead(mail.id)
-                setIsRead(true)
+                onToggleRead(mail.id)
             }
-            mail.isRead = true
         }
     }
-
     function handleCheckClick(){
         mail.isChecked = !mail.isChecked
-        setIsChecked(!isChecked)
-      
+        onToggleCheck(mail.id);
     }
 
     function handleStarClick() {
@@ -42,12 +35,12 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
     }
 
     
-    
     return (
-        <tr className={`mail-preview ${isRead ? "read" : "unread"}`}>
-            <td>
-                <div className="mail-content">
-                    <span onClick={handleCheckClick} className={`${isChecked ? "checked" : "unChecked"}`}></span>
+       
+        <tr className={`mail-preview ${mail.isRead ? "read" : "unread"}`}>
+            <td className={`${isChecked? "background-checkd" :""}`}>
+                <div className = "mail-content" >
+                    <input type="checkbox" className={`${isChecked ? "checked" : "unChecked"}`} checked={isChecked} onChange={handleCheckClick} />
                     <span onClick={handleStarClick} className={`${isStarred ? "starred" : "unStarred"}`}></span>
 
                     <span className={`fullname ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>
@@ -65,15 +58,15 @@ export function MailPreview({mail ,onMarkAsRead ,onSelectMail, onClickStarred}){
                     <span className={`date ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>
                         {onDate(mail.sentAt)}
                     </span>
+                    
                     </span>
-                    {/* Hover Icons */}
                     <span className="hover-icons">
-                        <span onClick={()=>onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
-                        <span className="unread-icon"><img src="assets/css/apps/mail/images/empty/unread.png" /></span>
+                        <span onClick={()=> onRemoveMail(mail.id)} className="delete-icon"><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></span>
+                        <span onClick={()=> onToggleRead(mail.id)}className = {`${mail.isRead ? "read-icon" : "unread-icon"}`}></span>
                     </span>
                 </div>
             </td>
         </tr>
-    );
+    )
 
 }
