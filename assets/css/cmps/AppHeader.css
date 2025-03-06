@@ -1,27 +1,7 @@
-.app-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1em;
-    background: var(--bg1);
-}
 
-.app-header img{
-   height: 60px;
-   width: 60px;
-}
-
-nav a {
-    margin: .5em;
-}
-
-nav a.active {
-    color: var(--color1);
-    font-weight: bold;
-    text-decoration: overline;
-}
 
 /* mail-header */
-.app-header-mail{
+.app-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,8 +10,23 @@ nav a.active {
     background-color: #f8fafd;
 }
 
-.app-header-mail-container{
+.app-header-container{
     display: flex;
     align-items: center;
     gap: 124px;
+}
+
+.app-header-container img{
+   max-height: 40px;
+
+ }
+ 
+ .app-header nav a {
+    margin: .5em;
+}
+
+.app-header nav a.active {
+    color: var(--color1);
+    font-weight: bold;
+    text-decoration: overline;
 }

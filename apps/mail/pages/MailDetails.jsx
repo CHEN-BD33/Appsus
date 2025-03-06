@@ -1,17 +1,18 @@
 import { mailService } from "../services/mail.service.js"
-const {Link ,useNavigate} = ReactRouterDOM 
+const { useNavigate} = ReactRouterDOM
+const { useState, useEffect} = React
 
-
-
-const { useState, useEffect } = React
-
-export function MailDetails({mailId, onCloseDetails,onRemoveMail }){
+export function MailDetails({mailId, onCloseDetails,onRemoveMail, onToggleRead, mails }){
     const [mail, setMail] = useState(null)
     const navigate = useNavigate()
+    const [nextMailId, setNextMailId] = useState(null)
+    const [prevMailId, setPrevMailId] = useState(null)
+    
 
 
     useEffect(() => {
         if (mailId) {
+
             loadMail()
         }
     }, [mailId])
@@ -19,6 +20,7 @@ export function MailDetails({mailId, onCloseDetails,onRemoveMail }){
     function loadMail() {
         mailService.get(mailId)
             .then(mail => {
+              console.log(mail);
                 setMail(mail)})
             .catch((err) => {
                 console.log('err:', err)
@@ -27,29 +29,38 @@ export function MailDetails({mailId, onCloseDetails,onRemoveMail }){
     function removeThisMail(mailId) {
         onRemoveMail(mailId)
           .then(() => {
-            onCloseDetails();
+            onCloseDetails()
           })
           .catch((err) => {
-            console.error("Error removing mail:", err);
-          });
+            console.error("Error removing mail:", err)
+          })
       }
-
-
-    if(!mail) return 'details...'
-    return (
+      
+      const navigateToMail = (mailId) => {
+        navigate(`/mail/${mailId}`);
+      };
+      
+      
+      if (!mailId || !mail) return  'Loding..'
+   
+      return (
         <section className="mail-details">
           <div className="nav-bar-container">
             <div className="action-buttons-container">
             <button onClick={onCloseDetails}><img src="assets/css/apps/mail/images/back.png" /></button>
             <button onClick={()=>removeThisMail(mailId)}><img src="assets/css/apps/mail/images/empty/emprtTrash.png" /></button>
-            <button><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
+            <button onClick={()=>onToggleRead(mailId)}><img src="assets/css/apps/mail/images/empty/unread.png" /></button>
 
             </div>
             <div className="navigate-container">
-            <span className="mail-index-count">2 of 234</span>
-            <button> <Link to={`/mail/${mail.prevMailId}`}><img src="assets/css/apps/mail/images/arrowLeft.png" /></Link></button>  
-            <button> <Link to={`/mail/${mail.nextMailId}`}><img src="assets/css/apps/mail/images/arrowRight.png" /></Link></button>  
-            </div>
+          <span className="mail-index-count">{`${mails.findIndex(m => m.id === mailId) + 1} of ${mails.length}`}</span>
+          <button disabled={!prevMailId} onClick={() => navigateToMail(prevMailId)}>
+            <img src="assets/css/apps/mail/images/arrowLeft.png" alt="Previous" />
+          </button>
+          <button disabled={!nextMailId} onClick={() => navigateToMail(nextMailId)}>
+            <img src="assets/css/apps/mail/images/arrowRight.png" alt="Next" />
+          </button>
+        </div>
         </div>
 
         <div className="mail-details-container">

@@ -19,6 +19,7 @@ export function MailIndex() {
     const [selectedMailId, setSelectedMailId] = useState(null)
     
 
+  
     useEffect(() => {
         if (!filterBy.isFromNotes) {
             setSearchParams(filterBy)
@@ -53,7 +54,6 @@ function loadMails() {
             mail.id === mailId ? { ...mail, isRead: !mail.isRead } : mail
         )
     )
-
     mailService.get(mailId) 
         .then((mail) => {
             mail.isRead = !mail.isRead; 
@@ -65,7 +65,7 @@ function loadMails() {
         .catch((err) => {
             console.error('Error:', err)
         })
-}
+    }
 
     function onClickStarred(mailId) {
         mailService
@@ -147,8 +147,9 @@ function loadMails() {
     //  })
     // }
 
+    const unreadCount = mails ? mails.filter(mail => !mail.isRead).length : 0;
 
-    if (!mails) return 'Loading..'
+    if (!mails) return  <img src="assets/css/apps/mail/images/empty/loding.gif"/>
     return (
         <section className="mail-index">
            
@@ -164,6 +165,7 @@ function loadMails() {
                 <MailFolderList 
                 onFolderSelect={onFolderSelect}
                 onCloseDetails={onCloseDetails}  
+                unreadCount={unreadCount}
                 />
             </div>
 
@@ -172,7 +174,10 @@ function loadMails() {
                         <MailDetails 
                         mailId={selectedMailId} 
                         onCloseDetails={onCloseDetails} 
-                        onRemoveMail={onRemoveMail}/>
+                        onRemoveMail={onRemoveMail}
+                        onToggleRead={onToggleRead}
+                        mails={mails} 
+                        />
 
                     ) : (
                         <MailList 

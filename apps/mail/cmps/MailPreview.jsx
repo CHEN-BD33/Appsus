@@ -3,10 +3,9 @@ const {Link , useNavigate} = ReactRouterDOM
 const {useState} = React
 
 
-export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail}){
+export function MailPreview({mail ,isChecked, onToggleCheck, onToggleRead , onSelectMail , onClickStarred ,onRemoveMail}){
 
     const navigate = useNavigate()
-    const [isChecked, setIsChecked] = useState(mail.isChecked)
     const [isStarred, setIsStarred] = useState(mail.isStarred)
 
     function onDate(timestamp){
@@ -19,6 +18,7 @@ export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred
         if(mail.status === 'draft') {
             navigate(`/mail/edit/${mail.id}`)
         } else {
+            console.log(mail)
             onSelectMail(mail.id)
             if (!mail.isRead) {
                 onToggleRead(mail.id)
@@ -27,7 +27,7 @@ export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred
     }
     function handleCheckClick(){
         mail.isChecked = !mail.isChecked
-        setIsChecked(!isChecked)  
+        onToggleCheck(mail.id);
     }
 
     function handleStarClick() {
@@ -39,9 +39,9 @@ export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred
     return (
        
         <tr className={`mail-preview ${mail.isRead ? "read" : "unread"}`}>
-            <td>
-                <div className="mail-content">
-                    <span onClick={handleCheckClick} className={`${isChecked ? "checked" : "unChecked"}`}></span>
+            <td className={`${isChecked? "background-checkd" :""}`}>
+                <div className = "mail-content" >
+                    <input type="checkbox" className={`${isChecked ? "checked" : "unChecked"}`} checked={isChecked} onChange={handleCheckClick} />
                     <span onClick={handleStarClick} className={`${isStarred ? "starred" : "unStarred"}`}></span>
 
                     <span className={`fullname ${mail.isRead ? "" : "bold"}`} onClick={handleRowClick}>

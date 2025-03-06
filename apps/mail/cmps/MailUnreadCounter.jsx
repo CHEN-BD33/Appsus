@@ -3,8 +3,8 @@ import { mailService } from "../services/mail.service.js"
 const {useState , useEffect} = React
 
 export function MailUnreadCounter(){
-    
-    const [unreadCount, setUnreadCount] = useState(null)
+    const [unreadCount, setUnreadCount] = useState(0)
+
     useEffect(() => {
         mailService.query()
         .then(mails => {
@@ -12,7 +12,7 @@ export function MailUnreadCounter(){
             setUnreadCount(count)
             })
             .catch(err => console.log('err:', err))
-    }, [unreadCount])
+    }, [])
 
     return <span className="unread-count">{unreadCount}</span>
        

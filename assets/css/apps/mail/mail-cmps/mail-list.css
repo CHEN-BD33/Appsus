@@ -94,6 +94,7 @@
     background-position: center;
     width: 20px;
     height: 20px;
+    appearance: none;
 }
 
  .mail-content .checked{
@@ -151,4 +152,8 @@
 
 .mail-preview .bold{
     font-weight: bold;
+}
+
+.background-checkd{
+background-color: #c2dbff;
 }

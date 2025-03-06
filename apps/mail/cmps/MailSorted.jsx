@@ -1,15 +1,14 @@
-import { mailService } from "../services/mail.service.js"
+const {useState} = React
 
-export function MailSorted({ onSetSort, selectedOption}) {
+export function MailSorted({mails, onSetSort, selectedOption, onToggleAll, currentPage, totalPages, onPageChange  }) {
+    const [isChecked, setIsChecked] = useState(false);
 
-    // function handleClickedChecked() {
-    //     console.log('im at the sort ')
-    //     onClickChecked()
-    // }
-    function handleClickedChecked() {
-    console.log('select')
+
+    function handleSelectAll(event) {
+        const checked = event.target.checked;
+        setIsChecked(checked);
+        onToggleAll(checked);
     }
- 
 
     const handleSortChange = (event) => {
         const sortBy = event.target.value
@@ -41,8 +40,7 @@ export function MailSorted({ onSetSort, selectedOption}) {
             <td>
                 <div className="mail-sorted">
                     <div className="sorted-filter-container">
-                    <span onClick={handleClickedChecked} className= 'unChecked'></span>
-
+                    <input type="checkbox"  className={`${isChecked ? "checked" : "unChecked"}`} onChange={handleSelectAll} />
                         <select onChange={handleSortChange} value={selectedOption}>
                         <option value="none">none</option>
                             <option value="Read">Read</option>
@@ -54,11 +52,16 @@ export function MailSorted({ onSetSort, selectedOption}) {
 
                     <div className="nav-container">
                         <div className="counter">
-                            <span>1-50</span> <span>of</span> <span>500</span>
+                            <span>{(currentPage - 1) * 50 + 1}-{Math.min(currentPage * 50, mails.length)}</span>
+                            <span> of {mails.length}</span>
                         </div>
                         <div>
-                            <span><img src="assets/css/apps/mail/images/arrowLeft.png" alt="Previous" /></span>
-                            <span><img src="assets/css/apps/mail/images/arrowRight.png" alt="Next" /></span>
+                            <span onClick={() => onPageChange(currentPage - 1)} className={currentPage === 1 ? "disabled" : ""}>
+                                <img src="assets/css/apps/mail/images/arrowLeft.png" alt="Previous" />
+                            </span>
+                            <span onClick={() => onPageChange(currentPage + 1)} className={currentPage === totalPages ? "disabled" : ""}>
+                                <img src="assets/css/apps/mail/images/arrowRight.png" alt="Next" />
+                            </span>
                         </div>
                     </div>
                 </div>

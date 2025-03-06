@@ -5,6 +5,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .mail-index {
@@ -106,8 +107,11 @@ outline: none;
 }
 
 
-.unread-count{
+.inbox-text-container span.unread-count{
     font-size: 14px;
+    font-weight: bold;
+
+
 }
 
 .mailFolder-list button{

@@ -25,7 +25,6 @@ const MAIL_KEY = 'mailDB'
                 mails = gMails
                 _saveMailsToStorage()
             }
-
             if (filterBy.status === 'starred') {
                 mails = mails.filter(mail => mail.isStarred === true)
             } else if (filterBy.status) {
@@ -186,50 +185,29 @@ function getMailId(){
 }
 
     //• Model - start with a basic model of mails: 
-    var gMails = [{
-    id: 'e101',
-    fullname: 'momo momo',
-    createdAt : 1551133930500, 
-    subject: 'Miss you!',
-    body: 'Would love to catch up sometimes',
-    isRead: false,
-    sentAt : 1551133930594, 
-    removedAt : null,
-    from: 'momo@momo.com',
-    to: 'user@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
-},
-{
-    id: 'e102',
-    fullname :'bobo bobo',
-    createdAt : 1551191930500,
-    subject: 'Love you!',
-    body: utilService.makeLorem(150),
-    isRead: false,
-    sentAt : 1551192990512, 
-    removedAt : null,
-    from: 'bobo@bobo.com',
-    to: 'user2@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
-},
-{
-    id: 'e103',
-    fullname: 'dodo dodo' ,
-    createdAt : 1561192990512, 
-    subject: 'H1!',
-    body: utilService.makeLorem(300),
-    isRead: true,
-    sentAt : 1561203990512, 
-    removedAt : null,
-    from: 'dodo@dodo.com',
-    to: 'user3@appsus.com',
-    status:'inbox',
-    isStarred:false,
-    isChecked: false
-}
-]
-
+    const gMails = Array.from({ length: 100 }, (_, idx) => {
+        const id = `e${101 + idx}`;
+        const names = ['momo', 'bobo', 'dodo', 'lolo', 'koko', 'toto', 'nono', 'pipo', 'roro', 'soso'];
+        const fullname = `${names[idx % names.length]} ${names[idx % names.length]}`;
+        const subjects = ['Hello!', 'Meeting Reminder', 'Miss you!', 'Project Update', 'Check this out!', 'Urgent!', 'Invitation', 'Follow-up', 'Weekend Plans', 'Greetings'];
+        const fromDomain = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'mail.com'];
+        const toUser = `user${(idx % 10) + 1}@appsus.com`;
+        const createdAt = Date.now() - Math.floor(Math.random() * 10000000000);
+        const sentAt = createdAt + Math.floor(Math.random() * 10000);
+        
+        return {
+            id,
+            fullname,
+            createdAt,
+            subject: subjects[idx % subjects.length],
+            body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '.repeat(Math.floor(Math.random() * 5) + 1),
+            isRead: Math.random() < 0.5,
+            sentAt,
+            removedAt: null,
+            from: `${fullname.split(' ')[0].toLowerCase()}@${fromDomain[idx % fromDomain.length]}`,
+            to: toUser,
+            status: 'inbox',
+            isStarred: Math.random() < 0.2,
+            isChecked: false
+        };
+    });
