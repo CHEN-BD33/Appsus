@@ -1,24 +1,32 @@
 .user-msg {
-    background-color: lightgray;
-    padding: .5em 1em;
+    background-color: var(--accent);
+    padding: 15px;
     position: fixed;
     bottom: 0;
     right: 1em;
     color: white;
     font-weight: bold;
-    border-radius: 2px;
-}
+    border-radius: 5px;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 250px;
+  }
 
-.user-msg.success {
-    background-color: var(--clr1);
-}
-
-.user-msg.error {
-    background-color: var(--clr2);
-}
-
-
-.user-msg button{
-    float: right;
-    margin: 1em;
-}
+  .user-msg.success {
+    background-color: #4CAF50;
+  }
+  
+  .user-msg.error {
+    background-color: #f44336;
+  }
+  
+  .user-msg button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+    padding: 0;
+  }

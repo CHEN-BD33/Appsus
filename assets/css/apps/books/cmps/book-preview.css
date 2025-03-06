@@ -2,27 +2,41 @@
     display: flex;
     flex-direction: column;
     padding: 15px;
-}
+    border: 1px solid lightgray;
+  }
 
-.book-preview .book-title {
-    font-size: 1.1em;
+
+  .book-preview .book-title {
+    font-size: 1.2em;
     font-weight: bold;
-    margin-bottom: 8px;
-    color: var(--gray3);
-    background-color: var(--clr2bg);
-}
+    color: var(--clr1);
 
-.book-preview .book-thumbnail {
+  }
+
+  .book-preview .book-thumbnail {
     margin-bottom: 10px;
-}
-
-.book-preview .book-author {
+    border-radius: 8px;
+  }
+  
+  .book-preview .book-author, .book-preview .book-price {
     font-size: 1em;
-    color: var(--gray3);
+    color: var(--gray2);
     margin-bottom: 5px;
-}
+  }
 
-.book-preview .book-price {
-    font-size: 1em;
-    font-weight: bold;
-}
+  .book-thumbnail-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+
+
+  .book-preview .book-price {
+    color: #fff0c7;
+  }
+
+
+
+
+
+  

@@ -1,17 +1,57 @@
-.Book-filter {
-    width: fit-content;
-    margin: 0 auto;
-}
-
-
-.filter-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    border-radius: 10px;
+.book-filter {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+  }
+  
+  .book-filter h2 {
+    text-align: center;
+    font-size: 24px;
     margin-bottom: 20px;
-    background-color: rgb(134, 116, 151);
-    font-size: 1.1em;
-    font-weight: bolder
-}
+    color: #333;
+  }
+  
+  .filter-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input, select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+  }
+  
+  input:focus, select:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  input::placeholder {
+    color: #888;
+  }
+  
+  button {
+    grid-column: span 2;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }

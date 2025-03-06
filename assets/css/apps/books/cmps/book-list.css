@@ -1,28 +1,28 @@
 .book-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 20px;
-    list-style: none;
-}
-
-.book-list li {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .book-list li {
     position: relative;
-    padding-bottom: 40px;
+    background-color: rgb(197 197 197);
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 5 px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-}
-
-.book-list li:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .book-list li:hover {
     transform: translateY(-5px);
-}
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
 
-.book-actions {
+  .book-actions {
     display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    justify-content: space-between;
     padding: 10px;
-}
+  }
