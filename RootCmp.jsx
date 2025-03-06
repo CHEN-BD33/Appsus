@@ -14,7 +14,7 @@ import { BookIndex } from './apps/books/pages/BookIndex.jsx'
 import { BookDetails } from './apps/books/pages/BookDetails.jsx'
 import { BookEdit } from './apps/books/pages/BookEdit.jsx'
 import { BookAdd } from './apps/books/pages/BookAdd.jsx'
-const { useState, useEffect } = React
+const { useState } = React
 
 export function RootCmp() {
     const [filterBy, setFilterBy] = useState({ txt: '', isRead: '' });
