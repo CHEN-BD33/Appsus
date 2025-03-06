@@ -3,9 +3,10 @@ import { MailFilter } from "../apps/mail/cmps/MailFilter.jsx"
 const { Link, NavLink, useLocation } = ReactRouterDOM
 const { useState, useEffect } = React
 
-export function AppHeader() {
+export function AppHeader({ onSetFilter, filterBy }) {
     const location = useLocation()
     const [logo, setLogo] = useState("assets/css/img/google.png")
+
   
 
     useEffect(() => {
@@ -35,7 +36,8 @@ export function AppHeader() {
         <Link to="/">
           <img src={logo} alt="Logo" />
         </Link>
-        {location.pathname === "/mail" && <MailFilter />} 
+        {location.pathname === "/mail" && <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />} 
+        
       </div>
         <nav>
         <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>

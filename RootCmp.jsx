@@ -14,19 +14,21 @@ import { BookIndex } from './apps/books/pages/BookIndex.jsx'
 import { BookDetails } from './apps/books/pages/BookDetails.jsx'
 import { BookEdit } from './apps/books/pages/BookEdit.jsx'
 import { BookAdd } from './apps/books/pages/BookAdd.jsx'
-
+const { useState, useEffect } = React
 
 export function RootCmp() {
+    const [filterBy, setFilterBy] = useState({ txt: '', isRead: '' });
+
     return (
         <Router>
             <section className="root-cmp">
-                <AppHeader />
+                <AppHeader onSetFilter={setFilterBy} filterBy={filterBy}/>
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/note" element={<NoteIndex />} />
+                    <Route path="/note" element={<NoteIndex/>} />
 
-                    <Route path="/mail" element={<MailIndex />}>
+                    <Route path="/mail" element={<MailIndex filterBy={filterBy} setSearchParams={setFilterBy} />}>
                         <Route path="edit/:mailId" element={<MailCompose />} />
                         <Route path="edit" element={<MailCompose />} />
                         <Route path="list" element={<MailList />} />

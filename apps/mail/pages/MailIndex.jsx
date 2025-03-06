@@ -7,14 +7,11 @@ import { MailDetails } from "./MailDetails.jsx"
 
 
 const {useState , useEffect} = React
-const { useSearchParams } = ReactRouterDOM
 
 
-export function MailIndex() {
+export function MailIndex({ filterBy, setSearchParams }) {
     
-    const [searchParams, setSearchParams] = useSearchParams()
     const [mails, setMails] = useState(null)
-    const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
     const [selectedMailId, setSelectedMailId] = useState(null)
     
 
@@ -189,6 +186,7 @@ function onRead(mailId) {
                         onSelectMail={onSelectMail} 
                         onClickStarred={onClickStarred} 
                         onMarkAllAsRead={onMarkAllAsRead}
+                        onSetFilter={onSetFilter} 
                         />
                     )}
             </div>
