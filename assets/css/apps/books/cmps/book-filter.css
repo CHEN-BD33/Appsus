@@ -18,7 +18,7 @@
     margin: 0 auto;
   }
   
-  label {
+  /* label {
     font-size: 14px;
     font-weight: bold;
     color: #555;
@@ -39,9 +39,9 @@
   
   input::placeholder {
     color: #888;
-  }
+  } */
   
-  button {
+  /* button {
     grid-column: span 2;
     padding: 10px 20px;
     font-size: 16px;
@@ -54,4 +54,4 @@
   
   button:hover {
     background-color: #0056b3;
-  }
+  } */

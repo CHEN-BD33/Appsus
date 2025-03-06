@@ -15,7 +15,7 @@ export function AppHeader({ onSetFilter, filterBy }) {
             setLogo("assets/css/img/google.png")
             break;
           case "/about":
-            setLogo("assets/css/apps/mail/images/aboutLogo.png") 
+            setLogo("assets/css/img/ads.png") 
             break;
           case "/mail":
             setLogo("assets/css/apps/mail/images/gmailLogo.png")
@@ -24,7 +24,7 @@ export function AppHeader({ onSetFilter, filterBy }) {
             setLogo("assets/css/img/keep.png")
             break;
           case "/book":
-            setLogo("assets/css/apps/mail/images/bookLogo.png")
+            setLogo("assets/css/img/books.jpg")
             break;
           default:
             setLogo("assets/css/apps/mail/images/gmailLogo.png") 

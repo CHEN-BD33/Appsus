@@ -51,7 +51,7 @@ export function AddGoogleBook() {
             <div className='search-book-title'></div>
             <form onSubmit={onSubmitForm}>
                 <label htmlFor="add-book" className='bold-txt'>Google Search: </label>
-                <input value={search} onChange={handleChange} type="text" name='title' placeholder='Insert book name' id="add-book" />
+                {/* <input value={search} onChange={handleChange} type="text" name='title' placeholder='Insert book name' id="add-book" /> */}
                 <button>Search</button>
                 {googleBookList && <GoogleBooksList booksList={googleBookList} onSaveBook={onSaveBook} />}
             </form>
