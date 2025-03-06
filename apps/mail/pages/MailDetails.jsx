@@ -47,7 +47,7 @@ export function MailDetails({mailId, onCloseDetails,onRemoveMail, onToggleRead, 
       };
       
       
-      if (!mailId || !mail) return  'Loding..'
+      if (!mailId || !mail) return  <img src="assets/css/apps/mail/images/empty/loding.gif"/>
    
       return (
         <section className="mail-details">
