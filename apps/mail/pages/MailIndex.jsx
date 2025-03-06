@@ -121,14 +121,14 @@ function onRead(mailId) {
       }
 
     function onFolderSelect(folder) {
-        setFilterBy({ ...filterBy, status: folder })
+      setSearchParams({ ...filterBy, status: folder })
     }
     function onSetSort(sortBy, sortOrder) {
-      setFilterBy({ ...filterBy, sortBy, sortOrder: sortOrder === 'asc' ? 'asc' : 'desc' })
+      setSearchParams({ ...filterBy, sortBy, sortOrder: sortOrder === 'asc' ? 'asc' : 'desc' })
     }
 
     function onSetFilter(filterBy) {
-        setFilterBy({ ...filterBy })   
+      setSearchParams({ ...filterBy })   
     }
 
     function onSelectMail(mailId) {
