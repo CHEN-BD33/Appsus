@@ -10,21 +10,13 @@ export const mailService  = {
     getEmptyMail,
     getDefaultFilter,
     getFilterFromSearchParams,
-    getMailFromSearchParams
+    getMailFromSearchParams,
+    getMailId
 
 }
 
 window.bs = mailService
 const MAIL_KEY = 'mailDB'
-
-// const filterBy = {
-//     status: 'inbox',
-//     txt: 'puki', 
-//     isRead: true, 
-//     lables: ['important', 'romantic'],
-//     isStarred:false,
-//     isChecked: false
-//    }
 
    function query(filterBy = {}) {
     return storageService.query(MAIL_KEY)
@@ -62,11 +54,11 @@ const MAIL_KEY = 'mailDB'
                   mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isStarred - a.isStarred : a.isStarred - b.isStarred)
               } else if (filterBy.sortBy === 'isRead') {
                   mails = mails.sort((a, b) => filterBy.sortOrder === 'desc' ? b.isRead - a.isRead : a.isRead - b.isRead)
-              }
+                } 
           }
           
             return mails
-        });
+        })
 }
 
 function get(mailId) {
@@ -185,6 +177,12 @@ function getFilterFromSearchParams(searchParams) {
 const loggedinUser = {
     email: 'user@appsus.com',
     fullname: 'Mahatma Appsus'
+}
+
+function getMailId(){
+  gMails.forEach(mail => {
+    return mail.id
+  });
 }
 
     //• Model - start with a basic model of mails: 

@@ -1,8 +1,23 @@
-export function MailSorted({ onSetSort, selectedOption }) {
+import { mailService } from "../services/mail.service.js"
+
+export function MailSorted({ onSetSort, selectedOption}) {
+
+    // function handleClickedChecked() {
+    //     console.log('im at the sort ')
+    //     onClickChecked()
+    // }
+    function handleClickedChecked() {
+    console.log('select')
+    }
+ 
+
     const handleSortChange = (event) => {
         const sortBy = event.target.value
 
         switch (sortBy) {
+            case 'none':
+            onSetSort('date', 'desc')
+            break;
             case "Read":
                 onSetSort('isRead', 'desc')
                 break;
@@ -16,7 +31,7 @@ export function MailSorted({ onSetSort, selectedOption }) {
                 onSetSort('isStarred', 'asc')
                 break;
             default:
-                onSetSort('date', sortOrder)
+                onSetSort('date', 'asc')
                 break;
         }
     };
@@ -26,8 +41,10 @@ export function MailSorted({ onSetSort, selectedOption }) {
             <td>
                 <div className="mail-sorted">
                     <div className="sorted-filter-container">
-                        <span className="unChecked"></span>
+                    <span onClick={handleClickedChecked} className= 'unChecked'></span>
+
                         <select onChange={handleSortChange} value={selectedOption}>
+                        <option value="none">none</option>
                             <option value="Read">Read</option>
                             <option value="UnRead">UnRead</option>
                             <option value="Starred">Starred</option>

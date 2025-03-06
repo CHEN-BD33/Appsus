@@ -27,8 +27,7 @@ export function MailPreview({mail , onToggleRead , onSelectMail , onClickStarred
     }
     function handleCheckClick(){
         mail.isChecked = !mail.isChecked
-        setIsChecked(!isChecked)
-      
+        setIsChecked(!isChecked)  
     }
 
     function handleStarClick() {

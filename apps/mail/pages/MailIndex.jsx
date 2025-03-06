@@ -17,6 +17,7 @@ export function MailIndex() {
     const [mails, setMails] = useState(null)
     const [filterBy, setFilterBy] = useState(mailService.getFilterFromSearchParams(searchParams)) 
     const [selectedMailId, setSelectedMailId] = useState(null)
+    
 
     useEffect(() => {
         if (!filterBy.isFromNotes) {
@@ -56,7 +57,7 @@ function loadMails() {
     mailService.get(mailId) 
         .then((mail) => {
             mail.isRead = !mail.isRead; 
-            return mailService.save(mail).then(() => mail); 
+            return mailService.save(mail).then(() => mail)
         })
         .then((updatedMail) => {
             showSuccessMsg(updatedMail.isRead ? "Marked as read" : "Marked as unread")
@@ -80,8 +81,9 @@ function loadMails() {
           })
           .catch((err) => {
             console.error("err:", err)
-          });
+          })
       }
+
 
       function onRemoveMail(mailId) {
         return  mailService
@@ -117,8 +119,7 @@ function loadMails() {
     }
 
     function onSetFilter(filterBy) {
-        setFilterBy({ ...filterBy })
-        
+        setFilterBy({ ...filterBy })   
     }
 
     function onSelectMail(mailId) {
@@ -129,6 +130,23 @@ function loadMails() {
     function onCloseDetails() {
         setSelectedMailId(null)
     }
+
+    // function handleChecked(mailId) {
+    //  return mailService.get(mailId)
+    //  .then((mail) => {
+    //    mail.isChecked = !mail.isChecked
+    //  console.log(mail.isChecked,'isChecked===')
+    //    return mailService.save(mail)
+    //  })
+    //  .then(() => {
+    //    showSuccessMsg("Moved to isChecked")
+    //    loadMails()
+    //  })
+    //  .catch((err) => {
+    //    console.error("err:", err)
+    //  })
+    // }
+
 
     if (!mails) return 'Loading..'
     return (
@@ -164,6 +182,7 @@ function loadMails() {
                         onToggleRead={onToggleRead} 
                         onSelectMail={onSelectMail} 
                         onClickStarred={onClickStarred} 
+                        // handleChecked={handleChecked}
                         />
                     )}
             </div>

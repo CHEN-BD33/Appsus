@@ -3,13 +3,20 @@ import { MailPreview } from "./MailPreview.jsx"
 import { MailSorted } from "./MailSorted.jsx"
 
 
-export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail,onSetSort}){
+export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,onRemoveMail,onSetSort ,handleChecked}){
+
+    // function onClickChecked(){
+    //     {mails.forEach((mail) => (
+    //         handleChecked(mail.id)
+    //     ))}
+    // }
+
     if (!mails) return "Loading..."
     return (
     <table className="mail-list">
         <thead>
 
-        <MailSorted onSetSort={onSetSort} />
+        <MailSorted onSetSort={onSetSort}   />
         </thead>
             <tbody>
                 {mails.map((mail) => (
