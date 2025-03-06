@@ -10,9 +10,9 @@ export function MailList({mails , onToggleRead , onSelectMail , onClickStarred ,
 
     function handleToggleAll(isChecked) {
         if (isChecked) {
-            setSelectedMails(mails.map(mail => mail.id)); // Select all
+            setSelectedMails(mails.map(mail => mail.id))
         } else {
-            setSelectedMails([]); // Deselect all
+            setSelectedMails([])
         }
     }
 

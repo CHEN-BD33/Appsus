@@ -27,9 +27,7 @@ export function MailIndex({ filterBy, setSearchParams }) {
     useEffect(() => {
         if (filterBy.status) {
           setSearchParams(filterBy)
-        } else {
-          console.warn("filterBy is missing required fields:", filterBy)
-        }
+        } 
       }, [filterBy, setSearchParams])
 
 
